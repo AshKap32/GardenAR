@@ -1,6 +1,112 @@
 {
   "images" : [
     {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-40_x_40.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "2x",
+      "size" : "20x20"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-60_x_60.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "3x",
+      "size" : "20x20"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-58_x_58.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "2x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-87_x_87.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "3x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-76_x_76.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "2x",
+      "size" : "38x38"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-114_x_114.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "3x",
+      "size" : "38x38"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-80_x_80.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "2x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-120_x_120.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "3x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-120_x_120 1.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "2x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-180_x_180.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "3x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-128_x_128.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "2x",
+      "size" : "64x64"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-192_x_192.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "3x",
+      "size" : "64x64"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-136_x_136.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "2x",
+      "size" : "68x68"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-152_x_152.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "2x",
+      "size" : "76x76"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-167_x_167.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "scale" : "2x",
+      "size" : "83.5x83.5"
+    },
+    {
+      "filename" : "DALL·E 2023-11-17 15,47,53 - A sleek and modern company logo for 'GardenAR', incorporating elements of augmented reality and gardening, The logo features a stylized augmented real-1024_x_1024.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
