@@ -9,7 +9,15 @@ import SwiftUI
 
 struct GardenView: View {
     var body: some View {
-        Text("Hello, World!")
+        ScrollView {
+            Group {
+                UserHeaderBar()
+                ForEach(0..<6) { plant in
+                    PlantRow()
+                }
+            }
+            .padding(24.0)
+        }
     }
 }
 

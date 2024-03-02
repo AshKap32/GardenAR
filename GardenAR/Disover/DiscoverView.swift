@@ -9,7 +9,38 @@ import SwiftUI
 
 struct DiscoverView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            HStack {
+                VStack {
+                    AsyncImage(url: URL(string: "https://media.houseandgarden.co.uk/photos/64e4d253e1a65c932c542b2e/master/w_1600%2Cc_limit/Screenshot%25202023-08-22%2520at%252016.20.41.png")) { image in
+                        image
+                            .image?.resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    .frame(width: .infinity, height: 200)
+                    Text("Spider Variety")
+                }
+                
+                VStack {
+                    AsyncImage(url: URL(string: "https://costafarms.com/cdn/shop/files/snake-plant-medium-white--white_2048x2048.jpg?v=1694799744")) { image in
+                        image
+                            .image?.resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    .frame(width: .infinity, height: 200)
+                    Text("Snake Variety")
+                }
+            }
+            AsyncImage(url: URL(string: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1554477330-beautiful-asparagus-fern-plant-in-a-basket-royalty-free-image-972247932-1546889240.jpg?crop=0.457xw:0.301xh;0.447xw,0.372xh&resize=980:*")) { image in
+                image
+                    .image?.resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+            .frame(width: .infinity)
+            Text("Fern Variety")
+        }
+        .padding(.horizontal, 24.0)
+        .navigationTitle("Discover")
     }
 }
 

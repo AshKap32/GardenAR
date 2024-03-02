@@ -9,7 +9,21 @@ import SwiftUI
 
 struct UserHeaderBar: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 16.0) {
+            VStack(alignment: .leading, spacing: 6.0) {
+            Text("Welcome Aashish 👋")
+                .font(.title2)
+                .fontWeight(.bold)
+                Text("\(Date(), format: .dateTime.weekday(Date.FormatStyle.Symbol.Weekday.wide)), \(Date(), format: .dateTime.month(Date.FormatStyle.Symbol.Month.wide).day().year())")
+                    .fontWeight(.medium)
+            }
+            Spacer()
+            NavigationLink(destination: NotificationView()) {
+                Image(systemName: "bell")
+            }
+            .buttonStyle(.plain)
+            Image(systemName: "heart")
+        }
     }
 }
 

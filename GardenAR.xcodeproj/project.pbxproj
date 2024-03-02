@@ -7,18 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		312E4AD72B042B1E00DDF3C7 /* PlantRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E4AD62B042B1E00DDF3C7 /* PlantRow.swift */; };
+		31D50EA52B08252100235964 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D50EA42B08252100235964 /* Plant.swift */; };
+		31D50EA82B082C0500235964 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D50EA72B082C0500235964 /* AuthenticationView.swift */; };
+		31D50EAB2B08514100235964 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D50EAA2B08514000235964 /* NotificationView.swift */; };
+		31D50EAD2B08546300235964 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D50EAC2B08546300235964 /* NotificationRow.swift */; };
+		31D50EB02B085E1E00235964 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D50EAF2B085E1E00235964 /* DiscoverView.swift */; };
+		31D50EB32B086EF800235964 /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D50EB22B086EF800235964 /* CommunityView.swift */; };
+		31D50EB72B086FC700235964 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D50EB62B086FC700235964 /* Post.swift */; };
 		31E1E3542AFF4BDC00A5F7CE /* GardenARApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3532AFF4BDC00A5F7CE /* GardenARApp.swift */; };
 		31E1E3562AFF4BDC00A5F7CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3552AFF4BDC00A5F7CE /* ContentView.swift */; };
 		31E1E3582AFF4BDE00A5F7CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31E1E3572AFF4BDE00A5F7CE /* Assets.xcassets */; };
 		31E1E35B2AFF4BDE00A5F7CE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31E1E35A2AFF4BDE00A5F7CE /* Preview Assets.xcassets */; };
+		31E1E3662AFF510200A5F7CE /* GardenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3652AFF510200A5F7CE /* GardenView.swift */; };
+		31E1E3682AFF512100A5F7CE /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3672AFF512100A5F7CE /* TabBar.swift */; };
+		31E1E36B2AFF51E900A5F7CE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E36A2AFF51E900A5F7CE /* User.swift */; };
+		31E1E36E2AFF543A00A5F7CE /* UserHeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E36D2AFF543A00A5F7CE /* UserHeaderBar.swift */; };
+		31E1E3742AFF586800A5F7CE /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3732AFF586800A5F7CE /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		312E4AD62B042B1E00DDF3C7 /* PlantRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRow.swift; sourceTree = "<group>"; };
+		31D50EA42B08252100235964 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
+		31D50EA72B082C0500235964 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		31D50EAA2B08514000235964 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		31D50EAC2B08546300235964 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
+		31D50EAF2B085E1E00235964 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		31D50EB22B086EF800235964 /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
+		31D50EB62B086FC700235964 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		31E1E3502AFF4BDC00A5F7CE /* GardenAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GardenAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E1E3532AFF4BDC00A5F7CE /* GardenARApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenARApp.swift; sourceTree = "<group>"; };
 		31E1E3552AFF4BDC00A5F7CE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		31E1E3572AFF4BDE00A5F7CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31E1E35A2AFF4BDE00A5F7CE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		31E1E3652AFF510200A5F7CE /* GardenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenView.swift; sourceTree = "<group>"; };
+		31E1E3672AFF512100A5F7CE /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		31E1E36A2AFF51E900A5F7CE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		31E1E36D2AFF543A00A5F7CE /* UserHeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHeaderBar.swift; sourceTree = "<group>"; };
+		31E1E3732AFF586800A5F7CE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +58,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		312E4AD52B042B1400DDF3C7 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				312E4AD62B042B1E00DDF3C7 /* PlantRow.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		31D50EA62B082BD400235964 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				31D50EA72B082C0500235964 /* AuthenticationView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		31D50EA92B08512F00235964 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				31D50EAA2B08514000235964 /* NotificationView.swift */,
+				31D50EB42B086FA300235964 /* Items */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		31D50EAE2B085DFF00235964 /* Disover */ = {
+			isa = PBXGroup;
+			children = (
+				31D50EAF2B085E1E00235964 /* DiscoverView.swift */,
+			);
+			path = Disover;
+			sourceTree = "<group>";
+		};
+		31D50EB12B086EEB00235964 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				31D50EB52B086FB800235964 /* Items */,
+				31D50EB22B086EF800235964 /* CommunityView.swift */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
+		31D50EB42B086FA300235964 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				31D50EAC2B08546300235964 /* NotificationRow.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		31D50EB52B086FB800235964 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				31D50EB62B086FC700235964 /* Post.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
 		31E1E3472AFF4BDC00A5F7CE = {
 			isa = PBXGroup;
 			children = (
@@ -51,8 +135,16 @@
 		31E1E3522AFF4BDC00A5F7CE /* GardenAR */ = {
 			isa = PBXGroup;
 			children = (
+				31D50EB12B086EEB00235964 /* Community */,
+				31D50EAE2B085DFF00235964 /* Disover */,
+				31D50EA92B08512F00235964 /* Notifications */,
+				31D50EA62B082BD400235964 /* Authentication */,
 				31E1E3532AFF4BDC00A5F7CE /* GardenARApp.swift */,
-				31E1E3552AFF4BDC00A5F7CE /* ContentView.swift */,
+				31E1E3722AFF585A00A5F7CE /* Search */,
+				31E1E36C2AFF541600A5F7CE /* Items */,
+				31E1E3692AFF51DE00A5F7CE /* Models */,
+				31E1E3612AFF507600A5F7CE /* Navigation */,
+				31E1E3622AFF50A000A5F7CE /* Garden */,
 				31E1E3572AFF4BDE00A5F7CE /* Assets.xcassets */,
 				31E1E3592AFF4BDE00A5F7CE /* Preview Content */,
 			);
@@ -65,6 +157,57 @@
 				31E1E35A2AFF4BDE00A5F7CE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		31E1E3612AFF507600A5F7CE /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				31E1E3552AFF4BDC00A5F7CE /* ContentView.swift */,
+				31E1E3672AFF512100A5F7CE /* TabBar.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		31E1E3622AFF50A000A5F7CE /* Garden */ = {
+			isa = PBXGroup;
+			children = (
+				312E4AD52B042B1400DDF3C7 /* Items */,
+				31E1E3652AFF510200A5F7CE /* GardenView.swift */,
+			);
+			path = Garden;
+			sourceTree = "<group>";
+		};
+		31E1E3692AFF51DE00A5F7CE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				31E1E36F2AFF54DB00A5F7CE /* View Model */,
+				31E1E36A2AFF51E900A5F7CE /* User.swift */,
+				31D50EA42B08252100235964 /* Plant.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		31E1E36C2AFF541600A5F7CE /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				31E1E36D2AFF543A00A5F7CE /* UserHeaderBar.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		31E1E36F2AFF54DB00A5F7CE /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		31E1E3722AFF585A00A5F7CE /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				31E1E3732AFF586800A5F7CE /* SearchView.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +280,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31D50EB32B086EF800235964 /* CommunityView.swift in Sources */,
+				31D50EB02B085E1E00235964 /* DiscoverView.swift in Sources */,
+				312E4AD72B042B1E00DDF3C7 /* PlantRow.swift in Sources */,
+				31D50EA52B08252100235964 /* Plant.swift in Sources */,
 				31E1E3562AFF4BDC00A5F7CE /* ContentView.swift in Sources */,
+				31D50EAD2B08546300235964 /* NotificationRow.swift in Sources */,
+				31D50EAB2B08514100235964 /* NotificationView.swift in Sources */,
 				31E1E3542AFF4BDC00A5F7CE /* GardenARApp.swift in Sources */,
+				31D50EA82B082C0500235964 /* AuthenticationView.swift in Sources */,
+				31D50EB72B086FC700235964 /* Post.swift in Sources */,
+				31E1E3662AFF510200A5F7CE /* GardenView.swift in Sources */,
+				31E1E3742AFF586800A5F7CE /* SearchView.swift in Sources */,
+				31E1E36B2AFF51E900A5F7CE /* User.swift in Sources */,
+				31E1E3682AFF512100A5F7CE /* TabBar.swift in Sources */,
+				31E1E36E2AFF543A00A5F7CE /* UserHeaderBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
