@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State var isLoggedIn = true
+    @State var loggedIn = false
     
     var body: some View {
-        if isLoggedIn {
+        if loggedIn {
             TabBar()
         } else {
-            Text("Login View Here")
+            AuthenticationView(loggedIn: $loggedIn)
         }
     }
 }

@@ -24,6 +24,8 @@
 		31E1E36B2AFF51E900A5F7CE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E36A2AFF51E900A5F7CE /* User.swift */; };
 		31E1E36E2AFF543A00A5F7CE /* UserHeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E36D2AFF543A00A5F7CE /* UserHeaderBar.swift */; };
 		31E1E3742AFF586800A5F7CE /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3732AFF586800A5F7CE /* SearchView.swift */; };
+		7E6FC30D2B9EB51A003814A2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6FC30C2B9EB51A003814A2 /* LoginView.swift */; };
+		7E6FC30F2B9EB5ED003814A2 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6FC30E2B9EB5ED003814A2 /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		31E1E36A2AFF51E900A5F7CE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		31E1E36D2AFF543A00A5F7CE /* UserHeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHeaderBar.swift; sourceTree = "<group>"; };
 		31E1E3732AFF586800A5F7CE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		7E6FC30C2B9EB51A003814A2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		7E6FC30E2B9EB5ED003814A2 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,8 @@
 			isa = PBXGroup;
 			children = (
 				31D50EA72B082C0500235964 /* AuthenticationView.swift */,
+				7E6FC30C2B9EB51A003814A2 /* LoginView.swift */,
+				7E6FC30E2B9EB5ED003814A2 /* RegisterView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -288,12 +294,14 @@
 				31D50EAD2B08546300235964 /* NotificationRow.swift in Sources */,
 				31D50EAB2B08514100235964 /* NotificationView.swift in Sources */,
 				31E1E3542AFF4BDC00A5F7CE /* GardenARApp.swift in Sources */,
+				7E6FC30F2B9EB5ED003814A2 /* RegisterView.swift in Sources */,
 				31D50EA82B082C0500235964 /* AuthenticationView.swift in Sources */,
 				31D50EB72B086FC700235964 /* Post.swift in Sources */,
 				31E1E3662AFF510200A5F7CE /* GardenView.swift in Sources */,
 				31E1E3742AFF586800A5F7CE /* SearchView.swift in Sources */,
 				31E1E36B2AFF51E900A5F7CE /* User.swift in Sources */,
 				31E1E3682AFF512100A5F7CE /* TabBar.swift in Sources */,
+				7E6FC30D2B9EB51A003814A2 /* LoginView.swift in Sources */,
 				31E1E36E2AFF543A00A5F7CE /* UserHeaderBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
