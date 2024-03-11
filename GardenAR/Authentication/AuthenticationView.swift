@@ -22,33 +22,54 @@ struct AuthenticationView: View {
     }
     
     var login: some View {
-        VStack {
-            
-            HStack(spacing: 12.0) {
-                Image(systemName: "envelope")
-                TextField("Email", text: $email)
-            }
-            .padding(20.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 16.0))
-            
-            HStack(spacing: 12.0) {
-                Image(systemName: "lock")
-                SecureField("Password", text: $password)
-            }
-            .padding(20.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 16.0))
-            
-            Spacer()
-            
-            Button(action: {
+        ZStack {
+            VStack {
                 
-            }) {
-                Text("Sign In")
+                Image("GardenARN")
+                    .resizable()
+                    .frame(width: 329, height: 273)
+                
+     
+                
+                HStack(spacing: 12.0) {
+                    Image(systemName: "envelope")
+                    TextField("Email", text: $email)
+                }
+                .padding(20.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 16.0))
+                
+                HStack(spacing: 12.0) {
+                    Image(systemName: "lock")
+                    SecureField("Password", text: $password)
+                }
+                .padding(20.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 16.0))
+                
+              
+                
+                Button(action: {
+                    
+                }) {
+                    Text("Sign In")
+                        .tint(.white)
+                }
+                .padding()
+   
+                Button(action: {
+                    
+                }){
+                    Text("Create Account")
+                        .tint(.white)
+                }
+              
+                Spacer()
             }
+            
+            .padding(24.0)
         }
-        .padding(24.0)
+        .background(Color("74C98B"))
     }
     
     var register: some View {
@@ -66,3 +87,4 @@ enum AuthModel {
     case login
     case register
 }
+
