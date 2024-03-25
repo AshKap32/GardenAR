@@ -7,11 +7,22 @@
 
 import SwiftUI
 
-@main
-struct GardenARApp: App {
+@main struct GardenARApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(AuthenticationModel(
+                    loggedIn: false,
+                    showLogin: true
+                ))
         }
     }
+}
+
+#Preview {
+    ContentView()
+        .environmentObject(AuthenticationModel(
+            loggedIn: false,
+            showLogin: true
+        ))
 }

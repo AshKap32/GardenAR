@@ -8,15 +8,16 @@
 import SwiftUI
 
 class AccountModel: Codable, ObservableObject {
-    var accountID: Int?
+    var accountID: String?
     var username: String?
     var nickname: String?
     var forename: String?
     var surname: String?
     var email: String?
-    var skill: Int?
+    var hash: String?
+    var skill: String?
     var city: String?
-    var zip: Int?
+    var zip: String?
     
     enum CodingKeys: String, CodingKey {
         case accountID = "_account_id"
@@ -25,6 +26,7 @@ class AccountModel: Codable, ObservableObject {
         case forename = "_forename"
         case surname = "_surname"
         case email = "_email"
+        case hash = "_hash"
         case skill = "_skill"
         case city = "_city"
         case zip = "_zip"

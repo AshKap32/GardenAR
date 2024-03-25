@@ -8,8 +8,8 @@
 import SwiftUI
 
 class PostModel: Codable, ObservableObject {
-    var postID: Int?
-    var accountID: Int?
+    var postID: String?
+    var accountID: String?
     var content: String?
     
     enum CodingKeys: String, CodingKey {

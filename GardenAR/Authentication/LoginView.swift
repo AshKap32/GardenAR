@@ -8,26 +8,23 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var email: String = ""
+    @EnvironmentObject var authenticationModel: AuthenticationModel
+    @State var username: String = ""
     @State var password: String = ""
-    @Binding var displayLogin: Bool
-    @Binding var loggedIn: Bool
-    
-    func validate() -> Bool {
-        // to do: hook this up to the backend
-        return true
-    }
     
     func login() {
-        if validate() {
-            loggedIn.toggle()
+        // to do: send a post request to /account/login with password and username in the body
+        if (true) {
+            // to do: store the token and id that we get somewhere
+            authenticationModel.loggedIn = true
+            authenticationModel.showLogin = true
         } else {
             // to do: display an error message
         }
     }
     
     func toggle() {
-        displayLogin.toggle()
+        authenticationModel.showLogin = false
     }
     
     var body: some View {
@@ -37,21 +34,21 @@ struct LoginView: View {
                     .resizable()
                     .frame(width: 329, height: 273)
                 
-                HStack(spacing: 12.0) {
-                    Image(systemName: "envelope")
-                    TextField("Email", text: $email)
+                HStack(spacing: 8.0) {
+                    Image(systemName: "person")
+                    TextField("Username", text: $username)
                 }
-                .padding(20.0)
+                .padding(16.0)
                 .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 16.0))
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 12.0) {
+                HStack(spacing: 8.0) {
                     Image(systemName: "lock")
                     SecureField("Password", text: $password)
                 }
-                .padding(20.0)
+                .padding(16.0)
                 .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 16.0))
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 Button(action: login) {
                     Text("Sign In")
@@ -66,12 +63,16 @@ struct LoginView: View {
               
                 Spacer()
             }
-            .padding(24.0)
+            .padding(32.0)
         }
         .background(Color("74C98B"))
     }
 }
 
 #Preview {
-    LoginView(displayLogin: .constant(true), loggedIn: .constant(false))
+    LoginView()
+        .environmentObject(AuthenticationModel(
+            loggedIn: false,
+            showLogin: true
+        ))
 }

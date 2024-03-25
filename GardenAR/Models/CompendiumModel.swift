@@ -8,7 +8,7 @@
 import SwiftUI
 
 class CompendiumModel: Codable, ObservableObject {
-    var compendiumID: Int?
+    var compendiumID: String?
     var name: String?
     var description: String?
     

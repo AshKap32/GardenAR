@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var loggedIn = false
+    @EnvironmentObject var authenticationModel: AuthenticationModel
     
     var body: some View {
-        if loggedIn {
+        if authenticationModel.loggedIn {
             TabBar()
+        } else if authenticationModel.showLogin {
+            LoginView()
         } else {
-            AuthenticationView(loggedIn: $loggedIn)
+            RegisterView()
         }
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AuthenticationModel(
+            loggedIn: false,
+            showLogin: true
+        ))
 }
