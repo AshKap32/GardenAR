@@ -5,10 +5,11 @@
 //  Created by KOBOLD! on 3/10/24.
 //
 
+import Foundation
 import SwiftUI
 
 struct RegisterView: View {
-    @EnvironmentObject var authenticationModel: AuthenticationModel
+    @EnvironmentObject var authenticationEnvironment: AuthenticationEnvironment
     @State var username: String = ""
     @State var nickname: String = ""
     @State var forename: String = ""
@@ -20,23 +21,40 @@ struct RegisterView: View {
     @State var zip: String = ""
     
     func register() {
-        // to do: send a post request to /account with every state variable in the body
-        if (true) {
-            authenticationModel.showLogin = true
-        } else {
-            // display an error message
+        Task {
+            let (error, reply) = try await authenticationEnvironment.register(
+                account: AccountModel(
+                    _username: username,
+                    _nickname: nickname,
+                    _forename: forename,
+                    _surname: surname,
+                    _email: email,
+                    _skill: Int(skill),
+                    _city: city,
+                    _zip: Int(zip)
+                ),
+                password: password
+            )
+            
+            print(error)
+            print(reply)
+            if reply._account == nil {
+                // to do: display a whole bunch of error messages
+            } else {
+                authenticationEnvironment.showLogin = true
+            }
         }
     }
     
     func toggle() {
-        authenticationModel.showLogin = true
+        authenticationEnvironment.showLogin = true
     }
-    
+
     var body: some View {
         ZStack {
             VStack {
                 HStack(spacing: 8.0) {
-                    Image(systemName: "person")
+                    Image(systemName: "person.fill")
                     TextField("Username", text: $username)
                 }
                 .padding(16.0)
@@ -44,39 +62,39 @@ struct RegisterView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "person")
-                    SecureField("Nickname", text: $nickname)
+                    Image(systemName: "person.fill")
+                    TextField("Nickname", text: $nickname)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "person")
-                    SecureField("First Name", text: $forename)
+                    Image(systemName: "person.fill")
+                    TextField("First Name", text: $forename)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "person")
-                    SecureField("Last Name", text: $surname)
+                    Image(systemName: "person.fill")
+                    TextField("Last Name", text: $surname)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "envelope")
-                    SecureField("Email", text: $email)
+                    Image(systemName: "envelope.fill")
+                    TextField("Email", text: $email)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "lock")
+                    Image(systemName: "lock.fill")
                     SecureField("Password", text: $password)
                 }
                 .padding(16.0)
@@ -84,24 +102,24 @@ struct RegisterView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "lock")
-                    SecureField("Skill Level", text: $skill)
+                    Image(systemName: "rosette")
+                    TextField("Skill Level", text: $skill)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "lock")
-                    SecureField("City", text: $city)
+                    Image(systemName: "building.fill")
+                    TextField("City", text: $city)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "lock")
-                    SecureField("Zip Code", text: $zip)
+                    Image(systemName: "building.fill")
+                    TextField("Zip Code", text: $zip)
                 }
                 .padding(16.0)
                 .background(.tertiary)
@@ -127,9 +145,10 @@ struct RegisterView: View {
 }
 
 #Preview {
-    RegisterView()
-        .environmentObject(AuthenticationModel(
-            loggedIn: false,
-            showLogin: false
-        ))
+    let authenticationEnvironment = AuthenticationEnvironment(
+        loggedIn: false,
+        showLogin: false
+    )
+    
+    return RegisterView().environmentObject(authenticationEnvironment)
 }

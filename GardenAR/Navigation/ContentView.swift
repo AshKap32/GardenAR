@@ -5,15 +5,16 @@
 //  Created by Aashish Kapoor on 11/10/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var authenticationModel: AuthenticationModel
+    @EnvironmentObject var authenticationEnvironment: AuthenticationEnvironment
     
     var body: some View {
-        if authenticationModel.loggedIn {
+        if authenticationEnvironment.loggedIn {
             TabBar()
-        } else if authenticationModel.showLogin {
+        } else if authenticationEnvironment.showLogin {
             LoginView()
         } else {
             RegisterView()
@@ -22,9 +23,10 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
-        .environmentObject(AuthenticationModel(
-            loggedIn: false,
-            showLogin: true
-        ))
+    let authenticationEnvironment = AuthenticationEnvironment(
+        loggedIn: false,
+        showLogin: true
+    )
+    
+    return ContentView().environmentObject(authenticationEnvironment)
 }

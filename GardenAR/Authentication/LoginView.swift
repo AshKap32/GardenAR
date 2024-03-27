@@ -5,26 +5,35 @@
 //  Created by KOBOLD! on 3/10/24.
 //
 
+import Foundation
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var authenticationModel: AuthenticationModel
+    @EnvironmentObject var authenticationEnvironment: AuthenticationEnvironment
     @State var username: String = ""
     @State var password: String = ""
     
     func login() {
-        // to do: send a post request to /account/login with password and username in the body
-        if (true) {
-            // to do: store the token and id that we get somewhere
-            authenticationModel.loggedIn = true
-            authenticationModel.showLogin = true
-        } else {
-            // to do: display an error message
+        Task {
+            let (error, reply) = try await authenticationEnvironment.login(
+                username: username,
+                password: password
+            )
+            
+            print(error)
+            print(reply)
+            if reply._token == nil {
+                // to do: display an error message
+            } else {
+                // to do: store the token somewhere
+                authenticationEnvironment.loggedIn = true
+                authenticationEnvironment.showLogin = true
+            }
         }
     }
     
     func toggle() {
-        authenticationModel.showLogin = false
+        authenticationEnvironment.showLogin = false
     }
     
     var body: some View {
@@ -35,7 +44,7 @@ struct LoginView: View {
                     .frame(width: 329, height: 273)
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "person")
+                    Image(systemName: "person.fill")
                     TextField("Username", text: $username)
                 }
                 .padding(16.0)
@@ -43,7 +52,7 @@ struct LoginView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 HStack(spacing: 8.0) {
-                    Image(systemName: "lock")
+                    Image(systemName: "lock.fill")
                     SecureField("Password", text: $password)
                 }
                 .padding(16.0)
@@ -70,9 +79,10 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
-        .environmentObject(AuthenticationModel(
-            loggedIn: false,
-            showLogin: true
-        ))
+    let authenticationEnvironment = AuthenticationEnvironment(
+        loggedIn: false,
+        showLogin: true
+    )
+    
+    return LoginView().environmentObject(authenticationEnvironment)
 }
