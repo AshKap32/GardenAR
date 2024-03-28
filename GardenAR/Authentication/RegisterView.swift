@@ -22,20 +22,18 @@ struct RegisterView: View {
     
     func register() {
         Task {
-            let (_, e) = try await AccountNetwork.postAccount(
-                account: AccountModel(
-                    _username: username,
-                    _nickname: nickname,
-                    _forename: forename,
-                    _surname: surname,
-                    _email: email,
-                    _skill: Int(skill),
-                    _city: city,
-                    _zip: Int(zip)
-                ),
-                password: password
+            let account = AccountModel(
+                _username: username,
+                _nickname: nickname,
+                _forename: forename,
+                _surname: surname,
+                _email: email,
+                _skill: Int(skill),
+                _city: city,
+                _zip: Int(zip)
             )
             
+            let (_, e) = try await AccountNetwork.postAccount(account: account, password: password)
             if e.error == nil {
                 authenticationEnvironment.showLogin = true
             } else {
@@ -50,88 +48,86 @@ struct RegisterView: View {
 
     var body: some View {
         ZStack {
-            VStack {
-                HStack(spacing: 8.0) {
+            VStack(spacing: 16.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "person.fill")
-                    TextField("Username", text: $username)
+                    TextField("Username", text: $username).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "person.fill")
-                    TextField("Nickname", text: $nickname)
+                    TextField("Nickname", text: $nickname).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "person.fill")
-                    TextField("First Name", text: $forename)
+                    TextField("First Name", text: $forename).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "person.fill")
-                    TextField("Last Name", text: $surname)
+                    TextField("Last Name", text: $surname).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "envelope.fill")
-                    TextField("Email", text: $email)
+                    TextField("Email", text: $email).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "lock.fill")
-                    SecureField("Password", text: $password)
+                    SecureField("Password", text: $password).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "rosette")
-                    TextField("Skill Level", text: $skill)
+                    TextField("Skill Level", text: $skill).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "building.fill")
-                    TextField("City", text: $city)
+                    TextField("City", text: $city).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "building.fill")
-                    TextField("Zip Code", text: $zip)
+                    TextField("Zip Code", text: $zip).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 Button(action: register) {
-                    Text("Create Account")
-                        .tint(.white)
+                    Text("Create Account").tint(.white)
                 }
                 .padding()
    
                 Button(action: toggle) {
-                    Text("Sign In")
-                        .tint(.white)
+                    Text("Sign In").tint(.white)
                 }
               
                 Spacer()
@@ -143,10 +139,6 @@ struct RegisterView: View {
 }
 
 #Preview {
-    let authenticationEnvironment = AuthenticationEnvironment(
-        loggedIn: false,
-        showLogin: false
-    )
-    
+    let authenticationEnvironment = AuthenticationEnvironment(loggedIn: false, showLogin: false)
     return RegisterView().environmentObject(authenticationEnvironment)
 }

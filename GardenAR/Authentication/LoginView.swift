@@ -15,13 +15,9 @@ struct LoginView: View {
     
     func login() {
         Task {
-            let (reply, e) = try await SessionNetwork.postSession(
-                username: username,
-                password: password
-            )
-
+            let (token, e) = try await SessionNetwork.postSession(username: username, password: password)
             if e.error == nil {
-                UserDefaults.standard.set(reply._token, forKey: "token")
+                UserDefaults.standard.set(token, forKey: "token")
                 authenticationEnvironment.loggedIn = true
                 authenticationEnvironment.showLogin = true
             } else {
@@ -36,36 +32,32 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                Image("GardenARN")
-                    .resizable()
-                    .frame(width: 329, height: 273)
+            VStack(spacing: 16.0) {
+                Image("GardenARN").resizable().frame(width: 329, height: 273)
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "person.fill")
-                    TextField("Username", text: $username)
+                    TextField("Username", text: $username).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
-                HStack(spacing: 8.0) {
+                HStack(spacing: 16.0) {
                     Image(systemName: "lock.fill")
-                    SecureField("Password", text: $password)
+                    SecureField("Password", text: $password).textInputAutocapitalization(.never)
                 }
                 .padding(16.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 
                 Button(action: login) {
-                    Text("Sign In")
-                        .tint(.white)
+                    Text("Sign In").tint(.white)
                 }
                 .padding()
    
                 Button(action: toggle) {
-                    Text("Create Account")
-                        .tint(.white)
+                    Text("Create Account").tint(.white)
                 }
               
                 Spacer()
@@ -77,10 +69,6 @@ struct LoginView: View {
 }
 
 #Preview {
-    let authenticationEnvironment = AuthenticationEnvironment(
-        loggedIn: false,
-        showLogin: true
-    )
-    
+    let authenticationEnvironment = AuthenticationEnvironment(loggedIn: false, showLogin: true)
     return LoginView().environmentObject(authenticationEnvironment)
 }

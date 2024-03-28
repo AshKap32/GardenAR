@@ -10,14 +10,7 @@ import Foundation
 struct SessionNetwork {
     static let host = "localhost:8080" // to do: extract this from some sort of config file
     
-    static func extract(request: URLRequest) async throws -> (SessionReply, ErrorReply) {
-        let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(SessionReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
-        return (reply, e)
-    }
-    
-    static func getSession() async throws -> (SessionReply, ErrorReply) {
+    static func getSession() async throws -> (Bool?, ErrorReply) {
         let token = UserDefaults.standard.string(forKey: "token") ?? ""
         let url = URL(string: "http://\(self.host)/session/account/token")!
         var request = URLRequest(url: url)
@@ -25,24 +18,29 @@ struct SessionNetwork {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
-        return try await self.extract(request: request)
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let reply = try JSONDecoder().decode(SessionReply.self, from: data)
+        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        return (reply._valid, e)
     }
     
-    static func postSession(username: String, password: String) async throws -> (SessionReply, ErrorReply) {
+    static func postSession(username: String, password: String) async throws -> (String?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/session")!
+        let body = SessionRequest(_username: username, _password: password)
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
-        request.httpBody = try JSONEncoder().encode(SessionRequest(
-            _username: username,
-            _password: password
-        ))
-        
-        return try await self.extract(request: request)
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let reply = try JSONDecoder().decode(SessionReply.self, from: data)
+        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        return (reply._token, e)
     }
     
-    static func deleteSession() async throws -> (SessionReply, ErrorReply) {
+    static func deleteSession() async throws -> (String?, ErrorReply) {
         let token = UserDefaults.standard.string(forKey: "token") ?? ""
         let url = URL(string: "http://\(self.host)/session/account/token")!
         var request = URLRequest(url: url)
@@ -50,6 +48,10 @@ struct SessionNetwork {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "DELETE"
-        return try await self.extract(request: request)
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let reply = try JSONDecoder().decode(SessionReply.self, from: data)
+        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        return (reply._status, e)
     }
 }

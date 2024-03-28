@@ -25,10 +25,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    let authenticationEnvironment = AuthenticationEnvironment(
-        loggedIn: false,
-        showLogin: true
-    )
-    
+    let authenticationEnvironment = AuthenticationEnvironment(loggedIn: false, showLogin: true)
     return ContentView().environmentObject(authenticationEnvironment)
 }

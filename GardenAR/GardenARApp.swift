@@ -9,10 +9,7 @@ import Foundation
 import SwiftUI
 
 @main struct GardenARApp: App {
-    let authenticationEnvironment = AuthenticationEnvironment(
-        loggedIn: false,
-        showLogin: true
-    )
+    let authenticationEnvironment = AuthenticationEnvironment(loggedIn: false, showLogin: true)
     
     var body: some Scene {
         WindowGroup {
