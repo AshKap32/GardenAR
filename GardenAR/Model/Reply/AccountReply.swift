@@ -10,5 +10,4 @@ import Foundation
 struct AccountReply: Codable {
     var _account: AccountModel?
     var _accounts: [AccountModel]?
-    var _token: String?
 }

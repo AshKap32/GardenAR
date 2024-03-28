@@ -22,7 +22,7 @@ struct RegisterView: View {
     
     func register() {
         Task {
-            let (error, reply) = try await authenticationEnvironment.register(
+            let (_, e) = try await AccountNetwork.postAccount(
                 account: AccountModel(
                     _username: username,
                     _nickname: nickname,
@@ -36,12 +36,10 @@ struct RegisterView: View {
                 password: password
             )
             
-            print(error)
-            print(reply)
-            if reply._account == nil {
-                // to do: display a whole bunch of error messages
-            } else {
+            if e.error == nil {
                 authenticationEnvironment.showLogin = true
+            } else {
+                // to do: tell the user about a potential username conflict + other errors
             }
         }
     }

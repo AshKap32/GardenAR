@@ -15,19 +15,17 @@ struct LoginView: View {
     
     func login() {
         Task {
-            let (error, reply) = try await authenticationEnvironment.login(
+            let (reply, e) = try await SessionNetwork.postSession(
                 username: username,
                 password: password
             )
-            
-            print(error)
-            print(reply)
-            if reply._token == nil {
-                // to do: display an error message
-            } else {
-                // to do: store the token somewhere
+
+            if e.error == nil {
+                UserDefaults.standard.set(reply._token, forKey: "token")
                 authenticationEnvironment.loggedIn = true
                 authenticationEnvironment.showLogin = true
+            } else {
+                // to do: tell the user to check their credentials
             }
         }
     }

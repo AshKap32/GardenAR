@@ -14,10 +14,12 @@ struct ContentView: View {
     var body: some View {
         if authenticationEnvironment.loggedIn {
             TabBar()
-        } else if authenticationEnvironment.showLogin {
-            LoginView()
         } else {
-            RegisterView()
+            if authenticationEnvironment.showLogin {
+                LoginView()
+            } else {
+                RegisterView()
+            }
         }
     }
 }
