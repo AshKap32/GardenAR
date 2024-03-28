@@ -31,40 +31,39 @@ struct LoginView: View {
     }
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 16.0) {
-                Image("GardenARN").resizable().frame(width: 329, height: 273)
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "person.fill")
-                    TextField("Username", text: $username).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "lock.fill")
-                    SecureField("Password", text: $password).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                Button(action: login) {
-                    Text("Sign In").tint(.white)
-                }
-                .padding()
-   
-                Button(action: toggle) {
-                    Text("Create Account").tint(.white)
-                }
-              
-                Spacer()
+        VStack(spacing: 16.0) {
+            Image("Images/LogoTransparent").resizable().frame(width: 500)
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "person.fill")
+                TextField("Username", text: $username).textInputAutocapitalization(.never)
             }
-            .padding(32.0)
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "lock.fill")
+                SecureField("Password", text: $password).textInputAutocapitalization(.never)
+            }
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            Button(action: login) {
+                Text("Sign In").tint(.white)
+            }
+            .padding(8.0)
+
+            Button(action: toggle) {
+                Text("Create Account").tint(.white)
+            }
+            .padding(8.0)
+          
+            Spacer()
         }
-        .background(Color("74C98B"))
+        .padding(32.0)
+        .background(Color("Colors/Body"))
     }
 }
 

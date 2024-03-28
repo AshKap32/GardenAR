@@ -47,94 +47,93 @@ struct RegisterView: View {
     }
 
     var body: some View {
-        ZStack {
-            VStack(spacing: 16.0) {
-                HStack(spacing: 16.0) {
-                    Image(systemName: "person.fill")
-                    TextField("Username", text: $username).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "person.fill")
-                    TextField("Nickname", text: $nickname).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "person.fill")
-                    TextField("First Name", text: $forename).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "person.fill")
-                    TextField("Last Name", text: $surname).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "envelope.fill")
-                    TextField("Email", text: $email).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "lock.fill")
-                    SecureField("Password", text: $password).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "rosette")
-                    TextField("Skill Level", text: $skill).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "building.fill")
-                    TextField("City", text: $city).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                HStack(spacing: 16.0) {
-                    Image(systemName: "building.fill")
-                    TextField("Zip Code", text: $zip).textInputAutocapitalization(.never)
-                }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                
-                Button(action: register) {
-                    Text("Create Account").tint(.white)
-                }
-                .padding()
-   
-                Button(action: toggle) {
-                    Text("Sign In").tint(.white)
-                }
-              
-                Spacer()
+        VStack(spacing: 16.0) {
+            HStack(spacing: 16.0) {
+                Image(systemName: "person.fill")
+                TextField("Username", text: $username).textInputAutocapitalization(.never)
             }
-            .padding(32.0)
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "person.fill")
+                TextField("Nickname", text: $nickname).textInputAutocapitalization(.never)
+            }
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "person.fill")
+                TextField("First Name", text: $forename).textInputAutocapitalization(.never)
+            }
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "person.fill")
+                TextField("Last Name", text: $surname).textInputAutocapitalization(.never)
+            }
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "envelope.fill")
+                TextField("Email", text: $email).textInputAutocapitalization(.never)
+            }
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "lock.fill")
+                SecureField("Password", text: $password).textInputAutocapitalization(.never)
+            }
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "rosette")
+                TextField("Skill Level", text: $skill).textInputAutocapitalization(.never)
+            }
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "building.fill")
+                TextField("City", text: $city).textInputAutocapitalization(.never)
+            }
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            HStack(spacing: 16.0) {
+                Image(systemName: "building.fill")
+                TextField("Zip Code", text: $zip).textInputAutocapitalization(.never)
+            }
+            .padding(16.0)
+            .background(.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+            
+            Button(action: register) {
+                Text("Create Account").tint(.white)
+            }
+            .padding(8.0)
+
+            Button(action: toggle) {
+                Text("Sign In").tint(.white)
+            }
+            .padding(8.0)
+          
+            Spacer()
         }
-        .background(Color("74C98B"))
+        .padding(32.0)
+        .background(Color("Colors/Body"))
     }
 }
 
