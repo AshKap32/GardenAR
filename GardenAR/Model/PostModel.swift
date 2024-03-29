@@ -11,4 +11,5 @@ struct PostModel: Codable {
     var _post_id: Int?
     var _account_id: Int?
     var _content: String?
+    var _timestamp: String?
 }

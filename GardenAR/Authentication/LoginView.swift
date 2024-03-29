@@ -36,7 +36,7 @@ struct LoginView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("Username", text: $username).textInputAutocapitalization(.never)
+                TextField("Username", text: $username).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -44,7 +44,7 @@ struct LoginView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "lock.fill")
-                SecureField("Password", text: $password).textInputAutocapitalization(.never)
+                SecureField("Password", text: $password).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)

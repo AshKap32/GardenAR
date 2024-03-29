@@ -50,7 +50,7 @@ struct RegisterView: View {
         VStack(spacing: 16.0) {
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("Username", text: $username).textInputAutocapitalization(.never)
+                TextField("Username", text: $username).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -58,7 +58,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("Nickname", text: $nickname).textInputAutocapitalization(.never)
+                TextField("Nickname", text: $nickname).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -66,7 +66,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("First Name", text: $forename).textInputAutocapitalization(.never)
+                TextField("First Name", text: $forename).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -74,7 +74,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("Last Name", text: $surname).textInputAutocapitalization(.never)
+                TextField("Last Name", text: $surname).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -82,7 +82,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "envelope.fill")
-                TextField("Email", text: $email).textInputAutocapitalization(.never)
+                TextField("Email", text: $email).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -90,7 +90,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "lock.fill")
-                SecureField("Password", text: $password).textInputAutocapitalization(.never)
+                SecureField("Password", text: $password).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -98,7 +98,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "rosette")
-                TextField("Skill Level", text: $skill).textInputAutocapitalization(.never)
+                TextField("Skill Level", text: $skill).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -106,7 +106,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "building.fill")
-                TextField("City", text: $city).textInputAutocapitalization(.never)
+                TextField("City", text: $city).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -114,7 +114,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "building.fill")
-                TextField("Zip Code", text: $zip).textInputAutocapitalization(.never)
+                TextField("Zip Code", text: $zip).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)

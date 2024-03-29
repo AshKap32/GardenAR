@@ -11,5 +11,5 @@ struct PlantModel: Codable {
     var _plant_id: Int?
     var _compendium_id: Int?
     var _account_id: Int?
-    var _date_planted: String?
+    var _timestamp: String?
 }
