@@ -13,21 +13,21 @@ struct LoginView: View {
     @State var username: String = ""
     @State var password: String = ""
     
+    func toggle() {
+        self.authenticationEnvironment.showLogin = false
+    }
+    
     func login() {
         Task {
-            let (token, e) = try await SessionNetwork.postSession(username: username, password: password)
+            let (token, e) = try await SessionNetwork.postSession(username: self.username, password: self.password)
             if e.error == nil {
                 UserDefaults.standard.set(token, forKey: "token")
-                authenticationEnvironment.loggedIn = true
-                authenticationEnvironment.showLogin = true
+                self.authenticationEnvironment.loggedIn = true
+                self.authenticationEnvironment.showLogin = true
             } else {
                 // to do: tell the user to check their credentials
             }
         }
-    }
-    
-    func toggle() {
-        authenticationEnvironment.showLogin = false
     }
     
     var body: some View {
@@ -36,7 +36,7 @@ struct LoginView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("Username", text: $username).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                TextField("Username", text: self.$username).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -44,18 +44,18 @@ struct LoginView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "lock.fill")
-                SecureField("Password", text: $password).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                SecureField("Password", text: self.$password).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
             .clipShape(RoundedRectangle(cornerRadius: 8.0))
             
-            Button(action: login) {
+            Button(action: self.login) {
                 Text("Sign In").tint(.white)
             }
             .padding(8.0)
 
-            Button(action: toggle) {
+            Button(action: self.toggle) {
                 Text("Create Account").tint(.white)
             }
             .padding(8.0)

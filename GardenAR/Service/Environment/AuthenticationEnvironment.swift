@@ -1,5 +1,5 @@
 //
-//  AuthenticationModel.swift
+//  AuthenticationEnvironment.swift
 //  GardenAR
 //
 //  Created by KOBOLD! on 3/24/24.

@@ -20,37 +20,39 @@ struct RegisterView: View {
     @State var city: String = ""
     @State var zip: String = ""
     
+    func toggle() {
+        self.authenticationEnvironment.showLogin = true
+    }
+    
+    func build() -> AccountModel {
+        return AccountModel(
+            _username: self.username,
+            _nickname: self.nickname,
+            _forename: self.forename,
+            _surname: self.surname,
+            _email: self.email,
+            _skill: Int(self.skill),
+            _city: self.city,
+            _zip: Int(self.zip)
+        )
+    }
+    
     func register() {
         Task {
-            let account = AccountModel(
-                _username: username,
-                _nickname: nickname,
-                _forename: forename,
-                _surname: surname,
-                _email: email,
-                _skill: Int(skill),
-                _city: city,
-                _zip: Int(zip)
-            )
-            
-            let (_, e) = try await AccountNetwork.postAccount(account: account, password: password)
+            let (_, e) = try await AccountNetwork.postAccount(account: self.build(), password: self.password)
             if e.error == nil {
-                authenticationEnvironment.showLogin = true
+                self.authenticationEnvironment.showLogin = true
             } else {
                 // to do: tell the user about a potential username conflict + other errors
             }
         }
-    }
-    
-    func toggle() {
-        authenticationEnvironment.showLogin = true
     }
 
     var body: some View {
         VStack(spacing: 16.0) {
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("Username", text: $username).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                TextField("Username", text: self.$username).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -58,7 +60,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("Nickname", text: $nickname).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                TextField("Nickname", text: self.$nickname).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -66,7 +68,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("First Name", text: $forename).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                TextField("First Name", text: self.$forename).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -74,7 +76,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
-                TextField("Last Name", text: $surname).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                TextField("Last Name", text: self.$surname).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -82,7 +84,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "envelope.fill")
-                TextField("Email", text: $email).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                TextField("Email", text: self.$email).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -90,7 +92,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "lock.fill")
-                SecureField("Password", text: $password).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                SecureField("Password", text: self.$password).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -98,7 +100,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "rosette")
-                TextField("Skill Level", text: $skill).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                TextField("Skill Level", text: self.$skill).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -106,7 +108,7 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "building.fill")
-                TextField("City", text: $city).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                TextField("City", text: self.$city).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
@@ -114,18 +116,18 @@ struct RegisterView: View {
             
             HStack(spacing: 16.0) {
                 Image(systemName: "building.fill")
-                TextField("Zip Code", text: $zip).textInputAutocapitalization(.never).autocorrectionDisabled(true)
+                TextField("Zip Code", text: self.$zip).textInputAutocapitalization(.never).autocorrectionDisabled(true)
             }
             .padding(16.0)
             .background(.tertiary)
             .clipShape(RoundedRectangle(cornerRadius: 8.0))
             
-            Button(action: register) {
+            Button(action: self.register) {
                 Text("Create Account").tint(.white)
             }
             .padding(8.0)
 
-            Button(action: toggle) {
+            Button(action: self.toggle) {
                 Text("Sign In").tint(.white)
             }
             .padding(8.0)
