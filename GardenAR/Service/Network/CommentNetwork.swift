@@ -1,103 +1,116 @@
 //
-//  PlantNetwork.swift
+//  CommentNetwork.swift
 //  GardenAR
 //
-//  Created by KOBOLD! on 3/27/24.
+//  Created by KOBOLD! on 3/29/24.
 //
 
 import Foundation
 
-struct PlantNetwork {
+struct CommentNetwork {
     static let host = "localhost:8080" // to do: extract this from some sort of config file
     
-    static func getPlants() async throws -> ([PlantModel]?, ErrorReply) {
-        let url = URL(string: "http://\(self.host)/plants")!
+    static func getComments() async throws -> ([CommentModel]?, ErrorReply) {
+        let url = URL(string: "http://\(self.host)/comments")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
+        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
         let e = try JSONDecoder().decode(ErrorReply.self, from: data)
-        return (reply._plants, e)
+        return (reply._comments, e)
     }
     
-    static func getPlants(accountId: Int) async throws -> ([PlantModel]?, ErrorReply) {
-        let url = URL(string: "http://\(self.host)/plants/account/\(accountId)")!
+    static func getComments(postId: Int) async throws -> ([CommentModel]?, ErrorReply) {
+        let url = URL(string: "http://\(self.host)/comments/post/\(postId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
+        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
         let e = try JSONDecoder().decode(ErrorReply.self, from: data)
-        return (reply._plants, e)
+        return (reply._comments, e)
     }
     
-    static func getPlants(token: String) async throws -> ([PlantModel]?, ErrorReply) {
-        let url = URL(string: "http://\(self.host)/plants/account/token")!
+    static func getComments(accountId: Int) async throws -> ([CommentModel]?, ErrorReply) {
+        let url = URL(string: "http://\(self.host)/comments/account/\(accountId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
+        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        return (reply._comments, e)
+    }
+    
+    static func getComments(token: String) async throws -> ([CommentModel]?, ErrorReply) {
+        let url = URL(string: "http://\(self.host)/comments/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-
+        
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
+        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
         let e = try JSONDecoder().decode(ErrorReply.self, from: data)
-        return (reply._plants, e)
+        return (reply._comments, e)
     }
     
-    static func getPlant(plantId: Int) async throws -> (PlantModel?, ErrorReply) {
-        let url = URL(string: "http://\(self.host)/plant/\(plantId)")!
+    static func getComment(commentId: Int) async throws -> (CommentModel?, ErrorReply) {
+        let url = URL(string: "http://\(self.host)/comment/\(commentId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
+        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
         let e = try JSONDecoder().decode(ErrorReply.self, from: data)
-        return (reply._plant, e)
+        return (reply._comment, e)
     }
     
-    static func postPlant(token: String, plant: PlantModel) async throws -> (PlantModel?, ErrorReply) {
-        let url = URL(string: "http://\(self.host)/plant/account/token")!
+    static func postComment(token: String, comment: CommentModel) async throws -> (CommentModel?, ErrorReply) {
+        let url = URL(string: "http://\(self.host)/comment/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        let body = PlantRequest(_plant: plant)
+        let body = CommentRequest(_comment: comment)
         request.httpBody = try JSONEncoder().encode(body)
-
+        
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
+        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
         let e = try JSONDecoder().decode(ErrorReply.self, from: data)
-        return (reply._plant, e)
+        return (reply._comment, e)
     }
     
-    static func deletePlant(plantId: Int, token: String) async throws -> (PlantReply, ErrorReply) {
-        fatalError() // to do: actually implement this
+    static func deleteComment(commentId: Int, token: String) async throws -> (CommentReply, ErrorReply) {
+        fatalError()
     }
     
-    static func patchPlant(plantId: Int, token: String, plant: PlantModel) async throws -> (PlantModel?, ErrorReply) {
-        let url = URL(string: "http://\(self.host)/plant/\(plantId)/account/token")!
+    static func patchComment(commentId: Int, token: String, comment: CommentModel) async throws -> (CommentModel?, ErrorReply) {
+        let url = URL(string: "http://\(self.host)/comment/\(commentId)/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        let body = PlantRequest(_plant: plant)
+        let body = CommentRequest(_comment: comment)
         request.httpBody = try JSONEncoder().encode(body)
-
+        
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
+        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
         let e = try JSONDecoder().decode(ErrorReply.self, from: data)
-        return (reply._plant, e)
+        return (reply._comment, e)
     }
 }

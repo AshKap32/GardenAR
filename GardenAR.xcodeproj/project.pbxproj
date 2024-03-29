@@ -45,6 +45,10 @@
 		7EB72D4B2BB51C2E00B4DDE8 /* CompendiumNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB72D4A2BB51C2E00B4DDE8 /* CompendiumNetwork.swift */; };
 		7EB72D4D2BB51C9800B4DDE8 /* PlantNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB72D4C2BB51C9800B4DDE8 /* PlantNetwork.swift */; };
 		7EB72D4F2BB51CBD00B4DDE8 /* PostNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB72D4E2BB51CBD00B4DDE8 /* PostNetwork.swift */; };
+		7EEE2D182BB7804E002B2A9B /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE2D172BB7804E002B2A9B /* CommentModel.swift */; };
+		7EEE2D1A2BB781FE002B2A9B /* CommentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE2D192BB781FE002B2A9B /* CommentRequest.swift */; };
+		7EEE2D1C2BB7823E002B2A9B /* CommentReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE2D1B2BB7823E002B2A9B /* CommentReply.swift */; };
+		7EEE2D1E2BB78282002B2A9B /* CommentNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE2D1D2BB78282002B2A9B /* CommentNetwork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +91,10 @@
 		7EB72D4A2BB51C2E00B4DDE8 /* CompendiumNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompendiumNetwork.swift; sourceTree = "<group>"; };
 		7EB72D4C2BB51C9800B4DDE8 /* PlantNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantNetwork.swift; sourceTree = "<group>"; };
 		7EB72D4E2BB51CBD00B4DDE8 /* PostNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNetwork.swift; sourceTree = "<group>"; };
+		7EEE2D172BB7804E002B2A9B /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		7EEE2D192BB781FE002B2A9B /* CommentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRequest.swift; sourceTree = "<group>"; };
+		7EEE2D1B2BB7823E002B2A9B /* CommentReply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentReply.swift; sourceTree = "<group>"; };
+		7EEE2D1D2BB78282002B2A9B /* CommentNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNetwork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +278,7 @@
 			children = (
 				7EB72D3E2BB3D71500B4DDE8 /* ErrorReply.swift */,
 				7EB72D272BB39EB000B4DDE8 /* AccountReply.swift */,
+				7EEE2D1B2BB7823E002B2A9B /* CommentReply.swift */,
 				7EB72D332BB39F4500B4DDE8 /* CompendiumReply.swift */,
 				7EB72D352BB39F4E00B4DDE8 /* PlantReply.swift */,
 				7EB72D372BB39F5800B4DDE8 /* PostReply.swift */,
@@ -282,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB72D2B2BB39ED600B4DDE8 /* AccountRequest.swift */,
+				7EEE2D192BB781FE002B2A9B /* CommentRequest.swift */,
 				7EB72D2D2BB39EF500B4DDE8 /* CompendiumRequest.swift */,
 				7EB72D2F2BB39F0900B4DDE8 /* PlantRequest.swift */,
 				7EB72D312BB39F1600B4DDE8 /* PostRequest.swift */,
@@ -294,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB72D462BB512B300B4DDE8 /* AccountNetwork.swift */,
+				7EEE2D1D2BB78282002B2A9B /* CommentNetwork.swift */,
 				7EB72D4A2BB51C2E00B4DDE8 /* CompendiumNetwork.swift */,
 				7EB72D4C2BB51C9800B4DDE8 /* PlantNetwork.swift */,
 				7EB72D4E2BB51CBD00B4DDE8 /* PostNetwork.swift */,
@@ -306,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB72D152BB3641700B4DDE8 /* AccountModel.swift */,
+				7EEE2D172BB7804E002B2A9B /* CommentModel.swift */,
 				7EB72D172BB365C700B4DDE8 /* CompendiumModel.swift */,
 				7EB72D192BB365FE00B4DDE8 /* PlantModel.swift */,
 				7EB72D1B2BB366A000B4DDE8 /* PostModel.swift */,
@@ -404,11 +416,15 @@
 				7E6FC30F2B9EB5ED003814A2 /* RegisterView.swift in Sources */,
 				31D50EB72B086FC700235964 /* Post.swift in Sources */,
 				31E1E3662AFF510200A5F7CE /* GardenView.swift in Sources */,
+				7EEE2D1C2BB7823E002B2A9B /* CommentReply.swift in Sources */,
 				7EB72D382BB39F5800B4DDE8 /* PostReply.swift in Sources */,
 				7EB72D3F2BB3D71500B4DDE8 /* ErrorReply.swift in Sources */,
+				7EEE2D1E2BB78282002B2A9B /* CommentNetwork.swift in Sources */,
 				7EB72D162BB3641700B4DDE8 /* AccountModel.swift in Sources */,
+				7EEE2D1A2BB781FE002B2A9B /* CommentRequest.swift in Sources */,
 				7EB72D342BB39F4500B4DDE8 /* CompendiumReply.swift in Sources */,
 				7EB72D1A2BB365FE00B4DDE8 /* PlantModel.swift in Sources */,
+				7EEE2D182BB7804E002B2A9B /* CommentModel.swift in Sources */,
 				7EB72D1C2BB366A000B4DDE8 /* PostModel.swift in Sources */,
 				31E1E3742AFF586800A5F7CE /* SearchView.swift in Sources */,
 				7EB72D322BB39F1600B4DDE8 /* PostRequest.swift in Sources */,

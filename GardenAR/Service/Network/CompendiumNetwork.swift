@@ -13,9 +13,9 @@ struct CompendiumNetwork {
     static func getCompendia() async throws -> ([CompendiumModel]?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/compendia")!
         var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(CompendiumReply.self, from: data)
@@ -26,9 +26,9 @@ struct CompendiumNetwork {
     static func getCompendium(compendiumId: Int) async throws -> (CompendiumModel?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/compendium/\(compendiumId)")!
         var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(CompendiumReply.self, from: data)
@@ -38,11 +38,12 @@ struct CompendiumNetwork {
     
     static func postCompendium(compendium: CompendiumModel) async throws -> (CompendiumModel?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/compendium")!
-        let body = CompendiumRequest(_compendium: compendium)
         var request = URLRequest(url: url)
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        
+        let body = CompendiumRequest(_compendium: compendium)
         request.httpBody = try JSONEncoder().encode(body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -57,11 +58,12 @@ struct CompendiumNetwork {
     
     static func patchCompendium(compendiumId: Int, compendium: CompendiumModel) async throws -> (CompendiumModel?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/compendium/\(compendiumId)")!
-        let body = CompendiumRequest(_compendium: compendium)
         var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "PATCH"
+        
+        let body = CompendiumRequest(_compendium: compendium)
         request.httpBody = try JSONEncoder().encode(body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
