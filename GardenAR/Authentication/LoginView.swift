@@ -9,25 +9,28 @@ import Foundation
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var authenticationEnvironment: AuthenticationEnvironment
+    @Binding var showLogin: Bool
+    @Binding var loggedIn: Bool
     @State var username: String = ""
     @State var password: String = ""
     
-    func toggle() {
-        self.authenticationEnvironment.showLogin = false
+    func login() async {
+        do {
+            let (token, _) = try await SessionNetwork.postSession(username: self.username, password: self.password)
+            guard let token = token else {
+                // to do: tell the user to check their credentials
+                return
+            }
+            
+            UserDefaults.standard.set(token, forKey: "token")
+            self.loggedIn = true
+        } catch {
+            
+        }
     }
     
-    func login() {
-        Task {
-            let (token, e) = try await SessionNetwork.postSession(username: self.username, password: self.password)
-            if e.error == nil {
-                UserDefaults.standard.set(token, forKey: "token")
-                self.authenticationEnvironment.loggedIn = true
-                self.authenticationEnvironment.showLogin = true
-            } else {
-                // to do: tell the user to check their credentials
-            }
-        }
+    func toggle() {
+        self.showLogin = false
     }
     
     var body: some View {
@@ -50,7 +53,11 @@ struct LoginView: View {
             .background(.tertiary)
             .clipShape(RoundedRectangle(cornerRadius: 8.0))
             
-            Button(action: self.login) {
+            Button(action: {
+                Task{
+                    await self.login()
+                }
+            }) {
                 Text("Sign In").tint(.white)
             }
             .padding(8.0)
@@ -68,6 +75,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    let authenticationEnvironment = AuthenticationEnvironment(loggedIn: false, showLogin: true)
-    return LoginView().environmentObject(authenticationEnvironment)
+    LoginView(showLogin: .constant(true), loggedIn: .constant(false))
 }

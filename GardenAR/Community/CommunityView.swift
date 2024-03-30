@@ -8,27 +8,72 @@
 import SwiftUI
 
 struct CommunityView: View {
-    @State var selectedSocialCategory = "Favorites"
+    @State var selectedSocialCategory = "All"
+    @State var posts: [PostModel] = []
+    @State var favorites: [PostModel] = []
+    
+    func fetchPosts() async {
+        do {
+            let (posts, _) = try await PostNetwork.getPosts()
+            guard let posts = posts else {
+                return
+            }
+            
+            self.posts = posts.reversed()
+        } catch {
+            
+        }
+    }
+    
+    func fetchFavorites() async {
+        do {
+            guard let token = UserDefaults.standard.string(forKey: "token") else {
+               return
+            }
+            
+            let (favorites, _) = try await PostNetwork.getFavorites(token: token)
+            guard let favorites = favorites else {
+               return
+            }
+            
+            self.favorites = favorites.reversed()
+        } catch {
+            
+        }
+    }
     
     var body: some View {
         ScrollView {
             VStack(spacing: 24.0) {
                 Picker(selection: self.$selectedSocialCategory) {
-                    Text("Favorites").tag("Favorites")
                     Text("All").tag("All")
+                    Text("Favorites").tag("Favorites")
                 } label: {
                     
                 }
                 .pickerStyle(.segmented)
                 
-                ForEach(0 ..< 3) { i in
-                    Post(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-                    Divider()
+                if self.selectedSocialCategory == "All" {
+                    ForEach(self.posts.indices, id: \.self) { i in
+                        Post(text: self.posts[i]._content!)
+                        Divider()
+                    }
+                } else {
+                    ForEach( self.favorites.indices, id: \.self) { i in
+                        Post(text: self.favorites[i]._content!)
+                        Divider()
+                    }
                 }
             }
         }
         .padding(.horizontal, 24.0)
         .navigationTitle("Community")
+        .task {
+            Task {
+                await self.fetchPosts()
+                await self.fetchFavorites()
+            }
+        }
     }
 }
 

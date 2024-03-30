@@ -9,22 +9,43 @@ import Foundation
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var authenticationEnvironment: AuthenticationEnvironment
+    @State var showLogin = true
+    @State var loggedIn = false
+    
+    func ping() async {
+        do {
+            guard let token = UserDefaults.standard.string(forKey: "token") else {
+                return
+            }
+            
+            let (valid, _) = try await SessionNetwork.getSession(token: token)
+            guard let valid = valid else {
+                UserDefaults.standard.set(nil, forKey: "token")
+                self.loggedIn = false
+                return
+            }
+            
+            self.loggedIn = true
+        } catch {
+            
+        }
+    }
     
     var body: some View {
-        if authenticationEnvironment.loggedIn {
-            TabBar()
-        } else {
-            if authenticationEnvironment.showLogin {
-                LoginView()
+        VStack {
+            if self.loggedIn {
+                TabBar(loggedIn: self.$loggedIn)
+            } else if self.showLogin {
+                LoginView(showLogin: self.$showLogin, loggedIn: self.$loggedIn)
             } else {
-                RegisterView()
+                RegisterView(showLogin: self.$showLogin)
             }
+        }.task {
+            await self.ping()
         }
     }
 }
 
 #Preview {
-    let authenticationEnvironment = AuthenticationEnvironment(loggedIn: false, showLogin: true)
-    return ContentView().environmentObject(authenticationEnvironment)
+    ContentView()
 }

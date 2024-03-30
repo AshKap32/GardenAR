@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct RegisterView: View {
-    @EnvironmentObject var authenticationEnvironment: AuthenticationEnvironment
+    @Binding var showLogin: Bool
     @State var username: String = ""
     @State var nickname: String = ""
     @State var forename: String = ""
@@ -19,10 +19,6 @@ struct RegisterView: View {
     @State var skill: String = ""
     @State var city: String = ""
     @State var zip: String = ""
-    
-    func toggle() {
-        self.authenticationEnvironment.showLogin = true
-    }
     
     func build() -> AccountModel {
         return AccountModel(
@@ -37,15 +33,22 @@ struct RegisterView: View {
         )
     }
     
-    func register() {
-        Task {
-            let (_, e) = try await AccountNetwork.postAccount(account: self.build(), password: self.password)
-            if e.error == nil {
-                self.authenticationEnvironment.showLogin = true
-            } else {
+    func register() async {
+        do {
+            let (account, _) = try await AccountNetwork.postAccount(account: self.build(), password: self.password)
+            guard let account = account else {
                 // to do: tell the user about a potential username conflict + other errors
+                return
             }
+            
+            self.showLogin = true
+        } catch {
+            
         }
+    }
+    
+    func toggle() {
+        self.showLogin = true
     }
 
     var body: some View {
@@ -122,7 +125,11 @@ struct RegisterView: View {
             .background(.tertiary)
             .clipShape(RoundedRectangle(cornerRadius: 8.0))
             
-            Button(action: self.register) {
+            Button(action: {
+                Task {
+                    await self.register()
+                }
+            }) {
                 Text("Create Account").tint(.white)
             }
             .padding(8.0)
@@ -140,6 +147,5 @@ struct RegisterView: View {
 }
 
 #Preview {
-    let authenticationEnvironment = AuthenticationEnvironment(loggedIn: false, showLogin: false)
-    return RegisterView().environmentObject(authenticationEnvironment)
+    RegisterView(showLogin: .constant(false))
 }

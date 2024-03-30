@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TabBar: View {
+    @Binding var loggedIn: Bool
+    
     var body: some View {
         TabView {
             NavigationView {
@@ -17,6 +19,7 @@ struct TabBar: View {
                 Image(systemName: "leaf")
                 Text("Garden")
             }
+            
             NavigationView {
                 DiscoverView()
             }
@@ -24,6 +27,7 @@ struct TabBar: View {
                 Image(systemName: "safari")
                 Text("Discover")
             }
+            
             NavigationView {
                 EmptyView()
             }
@@ -31,6 +35,7 @@ struct TabBar: View {
                 Image(systemName: "camera")
                 Text("Scan")
             }
+            
             NavigationView {
                 CommunityView()
             }
@@ -38,6 +43,7 @@ struct TabBar: View {
                 Image(systemName: "person.2")
                 Text("Community")
             }
+            
             NavigationView {
                 SearchView()
             }
@@ -50,5 +56,5 @@ struct TabBar: View {
 }
 
 #Preview {
-    TabBar()
+    TabBar(loggedIn: .constant(true))
 }
