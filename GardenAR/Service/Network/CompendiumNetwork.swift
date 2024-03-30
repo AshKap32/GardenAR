@@ -14,8 +14,6 @@ struct CompendiumNetwork {
         let url = URL(string: "http://\(self.host)/compendia")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(CompendiumReply.self, from: data)
@@ -27,9 +25,7 @@ struct CompendiumNetwork {
         let url = URL(string: "http://\(self.host)/compendium/\(compendiumId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(CompendiumReply.self, from: data)
         let e = try JSONDecoder().decode(ErrorReply.self, from: data)

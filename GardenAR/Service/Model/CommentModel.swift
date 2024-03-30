@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CommentModel: Codable {
+struct CommentModel: Codable, Hashable {
     var _comment_id: Int?
     var _post_id: Int?
     var _account_id: Int?

@@ -14,8 +14,6 @@ struct AccountNetwork {
         let url = URL(string: "http://\(self.host)/accounts")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(AccountReply.self, from: data)
@@ -27,8 +25,6 @@ struct AccountNetwork {
         let url = URL(string: "http://\(self.host)/account/\(accountId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(AccountReply.self, from: data)
@@ -40,8 +36,6 @@ struct AccountNetwork {
         let url = URL(string: "http://\(self.host)/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)

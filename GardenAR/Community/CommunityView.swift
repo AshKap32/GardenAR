@@ -54,13 +54,13 @@ struct CommunityView: View {
                 .pickerStyle(.segmented)
                 
                 if self.selectedSocialCategory == "All" {
-                    ForEach(self.posts.indices, id: \.self) { i in
-                        Post(text: self.posts[i]._content!)
+                    ForEach(self.posts, id: \.self) { post in
+                        Post(postId: post._post_id!)
                         Divider()
                     }
                 } else {
-                    ForEach( self.favorites.indices, id: \.self) { i in
-                        Post(text: self.favorites[i]._content!)
+                    ForEach(self.favorites, id: \.self) { favorite in
+                        Post(postId: favorite._post_id!)
                         Divider()
                     }
                 }
@@ -68,7 +68,7 @@ struct CommunityView: View {
         }
         .padding(.horizontal, 24.0)
         .navigationTitle("Community")
-        .task {
+        .onChange(of: self.selectedSocialCategory, initial: true) {
             Task {
                 await self.fetchPosts()
                 await self.fetchFavorites()

@@ -8,18 +8,101 @@
 import SwiftUI
 
 struct Post: View {
-    var text: String
+    @State var content = ""
+    @State var favorited = false
+    var postId: Int
 
-    init(text: String) {
-        self.text = text
+    init(postId: Int) {
+        self.postId = postId
+    }
+    
+    func fetchContent() async {
+        do {
+            let (post, _) = try await PostNetwork.getPost(postId: self.postId)
+            guard let post = post else {
+                return
+            }
+            
+            self.content = post._content!
+        } catch {
+            
+        }
+    }
+    
+    func fetchStatus() async {
+        do {
+            guard let token = UserDefaults.standard.string(forKey: "token") else {
+                return
+            }
+            
+            let (post, _) = try await PostNetwork.getFavorite(postId: self.postId, token: token)
+            guard let post = post else {
+                self.favorited = false
+                return
+            }
+            
+            self.favorited = true
+        } catch {
+            
+        }
+    }
+    
+    func favorite() async {
+        do {
+            guard let token = UserDefaults.standard.string(forKey: "token") else {
+                return
+            }
+            
+            let (post, e) = try await PostNetwork.postFavorite(postId: self.postId, token: token)
+            guard let post = post else {
+                print(e)
+                return
+            }
+            
+            self.favorited = true
+        } catch {
+            
+        }
+    }
+    
+    func unfavorite() async {
+        do {
+            guard let token = UserDefaults.standard.string(forKey: "token") else {
+                return
+            }
+            
+            let (post, e) = try await PostNetwork.deleteFavorite(postId: self.postId, token: token)
+            guard let post = post else {
+                print(e)
+                return
+            }
+            
+            self.favorited = false
+        } catch {
+            
+        }
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16.0) {
-            Text(self.text)
+            Text(self.content)
             HStack(spacing: 8.0) {
-                Button(action: {}) {
-                    Image(systemName: "heart")
+                if self.favorited {
+                    Button(action: {
+                        Task {
+                            await self.unfavorite()
+                        }
+                    }) {
+                        Image(systemName: "heart.fill")
+                    }
+                } else {
+                    Button(action: {
+                        Task {
+                            await self.favorite()
+                        }
+                    }) {
+                        Image(systemName: "heart")
+                    }
                 }
                 
                 Spacer()
@@ -32,10 +115,13 @@ struct Post: View {
                     Image(systemName: "arrowshape.turn.up.right")
                 }
             }
+        }.task {
+            await self.fetchContent()
+            await self.fetchStatus()
         }
     }
 }
 
 #Preview {
-    Post(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    Post(postId: -201)
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PlantModel: Codable {
+struct PlantModel: Codable, Hashable {
     var _plant_id: Int?
     var _compendium_id: Int?
     var _account_id: Int?

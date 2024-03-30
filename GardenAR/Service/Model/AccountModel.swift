@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AccountModel: Codable {
+struct AccountModel: Codable, Hashable {
     var _account_id: Int?
     var _username: String?
     var _nickname: String?

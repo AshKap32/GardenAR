@@ -14,8 +14,6 @@ struct CommentNetwork {
         let url = URL(string: "http://\(self.host)/comments")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(CommentReply.self, from: data)
@@ -27,8 +25,6 @@ struct CommentNetwork {
         let url = URL(string: "http://\(self.host)/comments/post/\(postId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(CommentReply.self, from: data)
@@ -40,8 +36,6 @@ struct CommentNetwork {
         let url = URL(string: "http://\(self.host)/comments/account/\(accountId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(CommentReply.self, from: data)
@@ -53,8 +47,6 @@ struct CommentNetwork {
         let url = URL(string: "http://\(self.host)/comments/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -67,8 +59,6 @@ struct CommentNetwork {
         let url = URL(string: "http://\(self.host)/comment/\(commentId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(CommentReply.self, from: data)

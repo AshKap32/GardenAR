@@ -14,8 +14,6 @@ struct PlantNetwork {
         let url = URL(string: "http://\(self.host)/plants")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(PlantReply.self, from: data)
@@ -27,8 +25,6 @@ struct PlantNetwork {
         let url = URL(string: "http://\(self.host)/plants/account/\(accountId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(PlantReply.self, from: data)
@@ -40,8 +36,6 @@ struct PlantNetwork {
         let url = URL(string: "http://\(self.host)/plants/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -54,8 +48,6 @@ struct PlantNetwork {
         let url = URL(string: "http://\(self.host)/plant/\(plantId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(PlantReply.self, from: data)

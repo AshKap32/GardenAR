@@ -14,8 +14,6 @@ struct PostNetwork {
         let url = URL(string: "http://\(self.host)/posts")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(PostReply.self, from: data)
@@ -27,8 +25,6 @@ struct PostNetwork {
         let url = URL(string: "http://\(self.host)/posts/account/\(accountId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(PostReply.self, from: data)
@@ -40,8 +36,6 @@ struct PostNetwork {
         let url = URL(string: "http://\(self.host)/posts/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -54,8 +48,6 @@ struct PostNetwork {
         let url = URL(string: "http://\(self.host)/posts/favorites/account/\(accountId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(PostReply.self, from: data)
@@ -67,8 +59,6 @@ struct PostNetwork {
         let url = URL(string: "http://\(self.host)/posts/favorites/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -81,8 +71,29 @@ struct PostNetwork {
         let url = URL(string: "http://\(self.host)/post/\(postId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let reply = try JSONDecoder().decode(PostReply.self, from: data)
+        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        return (reply._post, e)
+    }
+    
+    static func getFavorite(postId: Int, accountId: Int) async throws -> (PostModel?, ErrorReply) {
+        let url = URL(string: "http://\(self.host)/post/\(postId)/favorite/account/\(accountId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let reply = try JSONDecoder().decode(PostReply.self, from: data)
+        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        return (reply._post, e)
+    }
+    
+    static func getFavorite(postId: Int, token: String) async throws -> (PostModel?, ErrorReply) {
+        let url = URL(string: "http://\(self.host)/post/\(postId)/favorite/account/token")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(PostReply.self, from: data)
@@ -94,8 +105,6 @@ struct PostNetwork {
         let url = URL(string: "http://\(self.host)/post/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let body = PostRequest(_post: post)
@@ -114,6 +123,7 @@ struct PostNetwork {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = try JSONEncoder().encode("")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(PostReply.self, from: data)
@@ -132,6 +142,7 @@ struct PostNetwork {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = try JSONEncoder().encode("")
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let reply = try JSONDecoder().decode(PostReply.self, from: data)
