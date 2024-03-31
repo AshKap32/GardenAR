@@ -35,7 +35,7 @@ struct LoginView: View {
     
     var body: some View {
         VStack(spacing: 16.0) {
-            Image("Images/LogoTransparent").resizable().frame(width: 500)
+            Image("Images/LogoTransparent").resizable().aspectRatio(contentMode: .fit)
             
             HStack(spacing: 16.0) {
                 Image(systemName: "person.fill")
@@ -54,7 +54,7 @@ struct LoginView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8.0))
             
             Button(action: {
-                Task{
+                Task {
                     await self.login()
                 }
             }) {

@@ -8,15 +8,33 @@
 import SwiftUI
 
 struct SearchView: View {
-    
+    @State var compendia: [CompendiumModel] = []
     @State var searchText = ""
+    
+    func fetch() async {
+        do {
+            let (compendia, _) = try await CompendiumNetwork.getCompendia()
+            guard let compendia = compendia else {
+                return
+            }
+            
+            self.compendia = compendia
+        } catch {
+            
+        }
+    }
     
     var body: some View {
         List {
-            PlantRow()
+            ForEach(self.compendia, id: \.self) { compendium in
+                PlantRow(compendiumId: compendium._compendium_id!)
+            }
         }
         .navigationTitle("Search")
-        .searchable(text: $searchText)
+        .searchable(text: self.$searchText)
+        .task {
+            await self.fetch()
+        }
     }
 }
 

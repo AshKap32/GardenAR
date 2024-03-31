@@ -11,4 +11,5 @@ struct CompendiumModel: Codable, Hashable {
     var _compendium_id: Int?
     var _name: String?
     var _description: String?
+    var _icon: String?
 }
