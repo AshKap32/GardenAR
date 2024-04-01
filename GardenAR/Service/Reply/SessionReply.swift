@@ -9,6 +9,4 @@ import Foundation
 
 struct SessionReply: Codable {
     var _token: String?
-    var _status: String?
-    var _valid: Bool?
 }

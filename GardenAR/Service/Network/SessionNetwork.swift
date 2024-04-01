@@ -10,7 +10,7 @@ import Foundation
 struct SessionNetwork {
     static let host = "localhost:8080" // to do: extract this from some sort of config file
     
-    static func getSession(token: String) async throws -> (Bool?, ErrorReply) {
+    static func getSession(token: String) async throws -> ErrorReply {
         let url = URL(string: "http://\(self.host)/session/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -19,9 +19,7 @@ struct SessionNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(SessionReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
-        return (reply._valid, e)
+        return try JSONDecoder().decode(ErrorReply.self, from: data)
     }
     
     static func postSession(username: String, password: String) async throws -> (String?, ErrorReply) {
@@ -40,7 +38,7 @@ struct SessionNetwork {
         return (reply._token, e)
     }
     
-    static func deleteSession(token: String) async throws -> (String?, ErrorReply) {
+    static func deleteSession(token: String) async throws -> ErrorReply {
         let url = URL(string: "http://\(self.host)/session/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -49,8 +47,6 @@ struct SessionNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(SessionReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
-        return (reply._status, e)
+        return try JSONDecoder().decode(ErrorReply.self, from: data)
     }
 }

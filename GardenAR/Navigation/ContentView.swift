@@ -18,14 +18,13 @@ struct ContentView: View {
                 return
             }
             
-            let (valid, _) = try await SessionNetwork.getSession(token: token)
-            guard let valid = valid else {
+            let e = try await SessionNetwork.getSession(token: token)
+            if e.error == nil {
+                self.loggedIn = true
+            } else {
                 UserDefaults.standard.set(nil, forKey: "token")
                 self.loggedIn = false
-                return
             }
-            
-            self.loggedIn = true
         } catch {
             
         }
