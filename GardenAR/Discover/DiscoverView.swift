@@ -18,7 +18,7 @@ struct DiscoverView: View {
                             .image?
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: .infinity, height: 200.0)
+                            .frame(width: .infinity)
                             .clipShape(.rect(cornerRadius: 8.0))
                     }
                     
@@ -31,13 +31,14 @@ struct DiscoverView: View {
                             .image?
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: .infinity, height: 200.0)
+                            .frame(width: .infinity)
                             .clipShape(.rect(cornerRadius: 8.0))
                     }
                     
                     Text("Snake Variety")
                 }
             }
+            
             AsyncImage(url: URL(string: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1554477330-beautiful-asparagus-fern-plant-in-a-basket-royalty-free-image-972247932-1546889240.jpg?crop=0.457xw:0.301xh;0.447xw,0.372xh&resize=980:*")) { image in
                 image
                     .image?
@@ -49,7 +50,6 @@ struct DiscoverView: View {
             
             Text("Fern Variety")
         }
-        .navigationTitle("Discover")
         .padding(.horizontal, 32.0)
     }
 }

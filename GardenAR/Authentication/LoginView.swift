@@ -42,6 +42,7 @@ struct LoginView: View {
                 Image("Images/LogoTransparent")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .frame(width: .infinity)
                 
                 HStack(spacing: 16.0) {
                     Image(systemName: "person.fill")

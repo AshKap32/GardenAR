@@ -31,10 +31,9 @@ struct SearchView: View {
                 CompendiumRow(compendiumId: compendium._compendium_id!)
             }
         }
-        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
         .scrollIndicators(.hidden)
-        .navigationTitle("Search")
         .padding(.horizontal, 32.0)
+        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
         .task {
             await self.fetch()
         }

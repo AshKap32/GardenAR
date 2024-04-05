@@ -38,6 +38,10 @@ struct PlantInfo: View {
     
     var body: some View {
         ScrollView {
+            Text(self.name)
+                .font(.title2)
+                .fontWeight(.bold)
+            
             AsyncImage(url: URL(string: self.icon)) { image in
                 image
                     .image?
@@ -47,10 +51,9 @@ struct PlantInfo: View {
                     .clipShape(.rect(cornerRadius: 8.0))
             }
             
-            Text(self.description).multilineTextAlignment(.leading)
+            Text(self.description)
         }
         .scrollIndicators(.hidden)
-        .navigationTitle(self.name)
         .padding(.horizontal, 32.0)
         .task {
             await self.fetch()

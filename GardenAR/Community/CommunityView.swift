@@ -55,13 +55,12 @@ struct CommunityView: View {
             
             ScrollView {
                 ForEach(self.posts, id: \.self) { post in
-                    Post(postId: post._post_id!)
+                    PostRow(postId: post._post_id!)
                     Divider()
                 }
             }
             .scrollIndicators(.hidden)
         }
-        .navigationTitle("Community")
         .padding(.horizontal, 32.0)
         .onChange(of: self.selectedSocialCategory, initial: true) {
             Task {

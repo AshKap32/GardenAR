@@ -40,7 +40,6 @@ struct UserHeaderBar: View {
                     .fontWeight(.bold)
                 
                 Text("\(Date(), format: .dateTime.weekday(Date.FormatStyle.Symbol.Weekday.wide)), \(Date(), format: .dateTime.month(Date.FormatStyle.Symbol.Month.wide).day().year())")
-                    .fontWeight(.medium)
             }
             
             Spacer()

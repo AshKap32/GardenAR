@@ -34,7 +34,6 @@ struct NotificationView: View {
             }
             .scrollIndicators(.hidden)
         }
-        .navigationTitle("Notifications")
         .padding(.horizontal, 32.0)
     }
 }
