@@ -5,12 +5,12 @@
 //  Created by Aashish Kapoor on 11/17/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct CommunityView: View {
-    @State var selectedSocialCategory = "All"
     @State var posts: [PostModel] = []
-    @State var favorites: [PostModel] = []
+    @State var selectedSocialCategory = "All"
     
     func fetchPosts() async {
         do {
@@ -36,42 +36,36 @@ struct CommunityView: View {
                return
             }
             
-            self.favorites = favorites.reversed()
+            self.posts = favorites.reversed()
         } catch {
             
         }
     }
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24.0) {
-                Picker(selection: self.$selectedSocialCategory) {
-                    Text("All").tag("All")
-                    Text("Favorites").tag("Favorites")
-                } label: {
-                    
-                }
-                .pickerStyle(.segmented)
+        VStack {
+            Picker("", selection: self.$selectedSocialCategory) {
+                Text("All")
+                    .tag("All")
                 
-                if self.selectedSocialCategory == "All" {
-                    ForEach(self.posts, id: \.self) { post in
-                        Post(postId: post._post_id!)
-                        Divider()
-                    }
-                } else {
-                    ForEach(self.favorites, id: \.self) { favorite in
-                        Post(postId: favorite._post_id!)
-                        Divider()
-                    }
+                Text("Favorites")
+                    .tag("Favorites")
+            }
+            .pickerStyle(.segmented)
+            
+            ScrollView {
+                ForEach(self.posts, id: \.self) { post in
+                    Post(postId: post._post_id!)
+                    Divider()
                 }
             }
+            .scrollIndicators(.hidden)
         }
-        .padding(.horizontal, 24.0)
         .navigationTitle("Community")
+        .padding(.horizontal, 32.0)
         .onChange(of: self.selectedSocialCategory, initial: true) {
             Task {
-                await self.fetchPosts()
-                await self.fetchFavorites()
+                self.selectedSocialCategory == "All" ? await self.fetchPosts() : await self.fetchFavorites()
             }
         }
     }

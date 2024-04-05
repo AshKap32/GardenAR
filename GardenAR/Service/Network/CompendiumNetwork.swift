@@ -9,6 +9,8 @@ import Foundation
 
 struct CompendiumNetwork {
     static let host = "localhost:8080" // to do: extract this from some sort of config file
+    static let encoder = JSONEncoder()
+    static let decoder = JSONDecoder()
     
     static func getCompendia() async throws -> ([CompendiumModel]?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/compendia")!
@@ -16,8 +18,8 @@ struct CompendiumNetwork {
         request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CompendiumReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CompendiumReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._compendia, e)
     }
     
@@ -27,8 +29,8 @@ struct CompendiumNetwork {
         request.httpMethod = "GET"
         
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CompendiumReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CompendiumReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._compendium, e)
     }
     
@@ -40,11 +42,11 @@ struct CompendiumNetwork {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let body = CompendiumRequest(_compendium: compendium)
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try self.encoder.encode(body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CompendiumReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CompendiumReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._compendium, e)
     }
     
@@ -60,11 +62,11 @@ struct CompendiumNetwork {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let body = CompendiumRequest(_compendium: compendium)
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try self.encoder.encode(body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CompendiumReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CompendiumReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._compendium, e)
     }
 }

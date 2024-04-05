@@ -5,32 +5,37 @@
 //  Created by Aashish Kapoor on 11/17/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct NotificationView: View {
-    
     @State var selectedNotificationCategory = "Favorites"
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24.0) {
-                Picker(selection: $selectedNotificationCategory) {
-                    Text("Favorites").tag("Direct Message")
-                    Text("All").tag("All")
-                    Text("Recurring").tag("Recurring")
-                } label: {}
-                    .pickerStyle(.segmented)
-                VStack {
-                    NotificationRow(thatOneOnly: "Test Notification 1")
-                    NotificationRow(thatOneOnly: "Test Notification 2")
-                    NotificationRow(thatOneOnly: "Test Notification 3")
-                    NotificationRow(thatOneOnly: "Test Notification 4")
-                    NotificationRow(thatOneOnly: "Test Notification 5")
-                }
+        VStack {
+            Picker("", selection: $selectedNotificationCategory) {
+                Text("Favorites")
+                    .tag("Favorites")
+                
+                Text("All")
+                    .tag("All")
+                
+                Text("Recurring")
+                    .tag("Recurring")
             }
+            .pickerStyle(.segmented)
+            
+            ScrollView {
+                NotificationRow(thatOneOnly: "Test Notification 1")
+                NotificationRow(thatOneOnly: "Test Notification 2")
+                NotificationRow(thatOneOnly: "Test Notification 3")
+                NotificationRow(thatOneOnly: "Test Notification 4")
+                NotificationRow(thatOneOnly: "Test Notification 5")
+            }
+            .scrollIndicators(.hidden)
         }
-        .padding(.horizontal, 24.0)
         .navigationTitle("Notifications")
+        .padding(.horizontal, 32.0)
     }
 }
 

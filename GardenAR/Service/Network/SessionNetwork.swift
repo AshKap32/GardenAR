@@ -9,6 +9,8 @@ import Foundation
 
 struct SessionNetwork {
     static let host = "localhost:8080" // to do: extract this from some sort of config file
+    static let encoder = JSONEncoder()
+    static let decoder = JSONDecoder()
     
     static func getSession(token: String) async throws -> ErrorReply {
         let url = URL(string: "http://\(self.host)/session/account/token")!
@@ -19,7 +21,7 @@ struct SessionNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode(ErrorReply.self, from: data)
+        return try self.decoder.decode(ErrorReply.self, from: data)
     }
     
     static func postSession(username: String, password: String) async throws -> (String?, ErrorReply) {
@@ -30,11 +32,11 @@ struct SessionNetwork {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let body = SessionRequest(_username: username, _password: password)
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try self.encoder.encode(body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(SessionReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(SessionReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._token, e)
     }
     
@@ -47,6 +49,6 @@ struct SessionNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode(ErrorReply.self, from: data)
+        return try self.decoder.decode(ErrorReply.self, from: data)
     }
 }

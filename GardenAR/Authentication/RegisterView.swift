@@ -52,97 +52,119 @@ struct RegisterView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16.0) {
-            HStack(spacing: 16.0) {
-                Image(systemName: "person.fill")
-                TextField("Username", text: self.$username).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+        ZStack {
+            Color("Colors/Body")
+                .ignoresSafeArea()
             
-            HStack(spacing: 16.0) {
-                Image(systemName: "person.fill")
-                TextField("Nickname", text: self.$nickname).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            HStack(spacing: 16.0) {
-                Image(systemName: "person.fill")
-                TextField("First Name", text: self.$forename).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            HStack(spacing: 16.0) {
-                Image(systemName: "person.fill")
-                TextField("Last Name", text: self.$surname).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            HStack(spacing: 16.0) {
-                Image(systemName: "envelope.fill")
-                TextField("Email", text: self.$email).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            HStack(spacing: 16.0) {
-                Image(systemName: "lock.fill")
-                SecureField("Password", text: self.$password).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            HStack(spacing: 16.0) {
-                Image(systemName: "rosette")
-                TextField("Skill Level", text: self.$skill).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            HStack(spacing: 16.0) {
-                Image(systemName: "building.fill")
-                TextField("City", text: self.$city).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            HStack(spacing: 16.0) {
-                Image(systemName: "building.fill")
-                TextField("Zip Code", text: self.$zip).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            Button(action: {
-                Task {
-                    await self.register()
+            VStack(spacing: 16.0) {
+                HStack(spacing: 16.0) {
+                    Image(systemName: "person.fill")
+                    TextField("Username", text: self.$username)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
                 }
-            }) {
-                Text("Create Account").tint(.white)
-            }
-            .padding(8.0)
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "person.fill")
+                    TextField("Nickname", text: self.$nickname)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "person.fill")
+                    TextField("First Name", text: self.$forename)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "person.fill")
+                    TextField("Last Name", text: self.$surname)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "envelope.fill")
+                    TextField("Email", text: self.$email)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "lock.fill")
+                    SecureField("Password", text: self.$password)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "rosette")
+                    TextField("Skill Level", text: self.$skill)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "building.fill")
+                    TextField("City", text: self.$city)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "building.fill")
+                    TextField("Zip Code", text: self.$zip)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                Button(action: {
+                    Task {
+                        await self.register()
+                    }
+                }) {
+                    Text("Create Account")
+                        .tint(.white)
+                }
+                .padding(8.0)
 
-            Button(action: self.toggle) {
-                Text("Sign In").tint(.white)
+                Button(action: self.toggle) {
+                    Text("Sign In")
+                        .tint(.white)
+                }
+                .padding(8.0)
             }
-            .padding(8.0)
-          
-            Spacer()
+            .padding(.horizontal, 32.0)
         }
-        .padding(32.0)
-        .background(Color("Colors/Body"))
     }
 }
 

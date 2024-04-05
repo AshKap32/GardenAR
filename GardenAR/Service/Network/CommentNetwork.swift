@@ -9,6 +9,8 @@ import Foundation
 
 struct CommentNetwork {
     static let host = "localhost:8080" // to do: extract this from some sort of config file
+    static let encoder = JSONEncoder()
+    static let decoder = JSONDecoder()
     
     static func getComments() async throws -> ([CommentModel]?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/comments")!
@@ -16,8 +18,8 @@ struct CommentNetwork {
         request.httpMethod = "GET"
         
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CommentReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._comments, e)
     }
     
@@ -27,8 +29,8 @@ struct CommentNetwork {
         request.httpMethod = "GET"
         
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CommentReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._comments, e)
     }
     
@@ -38,8 +40,8 @@ struct CommentNetwork {
         request.httpMethod = "GET"
         
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CommentReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._comments, e)
     }
     
@@ -50,8 +52,8 @@ struct CommentNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CommentReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._comments, e)
     }
     
@@ -61,8 +63,8 @@ struct CommentNetwork {
         request.httpMethod = "GET"
         
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CommentReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._comment, e)
     }
     
@@ -75,11 +77,11 @@ struct CommentNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let body = CommentRequest(_comment: comment)
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try self.encoder.encode(body)
         
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CommentReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._comment, e)
     }
     
@@ -96,11 +98,11 @@ struct CommentNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let body = CommentRequest(_comment: comment)
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try self.encoder.encode(body)
         
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(CommentReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(CommentReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._comment, e)
     }
 }

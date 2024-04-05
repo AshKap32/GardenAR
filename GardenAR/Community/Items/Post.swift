@@ -5,16 +5,13 @@
 //  Created by Aashish Kapoor on 11/17/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct Post: View {
     @State var content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     @State var favorited = false
     var postId: Int
-
-    init(postId: Int) {
-        self.postId = postId
-    }
     
     func fetchContent() async {
         do {
@@ -53,9 +50,8 @@ struct Post: View {
                 return
             }
             
-            let (post, e) = try await PostNetwork.postFavorite(postId: self.postId, token: token)
+            let (post, _) = try await PostNetwork.postFavorite(postId: self.postId, token: token)
             guard let post = post else {
-                print(e)
                 return
             }
             
@@ -71,9 +67,8 @@ struct Post: View {
                 return
             }
             
-            let (post, e) = try await PostNetwork.deleteFavorite(postId: self.postId, token: token)
+            let (post, _) = try await PostNetwork.deleteFavorite(postId: self.postId, token: token)
             guard let post = post else {
-                print(e)
                 return
             }
             
@@ -86,24 +81,15 @@ struct Post: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16.0) {
             Text(self.content)
-            HStack(spacing: 8.0) {
-                if self.favorited {
-                    Button(action: {
-                        Task {
-                            await self.unfavorite()
-                        }
-                    }) {
-                        Image(systemName: "heart.fill")
+            HStack {
+                Button(action: {
+                    Task {
+                        self.favorited ? await self.unfavorite() : await self.favorite()
                     }
-                } else {
-                    Button(action: {
-                        Task {
-                            await self.favorite()
-                        }
-                    }) {
-                        Image(systemName: "heart")
-                    }
+                }) {
+                    Image(systemName: self.favorited ? "heart.fill" : "heart")
                 }
+                
                 
                 Spacer()
                 Button(action: {}) {
@@ -115,7 +101,8 @@ struct Post: View {
                     Image(systemName: "arrowshape.turn.up.right")
                 }
             }
-        }.task {
+        }
+        .task {
             await self.fetchContent()
             await self.fetchStatus()
         }

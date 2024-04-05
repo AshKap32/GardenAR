@@ -34,43 +34,53 @@ struct LoginView: View {
     }
     
     var body: some View {
-        VStack(spacing: 16.0) {
-            Image("Images/LogoTransparent").resizable().aspectRatio(contentMode: .fit)
+        ZStack {
+            Color("Colors/Body")
+                .ignoresSafeArea()
             
-            HStack(spacing: 16.0) {
-                Image(systemName: "person.fill")
-                TextField("Username", text: self.$username).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            HStack(spacing: 16.0) {
-                Image(systemName: "lock.fill")
-                SecureField("Password", text: self.$password).textInputAutocapitalization(.never).autocorrectionDisabled(true)
-            }
-            .padding(16.0)
-            .background(.tertiary)
-            .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            
-            Button(action: {
-                Task {
-                    await self.login()
+            VStack(spacing: 16.0) {
+                Image("Images/LogoTransparent")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "person.fill")
+                    TextField("Username", text: self.$username)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
                 }
-            }) {
-                Text("Sign In").tint(.white)
-            }
-            .padding(8.0)
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                HStack(spacing: 16.0) {
+                    Image(systemName: "lock.fill")
+                    SecureField("Password", text: self.$password)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+                .padding(16.0)
+                .background(.tertiary)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                
+                Button(action: {
+                    Task {
+                        await self.login()
+                    }
+                }) {
+                    Text("Sign In")
+                        .tint(.white)
+                }
+                .padding(8.0)
 
-            Button(action: self.toggle) {
-                Text("Create Account").tint(.white)
+                Button(action: self.toggle) {
+                    Text("Create Account")
+                        .tint(.white)
+                }
+                .padding(8.0)
             }
-            .padding(8.0)
-          
-            Spacer()
+            .padding(.horizontal, 32.0)
         }
-        .padding(32.0)
-        .background(Color("Colors/Body"))
     }
 }
 

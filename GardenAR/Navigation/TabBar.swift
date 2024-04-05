@@ -5,14 +5,13 @@
 //  Created by Aashish Kapoor on 11/10/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct TabBar: View {
-    @Binding var loggedIn: Bool
-    
     var body: some View {
         TabView {
-            NavigationView {
+            NavigationStack {
                 GardenView()
             }
             .tabItem {
@@ -20,7 +19,7 @@ struct TabBar: View {
                 Text("Garden")
             }
             
-            NavigationView {
+            NavigationStack {
                 DiscoverView()
             }
             .tabItem {
@@ -28,7 +27,7 @@ struct TabBar: View {
                 Text("Discover")
             }
             
-            NavigationView {
+            NavigationStack {
                 EmptyView()
             }
             .tabItem {
@@ -36,7 +35,7 @@ struct TabBar: View {
                 Text("Scan")
             }
             
-            NavigationView {
+            NavigationStack {
                 CommunityView()
             }
             .tabItem {
@@ -44,7 +43,7 @@ struct TabBar: View {
                 Text("Community")
             }
             
-            NavigationView {
+            NavigationStack {
                 SearchView()
             }
             .tabItem {
@@ -56,5 +55,5 @@ struct TabBar: View {
 }
 
 #Preview {
-    TabBar(loggedIn: .constant(true))
+    TabBar()
 }

@@ -1,26 +1,21 @@
 //
-//  PlantRow.swift
+//  SearchRow.swift
 //  GardenAR
 //
-//  Created by Aashish Kapoor on 11/14/23.
+//  Created by KOBOLD! on 4/4/24.
 //
 
 import Foundation
 import SwiftUI
 
-struct PlantRow: View {
+struct CompendiumRow: View {
     @State var name = "Plant Type"
     @State var icon = "https://cdn.shopify.com/s/files/1/0150/6262/products/the_sill-variant-white_gloss-money_tree.jpg?v=1699404852"
-    var plantId: Int
+    var compendiumId: Int
     
     func fetch() async {
         do {
-            let (plant, _) = try await PlantNetwork.getPlant(plantId: plantId)
-            guard let plant = plant else {
-                return
-            }
-            
-            let (compendium, _) = try await CompendiumNetwork.getCompendium(compendiumId: plant._compendium_id!)
+            let (compendium, _) = try await CompendiumNetwork.getCompendium(compendiumId: compendiumId)
             guard let compendium = compendium else {
                 return
             }
@@ -33,7 +28,7 @@ struct PlantRow: View {
     }
     
     var body: some View {
-        NavigationLink(destination: PlantInfo(plantId: self.plantId)) {
+        NavigationLink(destination: CompendiumInfo(compendiumId: self.compendiumId)) {
             HStack(spacing: 16.0) {
                 AsyncImage(url: URL(string: self.icon)) { image in
                     image
@@ -54,7 +49,6 @@ struct PlantRow: View {
         }
     }
 }
-
 #Preview {
-    PlantRow(plantId: -501)
+    CompendiumRow(compendiumId: -401)
 }

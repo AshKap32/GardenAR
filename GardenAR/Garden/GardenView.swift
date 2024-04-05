@@ -5,6 +5,7 @@
 //  Created by Aashish Kapoor on 11/10/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct GardenView: View {
@@ -28,15 +29,18 @@ struct GardenView: View {
     }
     
     var body: some View {
-        ScrollView {
-            Group {
-                UserHeaderBar()
+        VStack {
+            UserHeaderBar()
+            ScrollView {
                 ForEach(self.plants, id: \.self) { plant in
-                    PlantRow(compendiumId: plant._compendium_id!)
+                    PlantRow(plantId: plant._plant_id!)
+                    PlantRow(plantId: plant._plant_id!)
                 }
             }
-            .padding(24.0)
-        }.task {
+            .scrollIndicators(.hidden)
+        }
+        .padding(.horizontal, 32.0)
+        .task {
             await self.fetch()
         }
     }

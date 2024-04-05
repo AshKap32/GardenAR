@@ -9,6 +9,8 @@ import Foundation
 
 struct PlantNetwork {
     static let host = "localhost:8080" // to do: extract this from some sort of config file
+    static let encoder = JSONEncoder()
+    static let decoder = JSONDecoder()
     
     static func getPlants() async throws -> ([PlantModel]?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/plants")!
@@ -16,8 +18,8 @@ struct PlantNetwork {
         request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PlantReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._plants, e)
     }
     
@@ -27,8 +29,8 @@ struct PlantNetwork {
         request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PlantReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._plants, e)
     }
     
@@ -39,8 +41,8 @@ struct PlantNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PlantReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._plants, e)
     }
     
@@ -50,8 +52,8 @@ struct PlantNetwork {
         request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PlantReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._plant, e)
     }
     
@@ -64,11 +66,11 @@ struct PlantNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let body = PlantRequest(_plant: plant)
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try self.encoder.encode(body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PlantReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._plant, e)
     }
     
@@ -85,11 +87,11 @@ struct PlantNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let body = PlantRequest(_plant: plant)
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try self.encoder.encode(body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PlantReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PlantReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._plant, e)
     }
 }

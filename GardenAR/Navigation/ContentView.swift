@@ -33,13 +33,14 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if self.loggedIn {
-                TabBar(loggedIn: self.$loggedIn)
+                TabBar()
             } else if self.showLogin {
                 LoginView(showLogin: self.$showLogin, loggedIn: self.$loggedIn)
             } else {
                 RegisterView(showLogin: self.$showLogin)
             }
-        }.task {
+        }
+        .task {
             await self.ping()
         }
     }

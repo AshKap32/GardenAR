@@ -9,6 +9,8 @@ import Foundation
 
 struct PostNetwork {
     static let host = "localhost:8080" // to do: extract this from some sort of config file
+    static let encoder = JSONEncoder()
+    static let decoder = JSONDecoder()
     
     static func getPosts() async throws -> ([PostModel]?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/posts")!
@@ -16,8 +18,8 @@ struct PostNetwork {
         request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._posts, e)
     }
     
@@ -27,8 +29,8 @@ struct PostNetwork {
         request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._posts, e)
     }
     
@@ -39,8 +41,8 @@ struct PostNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._posts, e)
     }
     
@@ -50,8 +52,8 @@ struct PostNetwork {
         request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._posts, e)
     }
     
@@ -62,8 +64,8 @@ struct PostNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._posts, e)
     }
     
@@ -73,8 +75,8 @@ struct PostNetwork {
         request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._post, e)
     }
     
@@ -84,8 +86,8 @@ struct PostNetwork {
         request.httpMethod = "GET"
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._post, e)
     }
     
@@ -96,8 +98,8 @@ struct PostNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._post, e)
     }
     
@@ -108,11 +110,11 @@ struct PostNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let body = PostRequest(_post: post)
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try self.encoder.encode(body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._post, e)
     }
     
@@ -123,11 +125,11 @@ struct PostNetwork {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.httpBody = try JSONEncoder().encode("")
+        request.httpBody = try self.encoder.encode("")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._post, e)
     }
     
@@ -142,11 +144,11 @@ struct PostNetwork {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.httpBody = try JSONEncoder().encode("")
+        request.httpBody = try self.encoder.encode("")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._post, e)
     }
     
@@ -159,11 +161,11 @@ struct PostNetwork {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let body = PostRequest(_post: post)
-        request.httpBody = try JSONEncoder().encode(body)
+        request.httpBody = try self.encoder.encode(body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try JSONDecoder().decode(PostReply.self, from: data)
-        let e = try JSONDecoder().decode(ErrorReply.self, from: data)
+        let reply = try self.decoder.decode(PostReply.self, from: data)
+        let e = try self.decoder.decode(ErrorReply.self, from: data)
         return (reply._post, e)
     }
 }

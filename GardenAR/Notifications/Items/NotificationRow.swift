@@ -5,10 +5,10 @@
 //  Created by Aashish Kapoor on 11/17/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct NotificationRow: View {
-    
     var thatOneOnly = ""
     
     var body: some View {

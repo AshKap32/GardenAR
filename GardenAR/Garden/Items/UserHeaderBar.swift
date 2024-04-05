@@ -5,6 +5,7 @@
 //  Created by Aashish Kapoor on 11/10/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct UserHeaderBar: View {
@@ -33,9 +34,13 @@ struct UserHeaderBar: View {
     
     var body: some View {
         HStack(spacing: 16.0) {
-            VStack(alignment: .leading, spacing: 6.0) {
-                Text("Welcome \(self.username) 👋").font(.title2).fontWeight(.bold)
-                Text("\(Date(), format: .dateTime.weekday(Date.FormatStyle.Symbol.Weekday.wide)), \(Date(), format: .dateTime.month(Date.FormatStyle.Symbol.Month.wide).day().year())").fontWeight(.medium)
+            VStack(alignment: .leading) {
+                Text("Welcome \(self.username) 👋")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                
+                Text("\(Date(), format: .dateTime.weekday(Date.FormatStyle.Symbol.Weekday.wide)), \(Date(), format: .dateTime.month(Date.FormatStyle.Symbol.Month.wide).day().year())")
+                    .fontWeight(.medium)
             }
             
             Spacer()
@@ -45,7 +50,8 @@ struct UserHeaderBar: View {
             .buttonStyle(.plain)
             
             Image(systemName: "heart")
-        }.task {
+        }
+        .task {
             await self.fetch()
         }
     }

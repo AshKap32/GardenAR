@@ -5,6 +5,7 @@
 //  Created by Aashish Kapoor on 11/10/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct SearchView: View {
@@ -25,13 +26,15 @@ struct SearchView: View {
     }
     
     var body: some View {
-        List {
+        ScrollView {
             ForEach(self.compendia, id: \.self) { compendium in
-                PlantRow(compendiumId: compendium._compendium_id!)
+                CompendiumRow(compendiumId: compendium._compendium_id!)
             }
         }
+        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .scrollIndicators(.hidden)
         .navigationTitle("Search")
-        .searchable(text: self.$searchText)
+        .padding(.horizontal, 32.0)
         .task {
             await self.fetch()
         }
