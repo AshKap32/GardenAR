@@ -23,6 +23,11 @@ struct UserHeaderBar: View {
             }
             .buttonStyle(.plain)
             Image(systemName: "heart")
+            
+            // user icon
+            NavigationLink(destination: UserView()) {
+                Image(systemName: "person.fill")
+            }
         }
     }
 }

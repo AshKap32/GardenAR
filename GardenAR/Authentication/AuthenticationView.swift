@@ -25,10 +25,9 @@ struct AuthenticationView: View {
         ZStack {
             VStack {
                 
-                Image("GardenARN")
+                Image("LogoTransparent")
                     .resizable()
-                    .frame(width: 329, height: 273)
-                
+                    .frame(width: 250, height: 273)
      
                 
                 HStack(spacing: 12.0) {
@@ -38,6 +37,7 @@ struct AuthenticationView: View {
                 .padding(20.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 16.0))
+                .foregroundColor(.white)
                 
                 HStack(spacing: 12.0) {
                     Image(systemName: "lock")
@@ -46,7 +46,7 @@ struct AuthenticationView: View {
                 .padding(20.0)
                 .background(.tertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 16.0))
-                
+                .foregroundColor(.white)
               
                 
                 Button(action: {
@@ -69,7 +69,7 @@ struct AuthenticationView: View {
             
             .padding(24.0)
         }
-        .background(Color("74C98B"))
+        .background(Color("007039"))
     }
     
     var register: some View {
