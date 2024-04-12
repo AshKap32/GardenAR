@@ -5,18 +5,43 @@
 //  Created by Aashish Kapoor on 11/10/23.
 //
 
+import Foundation
 import SwiftUI
 
 struct GardenView: View {
+    @State var plants: [PlantModel] = []
+    
+    func fetch() async {
+        do {
+            guard let token = UserDefaults.standard.string(forKey: "token") else {
+                return
+            }
+            
+            let (plants, _) = try await PlantNetwork.getPlants(token: token)
+            guard let plants = plants else {
+                return
+            }
+            
+            self.plants = plants
+        } catch {
+            
+        }
+    }
+    
     var body: some View {
-        ScrollView {
-            Group {
-                UserHeaderBar()
-                ForEach(0..<6) { plant in
-                    PlantRow()
+        VStack {
+            UserHeaderBar()
+            ScrollView {
+                ForEach(self.plants, id: \.self) { plant in
+                    PlantRow(plantId: plant._plant_id!)
+                    PlantRow(plantId: plant._plant_id!)
                 }
             }
-            .padding(24.0)
+            .scrollIndicators(.hidden)
+        }
+        .padding(.horizontal, 32.0)
+        .task {
+            await self.fetch()
         }
     }
 }
