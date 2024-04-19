@@ -46,5 +46,7 @@ struct CompendiumRow: View {
     }
 }
 #Preview {
-    CompendiumRow(compendiumId: -401)
+    NavigationStack {
+        CompendiumRow(compendiumId: -401)
+    }
 }

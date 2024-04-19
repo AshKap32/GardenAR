@@ -52,5 +52,7 @@ struct PlantRow: View {
 }
 
 #Preview {
-    PlantRow(plantId: -501)
+    NavigationStack {
+        PlantRow(plantId: -501)
+    }
 }

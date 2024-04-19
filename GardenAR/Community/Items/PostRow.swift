@@ -86,9 +86,9 @@ struct PostRow: View {
                     Image(systemName: "arrowshape.turn.up.right")
                 }
             }
-            
-            Divider()
         }
+        .padding(.top, 24.0)
+        .padding(.bottom, 12.0)
         .task {
             await self.fetchContent()
             await self.fetchStatus()

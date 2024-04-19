@@ -21,15 +21,23 @@ struct SearchView: View {
         } catch {}
     }
     
+    func filter() -> [CompendiumModel] {
+        let query = self.searchText.lowercased()
+        return query.isEmpty ? self.compendia : self.compendia.filter { compendia in
+            let name = compendia._name!.lowercased()
+            return name.contains(query)
+        }
+    }
+    
     var body: some View {
         ScrollView {
-            ForEach(self.compendia, id: \.self) { compendium in
+            ForEach(self.filter(), id: \.self) { compendium in
                 CompendiumRow(compendiumId: compendium._compendium_id!)
             }
         }
         .scrollIndicators(.hidden)
-        .padding(.horizontal, 24.0)
         .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .padding(.horizontal, 24.0)
         .task {
             await self.fetch()
         }
@@ -37,5 +45,7 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView()
+    NavigationStack {
+        SearchView()
+    }
 }

@@ -42,5 +42,7 @@ struct GardenView: View {
 }
 
 #Preview {
-    GardenView()
+    NavigationStack {
+        GardenView()
+    }
 }

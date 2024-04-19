@@ -48,6 +48,7 @@ struct CommunityView: View {
             ScrollView {
                 ForEach(self.posts, id: \.self) { post in
                     PostRow(postId: post._post_id!)
+                    Divider()
                 }
             }
             .scrollIndicators(.hidden)
