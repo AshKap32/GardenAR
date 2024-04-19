@@ -16,14 +16,10 @@ struct PostRow: View {
     func fetchContent() async {
         do {
             let (post, _) = try await PostNetwork.getPost(postId: self.postId)
-            guard let post = post else {
-                return
+            if let post = post {
+                self.content = post._content!
             }
-            
-            self.content = post._content!
-        } catch {
-            
-        }
+        } catch {}
     }
     
     func fetchStatus() async {
@@ -33,15 +29,12 @@ struct PostRow: View {
             }
             
             let (post, _) = try await PostNetwork.getFavorite(postId: self.postId, token: token)
-            guard let post = post else {
+            if let post = post {
+                self.favorited = true
+            } else {
                 self.favorited = false
-                return
             }
-            
-            self.favorited = true
-        } catch {
-            
-        }
+        } catch {}
     }
     
     func favorite() async {
@@ -51,14 +44,10 @@ struct PostRow: View {
             }
             
             let (post, _) = try await PostNetwork.postFavorite(postId: self.postId, token: token)
-            guard let post = post else {
-                return
+            if let post = post {
+                self.favorited = true
             }
-            
-            self.favorited = true
-        } catch {
-            
-        }
+        } catch {}
     }
     
     func unfavorite() async {
@@ -68,18 +57,14 @@ struct PostRow: View {
             }
             
             let (post, _) = try await PostNetwork.deleteFavorite(postId: self.postId, token: token)
-            guard let post = post else {
-                return
+            if let post = post {
+                self.favorited = false
             }
-            
-            self.favorited = false
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16.0) {
+        VStack(alignment: .leading, spacing: 12.0) {
             Text(self.content)
             HStack {
                 Button(action: {
@@ -101,6 +86,8 @@ struct PostRow: View {
                     Image(systemName: "arrowshape.turn.up.right")
                 }
             }
+            
+            Divider()
         }
         .task {
             await self.fetchContent()

@@ -23,38 +23,34 @@ struct PlantInfo: View {
             }
             
             let (compendium, _) = try await CompendiumNetwork.getCompendium(compendiumId: plant._compendium_id!)
-            guard let compendium = compendium else {
-                return
+            if let compendium = compendium {
+                self.icon = compendium._icon!
+                self.name = compendium._name!
+                self.description = compendium._description!
+                self.timestamp = plant._timestamp!
             }
-            
-            self.icon = compendium._icon!
-            self.name = compendium._name!
-            self.description = compendium._description!
-            self.timestamp = plant._timestamp!
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
         ScrollView {
-            Text(self.name)
-                .font(.title2)
-                .fontWeight(.bold)
-            
             AsyncImage(url: URL(string: self.icon)) { image in
                 image
                     .image?
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 200.0, height: 200.0)
-                    .clipShape(.rect(cornerRadius: 8.0))
+                    .frame(width: 192.0, height: 192.0)
+                    .clipShape(.rect(cornerRadius: 6.0))
             }
+            
+            Text(self.name)
+                .font(.title2)
+                .fontWeight(.bold)
             
             Text(self.description)
         }
         .scrollIndicators(.hidden)
-        .padding(.horizontal, 32.0)
+        .padding(.horizontal, 24.0)
         .task {
             await self.fetch()
         }

@@ -25,13 +25,11 @@ struct ContentView: View {
                 UserDefaults.standard.set(nil, forKey: "token")
                 self.loggedIn = false
             }
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
-        VStack {
+        ZStack {
             if self.loggedIn {
                 TabBar()
             } else if self.showLogin {

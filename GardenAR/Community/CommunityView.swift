@@ -15,14 +15,10 @@ struct CommunityView: View {
     func fetchPosts() async {
         do {
             let (posts, _) = try await PostNetwork.getPosts()
-            guard let posts = posts else {
-                return
+            if let posts = posts {
+                self.posts = posts.reversed()
             }
-            
-            self.posts = posts.reversed()
-        } catch {
-            
-        }
+        } catch {}
     }
     
     func fetchFavorites() async {
@@ -32,14 +28,10 @@ struct CommunityView: View {
             }
             
             let (favorites, _) = try await PostNetwork.getFavorites(token: token)
-            guard let favorites = favorites else {
-               return
+            if let favorites = favorites {
+                self.posts = favorites.reversed()
             }
-            
-            self.posts = favorites.reversed()
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
@@ -56,12 +48,11 @@ struct CommunityView: View {
             ScrollView {
                 ForEach(self.posts, id: \.self) { post in
                     PostRow(postId: post._post_id!)
-                    Divider()
                 }
             }
             .scrollIndicators(.hidden)
         }
-        .padding(.horizontal, 32.0)
+        .padding(.horizontal, 24.0)
         .onChange(of: self.selectedSocialCategory, initial: true) {
             Task {
                 self.selectedSocialCategory == "All" ? await self.fetchPosts() : await self.fetchFavorites()

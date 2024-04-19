@@ -22,18 +22,14 @@ struct UserHeaderBar: View {
                 return
             }
             
-            guard let username = account._nickname ?? account._username else {
-                return
+            if let username = account._nickname ?? account._username {
+                self.username = username
             }
-            
-            self.username = username
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
-        HStack(spacing: 16.0) {
+        HStack(spacing: 12.0) {
             VStack(alignment: .leading) {
                 Text("Welcome \(self.username) 👋")
                     .font(.title2)

@@ -16,27 +16,23 @@ struct CompendiumRow: View {
     func fetch() async {
         do {
             let (compendium, _) = try await CompendiumNetwork.getCompendium(compendiumId: compendiumId)
-            guard let compendium = compendium else {
-                return
+            if let compendium = compendium {
+                self.icon = compendium._icon!
+                self.name = compendium._name!
             }
-            
-            self.icon = compendium._icon!
-            self.name = compendium._name!
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
         NavigationLink(destination: CompendiumInfo(compendiumId: self.compendiumId)) {
-            HStack(spacing: 16.0) {
+            HStack(spacing: 12.0) {
                 AsyncImage(url: URL(string: self.icon)) { image in
                     image
                         .image?
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 75.0, height: 75.0)
-                        .clipShape(.rect(cornerRadius: 8.0))
+                        .frame(width: 96.0, height: 96.0)
+                        .clipShape(.rect(cornerRadius: 6.0))
                 }
                 
                 Text(self.name)

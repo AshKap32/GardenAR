@@ -15,14 +15,10 @@ struct SearchView: View {
     func fetch() async {
         do {
             let (compendia, _) = try await CompendiumNetwork.getCompendia()
-            guard let compendia = compendia else {
-                return
+            if let compendia = compendia {
+                self.compendia = compendia
             }
-            
-            self.compendia = compendia
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
@@ -32,7 +28,7 @@ struct SearchView: View {
             }
         }
         .scrollIndicators(.hidden)
-        .padding(.horizontal, 32.0)
+        .padding(.horizontal, 24.0)
         .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
         .task {
             await self.fetch()

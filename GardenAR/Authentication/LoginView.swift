@@ -17,16 +17,13 @@ struct LoginView: View {
     func login() async {
         do {
             let (token, _) = try await SessionNetwork.postSession(username: self.username, password: self.password)
-            guard let token = token else {
+            if let token = token {
+                UserDefaults.standard.set(token, forKey: "token")
+                self.loggedIn = true
+            } else {
                 // to do: tell the user to check their credentials
-                return
             }
-            
-            UserDefaults.standard.set(token, forKey: "token")
-            self.loggedIn = true
-        } catch {
-            
-        }
+        } catch {}
     }
     
     func toggle() {
@@ -35,52 +32,62 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            Color("Colors/Body")
+            Color("Colors/Alt")
                 .ignoresSafeArea()
             
-            VStack(spacing: 16.0) {
+            VStack(spacing: 12.0) {
                 Image("Images/LogoTransparent")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: .infinity)
                 
-                HStack(spacing: 16.0) {
+                HStack {
                     Image(systemName: "person.fill")
+                        .frame(width: 24.0, alignment: .leading)
+                    
                     TextField("Username", text: self.$username)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack(spacing: 16.0) {
+                HStack {
                     Image(systemName: "lock.fill")
+                        .frame(width: 24.0, alignment: .leading)
+                    
                     SecureField("Password", text: self.$password)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
                 Button(action: {
                     Task {
                         await self.login()
                     }
                 }) {
-                    Text("Sign In")
-                        .tint(.white)
+                    Text("Sign in")
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 }
-                .padding(8.0)
-
-                Button(action: self.toggle) {
-                    Text("Create Account")
-                        .tint(.white)
+                .padding(12.0)
+                .background(.black)
+                .clipShape(.rect(cornerRadius: 6.0))
+                
+                HStack {
+                    Text("Don't have an account?")
+                        .foregroundStyle(.white)
+                    
+                    Button(action: self.toggle) {
+                        Text("Sign up")
+                            .foregroundStyle(.green)
+                    }
                 }
-                .padding(8.0)
             }
-            .padding(.horizontal, 32.0)
+            .padding(.horizontal, 24.0)
         }
     }
 }
