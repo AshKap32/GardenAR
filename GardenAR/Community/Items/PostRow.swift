@@ -43,8 +43,8 @@ struct PostRow: View {
                 return
             }
             
-            let (post, _) = try await PostNetwork.postFavorite(postId: self.postId, token: token)
-            if let post = post {
+            let e = try await PostNetwork.postFavorite(postId: self.postId, token: token)
+            if e.error == nil {
                 self.favorited = true
             }
         } catch {}
@@ -56,8 +56,8 @@ struct PostRow: View {
                 return
             }
             
-            let (post, _) = try await PostNetwork.deleteFavorite(postId: self.postId, token: token)
-            if let post = post {
+            let e = try await PostNetwork.deleteFavorite(postId: self.postId, token: token)
+            if e.error == nil {
                 self.favorited = false
             }
         } catch {}

@@ -51,6 +51,10 @@
 		7EEE2D1A2BB781FE002B2A9B /* CommentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE2D192BB781FE002B2A9B /* CommentRequest.swift */; };
 		7EEE2D1C2BB7823E002B2A9B /* CommentReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE2D1B2BB7823E002B2A9B /* CommentReply.swift */; };
 		7EEE2D1E2BB78282002B2A9B /* CommentNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE2D1D2BB78282002B2A9B /* CommentNetwork.swift */; };
+		7EFEF45D2BD4963B007B80E1 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFEF45C2BD4963B007B80E1 /* CategoryModel.swift */; };
+		7EFEF45F2BD49783007B80E1 /* CategoryReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFEF45E2BD49783007B80E1 /* CategoryReply.swift */; };
+		7EFEF4612BD49817007B80E1 /* CategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFEF4602BD49817007B80E1 /* CategoryRequest.swift */; };
+		7EFEF4632BD49DA3007B80E1 /* CategoryNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFEF4622BD49DA3007B80E1 /* CategoryNetwork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +103,10 @@
 		7EEE2D192BB781FE002B2A9B /* CommentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRequest.swift; sourceTree = "<group>"; };
 		7EEE2D1B2BB7823E002B2A9B /* CommentReply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentReply.swift; sourceTree = "<group>"; };
 		7EEE2D1D2BB78282002B2A9B /* CommentNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNetwork.swift; sourceTree = "<group>"; };
+		7EFEF45C2BD4963B007B80E1 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		7EFEF45E2BD49783007B80E1 /* CategoryReply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryReply.swift; sourceTree = "<group>"; };
+		7EFEF4602BD49817007B80E1 /* CategoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRequest.swift; sourceTree = "<group>"; };
+		7EFEF4622BD49DA3007B80E1 /* CategoryNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryNetwork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +275,7 @@
 			children = (
 				7EB72D3E2BB3D71500B4DDE8 /* ErrorReply.swift */,
 				7EB72D272BB39EB000B4DDE8 /* AccountReply.swift */,
+				7EFEF45E2BD49783007B80E1 /* CategoryReply.swift */,
 				7EEE2D1B2BB7823E002B2A9B /* CommentReply.swift */,
 				7EB72D332BB39F4500B4DDE8 /* CompendiumReply.swift */,
 				7EB72D352BB39F4E00B4DDE8 /* PlantReply.swift */,
@@ -280,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB72D2B2BB39ED600B4DDE8 /* AccountRequest.swift */,
+				7EFEF4602BD49817007B80E1 /* CategoryRequest.swift */,
 				7EEE2D192BB781FE002B2A9B /* CommentRequest.swift */,
 				7EB72D2D2BB39EF500B4DDE8 /* CompendiumRequest.swift */,
 				7EB72D2F2BB39F0900B4DDE8 /* PlantRequest.swift */,
@@ -293,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB72D462BB512B300B4DDE8 /* AccountNetwork.swift */,
+				7EFEF4622BD49DA3007B80E1 /* CategoryNetwork.swift */,
 				7EEE2D1D2BB78282002B2A9B /* CommentNetwork.swift */,
 				7EB72D4A2BB51C2E00B4DDE8 /* CompendiumNetwork.swift */,
 				7EB72D4C2BB51C9800B4DDE8 /* PlantNetwork.swift */,
@@ -315,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB72D152BB3641700B4DDE8 /* AccountModel.swift */,
+				7EFEF45C2BD4963B007B80E1 /* CategoryModel.swift */,
 				7EEE2D172BB7804E002B2A9B /* CommentModel.swift */,
 				7EB72D172BB365C700B4DDE8 /* CompendiumModel.swift */,
 				7EB72D192BB365FE00B4DDE8 /* PlantModel.swift */,
@@ -403,6 +415,7 @@
 				312E4AD72B042B1E00DDF3C7 /* PlantRow.swift in Sources */,
 				31E1E3562AFF4BDC00A5F7CE /* ContentView.swift in Sources */,
 				31D50EAD2B08546300235964 /* NotificationRow.swift in Sources */,
+				7EFEF4632BD49DA3007B80E1 /* CategoryNetwork.swift in Sources */,
 				31D50EAB2B08514100235964 /* NotificationView.swift in Sources */,
 				7EB72D4D2BB51C9800B4DDE8 /* PlantNetwork.swift in Sources */,
 				7EB72D2E2BB39EF500B4DDE8 /* CompendiumRequest.swift in Sources */,
@@ -413,17 +426,20 @@
 				7EB72D432BB4E91B00B4DDE8 /* SessionRequest.swift in Sources */,
 				7EDE99FE2BBFD6CA00BFB6A5 /* CompendiumRow.swift in Sources */,
 				7E6FC30F2B9EB5ED003814A2 /* RegisterView.swift in Sources */,
+				7EFEF4612BD49817007B80E1 /* CategoryRequest.swift in Sources */,
 				31D50EB72B086FC700235964 /* PostRow.swift in Sources */,
 				7EDE9A022BC0073000BFB6A5 /* UserHeaderBar.swift in Sources */,
 				31E1E3662AFF510200A5F7CE /* GardenView.swift in Sources */,
 				7EEE2D1C2BB7823E002B2A9B /* CommentReply.swift in Sources */,
 				7EB72D382BB39F5800B4DDE8 /* PostReply.swift in Sources */,
 				7EB72D3F2BB3D71500B4DDE8 /* ErrorReply.swift in Sources */,
+				7EFEF45D2BD4963B007B80E1 /* CategoryModel.swift in Sources */,
 				7EEE2D1E2BB78282002B2A9B /* CommentNetwork.swift in Sources */,
 				7EB72D162BB3641700B4DDE8 /* AccountModel.swift in Sources */,
 				7EEE2D1A2BB781FE002B2A9B /* CommentRequest.swift in Sources */,
 				7EB72D342BB39F4500B4DDE8 /* CompendiumReply.swift in Sources */,
 				7EB72D1A2BB365FE00B4DDE8 /* PlantModel.swift in Sources */,
+				7EFEF45F2BD49783007B80E1 /* CategoryReply.swift in Sources */,
 				7EEE2D182BB7804E002B2A9B /* CommentModel.swift in Sources */,
 				7EB72D1C2BB366A000B4DDE8 /* PostModel.swift in Sources */,
 				31E1E3742AFF586800A5F7CE /* SearchView.swift in Sources */,

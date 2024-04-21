@@ -118,7 +118,7 @@ struct PostNetwork {
         return (reply._post, e)
     }
     
-    static func postFavorite(postId: Int, token: String) async throws -> (PostModel?, ErrorReply) {
+    static func postFavorite(postId: Int, token: String) async throws -> ErrorReply {
         let url = URL(string: "http://\(self.host)/posts/favorite/\(postId)/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -128,16 +128,14 @@ struct PostNetwork {
         request.httpBody = try self.encoder.encode("")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try self.decoder.decode(PostReply.self, from: data)
-        let e = try self.decoder.decode(ErrorReply.self, from: data)
-        return (reply._post, e)
+        return try self.decoder.decode(ErrorReply.self, from: data)
     }
     
     static func deletePost(postId: Int, token: String) async throws -> (PostReply, ErrorReply) {
         fatalError() // to do: actually implement this
     }
     
-    static func deleteFavorite(postId: Int, token: String) async throws -> (PostModel?, ErrorReply) {
+    static func deleteFavorite(postId: Int, token: String) async throws -> ErrorReply {
         let url = URL(string: "http://\(self.host)/posts/favorite/\(postId)/account/token")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -147,9 +145,7 @@ struct PostNetwork {
         request.httpBody = try self.encoder.encode("")
 
         let (data, _) = try await URLSession.shared.data(for: request)
-        let reply = try self.decoder.decode(PostReply.self, from: data)
-        let e = try self.decoder.decode(ErrorReply.self, from: data)
-        return (reply._post, e)
+        return try self.decoder.decode(ErrorReply.self, from: data)
     }
     
     static func patchPost(postId: Int, token: String, post: PostModel) async throws -> (PostModel?, ErrorReply) {

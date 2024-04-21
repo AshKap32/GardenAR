@@ -53,6 +53,6 @@ struct PlantRow: View {
 
 #Preview {
     NavigationStack {
-        PlantRow(plantId: -501)
+        PlantRow(plantId: -601)
     }
 }

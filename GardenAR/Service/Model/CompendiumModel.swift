@@ -12,4 +12,9 @@ struct CompendiumModel: Codable, Hashable {
     var _name: String?
     var _description: String?
     var _icon: String?
+    var _lighting: Int?
+    var _depth: String?
+    var _spacing: String?
+    var _germination: Int?
+    var _maturity: Int?
 }

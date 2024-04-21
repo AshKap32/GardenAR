@@ -12,6 +12,11 @@ struct CompendiumInfo: View {
     @State var name = "Plant Type"
     @State var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     @State var icon = "https://cdn.shopify.com/s/files/1/0150/6262/products/the_sill-variant-white_gloss-money_tree.jpg?v=1699404852"
+    @State var lighting = 6
+    @State var depth = 0.25
+    @State var spacing = 24.0
+    @State var germination = 14
+    @State var maturity = 70
     var compendiumId: Int
     
     func fetch() async {
@@ -21,6 +26,11 @@ struct CompendiumInfo: View {
                 self.icon = compendium._icon!
                 self.name = compendium._name!
                 self.description = compendium._description!
+                self.lighting = compendium._lighting!
+                self.depth = Double(compendium._depth!)!
+                self.spacing = Double(compendium._spacing!)!
+                self.germination = compendium._germination!
+                self.maturity = compendium._maturity!
             }
         } catch {}
     }
