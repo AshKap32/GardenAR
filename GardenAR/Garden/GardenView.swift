@@ -28,8 +28,10 @@ struct GardenView: View {
         VStack {
             UserHeaderBar()
             ScrollView {
-                ForEach(self.plants, id: \.self) { plant in
-                    PlantRow(plantId: plant._plant_id!)
+                LazyVStack {
+                    ForEach(self.plants, id: \.self) { plant in
+                        PlantRow(plantId: plant._plant_id!)
+                    }
                 }
             }
             .scrollIndicators(.hidden)

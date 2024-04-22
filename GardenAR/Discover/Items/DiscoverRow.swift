@@ -1,35 +1,30 @@
 //
-//  PlantRow.swift
+//  DiscoverRow.swift
 //  GardenAR
 //
-//  Created by Aashish Kapoor on 11/14/23.
+//  Created by KOBOLD! on 4/21/24.
 //
 
 import Foundation
 import SwiftUI
 
-struct PlantRow: View {
+struct DiscoverRow: View {
     @State var name = ""
     @State var icon = ""
-    var plantId: Int
+    var categoryId: Int
     
     func fetch() async {
         do {
-            let (plant, _) = try await PlantNetwork.getPlant(plantId: plantId)
-            guard let plant = plant else {
-                return
-            }
-            
-            let (compendium, _) = try await CompendiumNetwork.getCompendium(compendiumId: plant._compendium_id!)
-            if let compendium = compendium {
-                self.icon = compendium._icon!
-                self.name = compendium._name!
+            let (category, _) = try await CategoryNetwork.getCategory(categoryId: self.categoryId)
+            if let category = category {
+                self.name = category._name!
+                self.icon = category._icon!
             }
         } catch {}
     }
     
     var body: some View {
-        NavigationLink(destination: PlantInfo(name: self.name, icon: self.icon, plantId: self.plantId)) {
+        NavigationLink(destination: SearchView(categoryId: self.categoryId, name: self.name)) {
             HStack(spacing: 12.0) {
                 AsyncImage(url: URL(string: self.icon)) { image in
                     image
@@ -37,7 +32,7 @@ struct PlantRow: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 96.0, height: 96.0)
-                        .clipShape(.rect(cornerRadius: 6.0))
+                        .clipShape(.rect(cornerRadius: 8.0))
                 }
                 
                 Text(self.name)
@@ -53,6 +48,6 @@ struct PlantRow: View {
 
 #Preview {
     NavigationStack {
-        PlantRow(plantId: -601)
+        DiscoverRow(categoryId: -501)
     }
 }

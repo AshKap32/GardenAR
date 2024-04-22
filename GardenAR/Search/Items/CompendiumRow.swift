@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct CompendiumRow: View {
-    @State var name = "Plant Type"
-    @State var icon = "https://cdn.shopify.com/s/files/1/0150/6262/products/the_sill-variant-white_gloss-money_tree.jpg?v=1699404852"
+    @State var name = ""
+    @State var icon = ""
     var compendiumId: Int
     
     func fetch() async {
@@ -24,7 +24,7 @@ struct CompendiumRow: View {
     }
     
     var body: some View {
-        NavigationLink(destination: CompendiumInfo(compendiumId: self.compendiumId)) {
+        NavigationLink(destination: CompendiumInfo(name: self.name, icon: self.icon, compendiumId: self.compendiumId)) {
             HStack(spacing: 12.0) {
                 AsyncImage(url: URL(string: self.icon)) { image in
                     image

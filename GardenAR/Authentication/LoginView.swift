@@ -71,7 +71,7 @@ struct LoginView: View {
                 }) {
                     Text("Sign in")
                         .foregroundStyle(.white)
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                        .frame(maxWidth: .infinity)
                 }
                 .padding(12.0)
                 .background(.black)

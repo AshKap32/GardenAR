@@ -9,51 +9,49 @@ import Foundation
 import SwiftUI
 
 struct DiscoverView: View {
-    var body: some View {
-        VStack {
-            HStack {
-                VStack {
-                    AsyncImage(url: URL(string: "https://media.houseandgarden.co.uk/photos/64e4d253e1a65c932c542b2e/master/w_1600%2Cc_limit/Screenshot%25202023-08-22%2520at%252016.20.41.png")) { image in
-                        image
-                            .image?
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: .infinity)
-                            .clipShape(.rect(cornerRadius: 8.0))
-                    }
-                    
-                    Text("Spider Variety")
-                }
-                
-                VStack {
-                    AsyncImage(url: URL(string: "https://costafarms.com/cdn/shop/files/snake-plant-medium-white--white_2048x2048.jpg?v=1694799744")) { image in
-                        image
-                            .image?
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: .infinity)
-                            .clipShape(.rect(cornerRadius: 8.0))
-                    }
-                    
-                    Text("Snake Variety")
-                }
+    @State var categories: [CategoryModel] = []
+    @State var searchText = ""
+    
+    func fetch() async {
+        do {
+            let (categories, _) = try await CategoryNetwork.getCategories()
+            if let categories = categories {
+                self.categories = categories
             }
-            
-            AsyncImage(url: URL(string: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1554477330-beautiful-asparagus-fern-plant-in-a-basket-royalty-free-image-972247932-1546889240.jpg?crop=0.457xw:0.301xh;0.447xw,0.372xh&resize=980:*")) { image in
-                image
-                    .image?
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: .infinity)
-                    .clipShape(.rect(cornerRadius: 8.0))
-            }
-            
-            Text("Fern Variety")
+        } catch {}
+    }
+    
+    func filter() -> [CategoryModel] {
+        let query = self.searchText.lowercased()
+        return query.isEmpty ? self.categories : self.categories.filter { category in
+            let name = category._name!.lowercased()
+            return name.contains(query)
         }
-        .padding(.horizontal, 32.0)
+    }
+    
+    var body: some View {
+        ScrollView {
+            LazyVStack {
+                ForEach(self.filter(), id: \.self) { category in
+                    DiscoverRow(name: category._name!, icon: category._icon!, categoryId: category._category_id!)
+                }
+            }
+        }
+        .scrollIndicators(.hidden)
+        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .textInputAutocapitalization(.never)
+        .autocorrectionDisabled()
+        .navigationTitle("Discover")
+        .navigationBarTitleDisplayMode(.inline)
+        .padding(.horizontal, 24.0)
+        .task {
+            await self.fetch()
+        }
     }
 }
 
 #Preview {
-    DiscoverView()
+    NavigationStack {
+        DiscoverView()
+    }
 }

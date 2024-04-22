@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct UserHeaderBar: View {
-    @State var username = "Aashish"
+    @State var username = ""
     
     func fetch() async {
         do {

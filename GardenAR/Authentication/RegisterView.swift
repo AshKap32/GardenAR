@@ -82,7 +82,7 @@ struct RegisterView: View {
                     Image(systemName: "person.fill")
                         .frame(width: 24.0, alignment: .leading)
                     
-                    TextField("First Name", text: self.$forename)
+                    TextField("First name", text: self.$forename)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                 }
@@ -94,7 +94,7 @@ struct RegisterView: View {
                     Image(systemName: "person.fill")
                         .frame(width: 24.0, alignment: .leading)
                     
-                    TextField("Last Name", text: self.$surname)
+                    TextField("Last name", text: self.$surname)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                 }
@@ -130,7 +130,7 @@ struct RegisterView: View {
                     Image(systemName: "rosette")
                         .frame(width: 24.0, alignment: .leading)
                     
-                    TextField("Skill Level", text: self.$skill)
+                    TextField("Skill level", text: self.$skill)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                 }
@@ -154,7 +154,7 @@ struct RegisterView: View {
                     Image(systemName: "building.fill")
                         .frame(width: 24.0, alignment: .leading)
                     
-                    TextField("Zip Code", text: self.$zip)
+                    TextField("Zip code", text: self.$zip)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                 }
@@ -169,7 +169,7 @@ struct RegisterView: View {
                 }) {
                     Text("Sign up")
                         .foregroundStyle(.white)
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                        .frame(maxWidth: .infinity)
                 }
                 .padding(12.0)
                 .background(.black)

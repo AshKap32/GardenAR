@@ -9,15 +9,15 @@ import Foundation
 import SwiftUI
 
 struct PlantInfo: View {
-    @State var name = "Plant Type"
-    @State var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    @State var icon = "https://cdn.shopify.com/s/files/1/0150/6262/products/the_sill-variant-white_gloss-money_tree.jpg?v=1699404852"
-    @State var lighting = 6
-    @State var depth = 0.25
-    @State var spacing = 24.0
-    @State var germination = 14
-    @State var maturity = 70
-    @State var timestamp = "2025-03-01 01:02:03"
+    @State var name = ""
+    @State var description = ""
+    @State var icon = ""
+    @State var lighting = 0
+    @State var depth = 0.0
+    @State var spacing = 0.0
+    @State var germination = 0
+    @State var maturity = 0
+    @State var timestamp = ""
     var plantId: Int
     
     func fetch() async {
@@ -44,6 +44,7 @@ struct PlantInfo: View {
     
     var body: some View {
         ScrollView {
+            Text(self.description)
             AsyncImage(url: URL(string: self.icon)) { image in
                 image
                     .image?
@@ -52,13 +53,9 @@ struct PlantInfo: View {
                     .frame(width: 192.0, height: 192.0)
                     .clipShape(.rect(cornerRadius: 6.0))
             }
-            
-            Text(self.name)
-                .font(.title2)
-                .fontWeight(.bold)
-            
-            Text(self.description)
         }
+        .navigationTitle(self.name)
+        .navigationBarTitleDisplayMode(.inline)
         .scrollIndicators(.hidden)
         .padding(.horizontal, 24.0)
         .task {
@@ -68,5 +65,7 @@ struct PlantInfo: View {
 }
 
 #Preview {
-    PlantInfo(plantId: -601)
+    NavigationStack {
+        PlantInfo(plantId: -601)
+    }
 }
