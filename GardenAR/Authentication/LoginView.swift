@@ -36,9 +36,10 @@ struct LoginView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 12.0) {
-                Image("Images/LogoTransparent")
+                Image("Images/LogoNoText")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .frame(width: 300, height: 300)
                 
                 HStack {
                     Image(systemName: "person.fill")

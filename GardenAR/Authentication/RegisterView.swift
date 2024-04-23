@@ -19,17 +19,25 @@ struct RegisterView: View {
     @State var skill: String = ""
     @State var city: String = ""
     @State var zip: String = ""
-    
     let skillOptions: [String] = ["Beginner", "Intermediate", "Professional"]
     
     func build() -> AccountModel {
+        var skill: Int? = nil
+        for (index, value) in self.skillOptions.enumerated() {
+            if self.skill == value {
+                skill = index
+                break
+            }
+        }
+        
+        print(skill)
         return AccountModel(
             _username: self.username,
             _nickname: self.nickname,
             _forename: self.forename,
             _surname: self.surname,
             _email: self.email,
-            _skill: Int(self.skill),
+            _skill: skill,
             _city: self.city,
             _zip: Int(self.zip)
         )
@@ -128,26 +136,24 @@ struct RegisterView: View {
                 .background(.white)
                 .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack {
+                Menu {
+                    ForEach(self.skillOptions, id: \.self) { item in
+                        Button(item, action: {
+                            self.skill = item
+                        })
+                    }
+                } label : {
                     Image(systemName: "rosette")
                         .frame(width: 24.0, alignment: .leading)
+                        .foregroundColor(.black)
                     
-                    TextField("Select skill level", text: self.$skill)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
+                    TextField("Skill level", text: self.$skill)
+                        .disabled(true)
+                        .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                     
-                    Menu {
-                        ForEach(skillOptions, id: \.self) {
-                            item in Button(item) {
-                                self.skill = item
-                            }
-                        }
-                    } label : {
-                        VStack {
-                            Image(systemName: "chevron.down")
-                                .foregroundColor(Color.white)
-                        }
-                    }
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.black)
                 }
                 .padding(12.0)
                 .background(.white)
