@@ -9,21 +9,22 @@ import Foundation
 import SwiftUI
 
 struct PostRow: View {
-    @State var content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     @State var favorited = false
-    var postId: Int
+    @State var comments: [CommentModel] = []
+    @State var post: PostModel?
+    var postId: Int?
     
     func fetchContent() async {
         do {
-            let (post, _) = try await PostNetwork.getPost(postId: self.postId)
-            guard let post = post else {
+            guard let postId = self.postId else {
                 return
             }
             
-            self.content = post._content!
-        } catch {
-            
-        }
+            let (post, _) = try await PostNetwork.getPost(postId: postId)
+            if let post = post {
+                self.post = post
+            }
+        } catch {}
     }
     
     func fetchStatus() async {
@@ -32,16 +33,28 @@ struct PostRow: View {
                 return
             }
             
-            let (post, _) = try await PostNetwork.getFavorite(postId: self.postId, token: token)
-            guard let post = post else {
-                self.favorited = false
+            guard let postId = self.post?._post_id else {
                 return
             }
             
-            self.favorited = true
-        } catch {
+            let (post, _) = try await PostNetwork.getFavorite(postId: postId, token: token)
+            if let post = post {
+                self.favorited = true
+            }
+        } catch {}
+    }
+    
+    func fetchComments() async {
+        do {
+            guard let postId = self.post?._post_id else {
+                return
+            }
             
-        }
+            let (comments, _) = try await CommentNetwork.getComments(postId: postId)
+            if let comments = comments {
+                self.comments = comments
+            }
+        } catch {}
     }
     
     func favorite() async {
@@ -50,15 +63,15 @@ struct PostRow: View {
                 return
             }
             
-            let (post, _) = try await PostNetwork.postFavorite(postId: self.postId, token: token)
-            guard let post = post else {
+            guard let postId = self.post?._post_id else {
                 return
             }
             
-            self.favorited = true
-        } catch {
-            
-        }
+            let e = try await PostNetwork.postFavorite(postId: postId, token: token)
+            if e.error == nil {
+                self.favorited = true
+            }
+        } catch {}
     }
     
     func unfavorite() async {
@@ -67,29 +80,38 @@ struct PostRow: View {
                 return
             }
             
-            let (post, _) = try await PostNetwork.deleteFavorite(postId: self.postId, token: token)
-            guard let post = post else {
+            guard let postId = self.post?._post_id else {
                 return
             }
             
-            self.favorited = false
-        } catch {
-            
-        }
+            let e = try await PostNetwork.deleteFavorite(postId: postId, token: token)
+            if e.error == nil {
+                self.favorited = false
+            }
+        } catch {}
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16.0) {
-            Text(self.content)
+        VStack(alignment: .leading, spacing: 12.0) {
+            Text(self.post?._content ?? "")
             HStack {
-                Button(action: {
-                    Task {
-                        self.favorited ? await self.unfavorite() : await self.favorite()
+                if self.favorited {
+                    Button(action: {
+                        Task {
+                            await self.unfavorite()
+                        }
+                    }) {
+                        Image(systemName: "heart.fill")
                     }
-                }) {
-                    Image(systemName: self.favorited ? "heart.fill" : "heart")
+                } else {
+                    Button(action: {
+                        Task {
+                            await self.favorite()
+                        }
+                    }) {
+                        Image(systemName: "heart")
+                    }
                 }
-                
                 
                 Spacer()
                 Button(action: {}) {
@@ -102,13 +124,18 @@ struct PostRow: View {
                 }
             }
         }
+        .padding(.top, 24.0)
+        .padding(.bottom, 12.0)
         .task {
             await self.fetchContent()
             await self.fetchStatus()
+            await self.fetchComments()
         }
     }
 }
 
 #Preview {
-    PostRow(postId: -201)
+    NavigationStack {
+        PostRow(postId: -201)
+    }
 }

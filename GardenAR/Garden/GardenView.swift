@@ -18,28 +18,25 @@ struct GardenView: View {
             }
             
             let (plants, _) = try await PlantNetwork.getPlants(token: token)
-            guard let plants = plants else {
-                return
+            if let plants = plants {
+                self.plants = plants
             }
-            
-            self.plants = plants
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
         VStack {
             UserHeaderBar()
             ScrollView {
-                ForEach(self.plants, id: \.self) { plant in
-                    PlantRow(plantId: plant._plant_id!)
-                    PlantRow(plantId: plant._plant_id!)
+                LazyVStack {
+                    ForEach(self.plants, id: \.self) { plant in
+                        PlantRow(plant: plant)
+                    }
                 }
             }
             .scrollIndicators(.hidden)
         }
-        .padding(.horizontal, 32.0)
+        .padding(.horizontal, 24.0)
         .task {
             await self.fetch()
         }
@@ -47,5 +44,7 @@ struct GardenView: View {
 }
 
 #Preview {
-    GardenView()
+    NavigationStack {
+        GardenView()
+    }
 }

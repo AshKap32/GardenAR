@@ -9,37 +9,63 @@ import Foundation
 import SwiftUI
 
 struct SearchView: View {
-    @State var compendia: [CompendiumModel] = []
     @State var searchText = ""
+    @State var compendia: [CompendiumModel] = []
+    @State var category: CategoryModel?
     
-    func fetch() async {
+    func fetchAll() async {
         do {
             let (compendia, _) = try await CompendiumNetwork.getCompendia()
-            guard let compendia = compendia else {
+            if let compendia = compendia {
+                self.compendia = compendia
+            }
+        } catch {}
+    }
+    
+    func fetchCategory() async {
+        do {
+            guard let categoryId = self.category?._category_id else {
                 return
             }
             
-            self.compendia = compendia
-        } catch {
-            
+            let (compendia, _) = try await CompendiumNetwork.getCompendia(categoryId: categoryId)
+            if let compendia = compendia {
+                self.compendia = compendia
+            }
+        } catch {}
+    }
+    
+    func filter() -> [CompendiumModel] {
+        let query = self.searchText.lowercased()
+        return query.isEmpty ? self.compendia : self.compendia.filter { compendium in
+            let name = compendium._name!.lowercased()
+            return name.contains(query)
         }
     }
     
     var body: some View {
         ScrollView {
-            ForEach(self.compendia, id: \.self) { compendium in
-                CompendiumRow(compendiumId: compendium._compendium_id!)
+            LazyVStack {
+                ForEach(self.filter(), id: \.self) { compendium in
+                    CompendiumRow(compendium: compendium)
+                }
             }
         }
         .scrollIndicators(.hidden)
-        .padding(.horizontal, 32.0)
         .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .textInputAutocapitalization(.never)
+        .autocorrectionDisabled()
+        .navigationTitle(self.category?._name ?? "Search")
+        .navigationBarTitleDisplayMode(.inline)
+        .padding(.horizontal, 24.0)
         .task {
-            await self.fetch()
+            self.category == nil ? await self.fetchAll() : await self.fetchCategory()
         }
     }
 }
 
 #Preview {
-    SearchView()
+    NavigationStack {
+        SearchView()
+    }
 }

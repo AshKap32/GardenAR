@@ -19,17 +19,25 @@ struct RegisterView: View {
     @State var skill: String = ""
     @State var city: String = ""
     @State var zip: String = ""
-    
     let skillOptions: [String] = ["Beginner", "Intermediate", "Professional"]
     
     func build() -> AccountModel {
+        var skill: Int? = nil
+        for (index, value) in self.skillOptions.enumerated() {
+            if self.skill == value {
+                skill = index
+                break
+            }
+        }
+        
+        print(skill)
         return AccountModel(
             _username: self.username,
             _nickname: self.nickname,
             _forename: self.forename,
             _surname: self.surname,
             _email: self.email,
-            _skill: Int(self.skill),
+            _skill: skill,
             _city: self.city,
             _zip: Int(self.zip)
         )
@@ -38,15 +46,12 @@ struct RegisterView: View {
     func register() async {
         do {
             let (account, _) = try await AccountNetwork.postAccount(account: self.build(), password: self.password)
-            guard let account = account else {
+            if let account = account {
+                self.showLogin = true
+            } else {
                 // to do: tell the user about a potential username conflict + other errors
-                return
             }
-            
-            self.showLogin = true
-        } catch {
-            
-        }
+        } catch {}
     }
     
     func toggle() {
@@ -55,133 +60,153 @@ struct RegisterView: View {
 
     var body: some View {
         ZStack {
-            Color(.white)
+            Color("Colors/Alt")
                 .ignoresSafeArea()
             
-            VStack(spacing: 16.0) {
-                HStack(spacing: 16.0) {
+            VStack(spacing: 12.0) {
+                HStack {
                     Image(systemName: "person.fill")
+                        .frame(width: 24.0, alignment: .leading)
+                    
                     TextField("Username", text: self.$username)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack(spacing: 16.0) {
+                HStack {
                     Image(systemName: "person.fill")
+                        .frame(width: 24.0, alignment: .leading)
+                    
                     TextField("Nickname", text: self.$nickname)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack(spacing: 16.0) {
+                HStack {
                     Image(systemName: "person.fill")
-                    TextField("First Name", text: self.$forename)
+                        .frame(width: 24.0, alignment: .leading)
+                    
+                    TextField("First name", text: self.$forename)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack(spacing: 16.0) {
+                HStack {
                     Image(systemName: "person.fill")
-                    TextField("Last Name", text: self.$surname)
+                        .frame(width: 24.0, alignment: .leading)
+                    
+                    TextField("Last name", text: self.$surname)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack(spacing: 16.0) {
+                HStack {
                     Image(systemName: "envelope.fill")
+                        .frame(width: 24.0, alignment: .leading)
+                    
                     TextField("Email", text: self.$email)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack(spacing: 16.0) {
+                HStack {
                     Image(systemName: "lock.fill")
+                        .frame(width: 24.0, alignment: .leading)
+                    
                     SecureField("Password", text: self.$password)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack(spacing: 16.0) {
-                    Image(systemName: "rosette")
-                    
-                    TextField("Select Skill Level", text: self.$skill)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
-                    Menu {
-                        ForEach(skillOptions, id: \.self) {
-                            item in Button(item) {
-                                self.skill = item
-                            }
-                        }
-                    } label : {
-                        VStack {
-                            Image(systemName: "chevron.down")
-                                .foregroundColor(Color.white)
-                        }
+                Menu {
+                    ForEach(self.skillOptions, id: \.self) { item in
+                        Button(item, action: {
+                            self.skill = item
+                        })
                     }
+                } label : {
+                    Image(systemName: "rosette")
+                        .frame(width: 24.0, alignment: .leading)
+                        .foregroundColor(.black)
+                    
+                    TextField("Skill level", text: self.$skill)
+                        .disabled(true)
+                        .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
+                    
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.black)
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack(spacing: 16.0) {
+                HStack {
                     Image(systemName: "building.fill")
+                        .frame(width: 24.0, alignment: .leading)
+                    
                     TextField("City", text: self.$city)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                HStack(spacing: 16.0) {
+                HStack {
                     Image(systemName: "building.fill")
-                    TextField("Zip Code", text: self.$zip)
+                        .frame(width: 24.0, alignment: .leading)
+                    
+                    TextField("Zip code", text: self.$zip)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
+                        .autocorrectionDisabled()
                 }
-                .padding(16.0)
-                .background(.tertiary)
-                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                .padding(12.0)
+                .background(.white)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
                 Button(action: {
                     Task {
                         await self.register()
                     }
                 }) {
-                    Text("Create Account")
-                        .foregroundColor(Color.black)
+                    Text("Sign up")
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
                 }
-                .padding(8.0)
-                .buttonStyle(.borderedProminent)
-                .tint(Color.green)
+                .padding(12.0)
+                .background(.black)
+                .clipShape(.rect(cornerRadius: 6.0))
 
-                Button(action: self.toggle) {
+                HStack {
                     Text("Already have an account?")
-                    Text("Sign In")
+                        .foregroundStyle(.white)
+                    
+                    Button(action: self.toggle) {
+                        Text("Sign in")
+                            .foregroundStyle(.green)
+                    }
                 }
-                .padding(8.0)
-                .tint(.teal)
             }
-            .padding(.horizontal, 32.0)
+            .padding(.horizontal, 24.0)
         }
     }
 }

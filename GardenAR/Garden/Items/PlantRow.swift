@@ -9,52 +9,61 @@ import Foundation
 import SwiftUI
 
 struct PlantRow: View {
-    @State var name = "Plant Type"
-    @State var icon = "https://cdn.shopify.com/s/files/1/0150/6262/products/the_sill-variant-white_gloss-money_tree.jpg?v=1699404852"
-    var plantId: Int
+    @State var compendium: CompendiumModel?
+    @State var plant: PlantModel?
+    var plantId: Int?
     
-    func fetch() async {
+    func fetchPlant() async {
         do {
+            guard let plantId = self.plantId else {
+                return
+            }
+            
             let (plant, _) = try await PlantNetwork.getPlant(plantId: plantId)
-            guard let plant = plant else {
+            if let plant = plant {
+                self.plant = plant
+            }
+        } catch {}
+    }
+    
+    func fetchCompendium() async {
+        do {
+            guard let compendiumId = self.plant?._compendium_id else {
                 return
             }
             
-            let (compendium, _) = try await CompendiumNetwork.getCompendium(compendiumId: plant._compendium_id!)
-            guard let compendium = compendium else {
-                return
+            let (compendium, _) = try await CompendiumNetwork.getCompendium(compendiumId: compendiumId)
+            if let compendium = compendium {
+                self.compendium = compendium
             }
-            
-            self.icon = compendium._icon!
-            self.name = compendium._name!
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
-        NavigationLink(destination: PlantInfo(plantId: self.plantId)) {
-            HStack(spacing: 16.0) {
-                AsyncImage(url: URL(string: self.icon)) { image in
-                    image
-                        .image?
+        NavigationLink(destination: PlantInfo(compendium: self.compendium, plant: self.plant)) {
+            HStack(spacing: 12.0) {
+                AsyncImage(url: URL(string: self.compendium?._icon ?? "")) { image in
+                    image.image?
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 75.0, height: 75.0)
-                        .clipShape(.rect(cornerRadius: 8.0))
                 }
+                .frame(width: 96.0, height: 96.0)
+                .clipShape(.rect(cornerRadius: 6.0))
                 
-                Text(self.name)
+                Text(self.compendium?._name ?? "")
                 Spacer()
             }
         }
         .buttonStyle(.plain)
         .task {
-            await self.fetch()
+            await self.fetchPlant()
+            await self.fetchCompendium()
         }
     }
 }
 
 #Preview {
-    PlantRow(plantId: -501)
+    NavigationStack {
+        PlantRow(plantId: -601)
+    }
 }

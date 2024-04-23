@@ -9,37 +9,29 @@ import Foundation
 import SwiftUI
 
 struct CommunityView: View {
-    @State var posts: [PostModel] = []
     @State var selectedSocialCategory = "All"
+    @State var posts: [PostModel] = []
     
     func fetchPosts() async {
         do {
             let (posts, _) = try await PostNetwork.getPosts()
-            guard let posts = posts else {
-                return
+            if let posts = posts {
+                self.posts = posts.reversed()
             }
-            
-            self.posts = posts.reversed()
-        } catch {
-            
-        }
+        } catch {}
     }
     
     func fetchFavorites() async {
         do {
             guard let token = UserDefaults.standard.string(forKey: "token") else {
-               return
+                return
             }
             
             let (favorites, _) = try await PostNetwork.getFavorites(token: token)
-            guard let favorites = favorites else {
-               return
+            if let favorites = favorites {
+                self.posts = favorites.reversed()
             }
-            
-            self.posts = favorites.reversed()
-        } catch {
-            
-        }
+        } catch {}
     }
     
     var body: some View {
@@ -54,22 +46,32 @@ struct CommunityView: View {
             .pickerStyle(.segmented)
             
             ScrollView {
-                ForEach(self.posts, id: \.self) { post in
-                    PostRow(postId: post._post_id!)
-                    Divider()
+                LazyVStack {
+                    ForEach(self.posts, id: \.self) { post in
+                        PostRow(post: post)
+                        Divider()
+                    }
                 }
             }
             .scrollIndicators(.hidden)
         }
-        .padding(.horizontal, 32.0)
+        .navigationTitle("Community")
+        .navigationBarTitleDisplayMode(.inline)
+        .padding(.horizontal, 24.0)
         .onChange(of: self.selectedSocialCategory, initial: true) {
             Task {
-                self.selectedSocialCategory == "All" ? await self.fetchPosts() : await self.fetchFavorites()
+                if self.selectedSocialCategory == "All" {
+                    await self.fetchPosts()
+                } else {
+                    await self.fetchFavorites()
+                }
             }
         }
     }
 }
 
 #Preview {
-    CommunityView()
+    NavigationStack {
+        CommunityView()
+    }
 }
