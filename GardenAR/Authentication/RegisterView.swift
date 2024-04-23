@@ -20,6 +20,8 @@ struct RegisterView: View {
     @State var city: String = ""
     @State var zip: String = ""
     
+    let skillOptions: [String] = ["Beginner", "Intermediate", "Professional"]
+    
     func build() -> AccountModel {
         return AccountModel(
             _username: self.username,
@@ -130,9 +132,22 @@ struct RegisterView: View {
                     Image(systemName: "rosette")
                         .frame(width: 24.0, alignment: .leading)
                     
-                    TextField("Skill level", text: self.$skill)
+                    TextField("Select skill level", text: self.$skill)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                    
+                    Menu {
+                        ForEach(skillOptions, id: \.self) {
+                            item in Button(item) {
+                                self.skill = item
+                            }
+                        }
+                    } label : {
+                        VStack {
+                            Image(systemName: "chevron.down")
+                                .foregroundColor(Color.white)
+                        }
+                    }
                 }
                 .padding(12.0)
                 .background(.white)
