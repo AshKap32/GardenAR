@@ -20,6 +20,8 @@ struct RegisterView: View {
     @State var city: String = ""
     @State var zip: String = ""
     
+    let skillOptions: [String] = ["Beginner", "Intermediate", "Professional"]
+    
     func build() -> AccountModel {
         return AccountModel(
             _username: self.username,
@@ -53,7 +55,7 @@ struct RegisterView: View {
 
     var body: some View {
         ZStack {
-            Color("Colors/Body")
+            Color(.white)
                 .ignoresSafeArea()
             
             VStack(spacing: 16.0) {
@@ -119,9 +121,22 @@ struct RegisterView: View {
                 
                 HStack(spacing: 16.0) {
                     Image(systemName: "rosette")
-                    TextField("Skill Level", text: self.$skill)
+                    
+                    TextField("Select Skill Level", text: self.$skill)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled(true)
+                    Menu {
+                        ForEach(skillOptions, id: \.self) {
+                            item in Button(item) {
+                                self.skill = item
+                            }
+                        }
+                    } label : {
+                        VStack {
+                            Image(systemName: "chevron.down")
+                                .foregroundColor(Color.white)
+                        }
+                    }
                 }
                 .padding(16.0)
                 .background(.tertiary)
@@ -153,15 +168,18 @@ struct RegisterView: View {
                     }
                 }) {
                     Text("Create Account")
-                        .tint(.white)
+                        .foregroundColor(Color.black)
                 }
                 .padding(8.0)
+                .buttonStyle(.borderedProminent)
+                .tint(Color.green)
 
                 Button(action: self.toggle) {
+                    Text("Already have an account?")
                     Text("Sign In")
-                        .tint(.white)
                 }
                 .padding(8.0)
+                .tint(.teal)
             }
             .padding(.horizontal, 32.0)
         }

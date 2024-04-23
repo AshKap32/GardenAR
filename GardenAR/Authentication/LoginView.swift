@@ -35,14 +35,14 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            Color("Colors/Body")
+            Color(.white)
                 .ignoresSafeArea()
             
             VStack(spacing: 16.0) {
-                Image("Images/LogoTransparent")
+                Image("Images/LogoNoText")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: .infinity)
+                    .frame(width: 300, height: 300)
                 
                 HStack(spacing: 16.0) {
                     Image(systemName: "person.fill")
@@ -70,15 +70,21 @@ struct LoginView: View {
                     }
                 }) {
                     Text("Sign In")
-                        .tint(.white)
+                        .foregroundColor(.black)
+                }
+                .padding(8.0)
+                .buttonStyle(.borderedProminent)
+                .tint(Color.green)
+
+                Button(action: self.toggle) {
+                    HStack {
+                        Text("Don't have an account yet?")
+                        Text("Sign up!")
+                    }
+                    .tint(Color.blue)
                 }
                 .padding(8.0)
 
-                Button(action: self.toggle) {
-                    Text("Create Account")
-                        .tint(.white)
-                }
-                .padding(8.0)
             }
             .padding(.horizontal, 32.0)
         }
