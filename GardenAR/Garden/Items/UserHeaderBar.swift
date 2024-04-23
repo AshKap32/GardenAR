@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct UserHeaderBar: View {
-    @State var username = ""
+    @State var account: AccountModel?
     
     func fetch() async {
         do {
@@ -18,12 +18,8 @@ struct UserHeaderBar: View {
             }
             
             let (account, _) = try await AccountNetwork.getAccount(token: token)
-            guard let account = account else {
-                return
-            }
-            
-            if let username = account._nickname ?? account._username {
-                self.username = username
+            if let account = account {
+                self.account = account
             }
         } catch {}
     }
@@ -31,7 +27,7 @@ struct UserHeaderBar: View {
     var body: some View {
         HStack(spacing: 12.0) {
             VStack(alignment: .leading) {
-                Text("Welcome \(self.username) 👋")
+                Text(self.account?._nickname ?? self.account?._username ?? "")
                     .font(.title2)
                     .fontWeight(.bold)
                 
@@ -41,6 +37,11 @@ struct UserHeaderBar: View {
             Spacer()
             NavigationLink(destination: NotificationView()) {
                 Image(systemName: "bell")
+            }
+            .buttonStyle(.plain)
+            
+            NavigationLink(destination: AddPlantView()) {
+                Image(systemName: "plus")
             }
             .buttonStyle(.plain)
             

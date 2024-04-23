@@ -30,7 +30,7 @@ struct GardenView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(self.plants, id: \.self) { plant in
-                        PlantRow(plantId: plant._plant_id!)
+                        PlantRow(plant: plant)
                     }
                 }
             }

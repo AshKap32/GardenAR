@@ -9,33 +9,34 @@ import Foundation
 import SwiftUI
 
 struct DiscoverRow: View {
-    @State var name = ""
-    @State var icon = ""
-    var categoryId: Int
+    @State var category: CategoryModel?
+    var categoryId: Int?
     
     func fetch() async {
         do {
-            let (category, _) = try await CategoryNetwork.getCategory(categoryId: self.categoryId)
+            guard let categoryId = self.categoryId else {
+                return
+            }
+            
+            let (category, _) = try await CategoryNetwork.getCategory(categoryId: categoryId)
             if let category = category {
-                self.name = category._name!
-                self.icon = category._icon!
+                self.category = category
             }
         } catch {}
     }
     
     var body: some View {
-        NavigationLink(destination: SearchView(categoryId: self.categoryId, name: self.name)) {
+        NavigationLink(destination: SearchView(category: self.category)) {
             HStack(spacing: 12.0) {
-                AsyncImage(url: URL(string: self.icon)) { image in
-                    image
-                        .image?
+                AsyncImage(url: URL(string: self.category?._icon ?? "")) { image in
+                    image.image?
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 96.0, height: 96.0)
-                        .clipShape(.rect(cornerRadius: 8.0))
                 }
+                .frame(width: 96.0, height: 96.0)
+                .clipShape(.rect(cornerRadius: 8.0))
                 
-                Text(self.name)
+                Text(self.category?._name ?? "")
                 Spacer()
             }
         }

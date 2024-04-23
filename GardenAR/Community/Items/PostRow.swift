@@ -10,14 +10,19 @@ import SwiftUI
 
 struct PostRow: View {
     @State var favorited = false
-    @State var content = ""
-    var postId: Int
+    @State var comments: [CommentModel] = []
+    @State var post: PostModel?
+    var postId: Int?
     
     func fetchContent() async {
         do {
-            let (post, _) = try await PostNetwork.getPost(postId: self.postId)
+            guard let postId = self.postId else {
+                return
+            }
+            
+            let (post, _) = try await PostNetwork.getPost(postId: postId)
             if let post = post {
-                self.content = post._content!
+                self.post = post
             }
         } catch {}
     }
@@ -28,11 +33,26 @@ struct PostRow: View {
                 return
             }
             
-            let (post, _) = try await PostNetwork.getFavorite(postId: self.postId, token: token)
+            guard let postId = self.post?._post_id else {
+                return
+            }
+            
+            let (post, _) = try await PostNetwork.getFavorite(postId: postId, token: token)
             if let post = post {
                 self.favorited = true
-            } else {
-                self.favorited = false
+            }
+        } catch {}
+    }
+    
+    func fetchComments() async {
+        do {
+            guard let postId = self.post?._post_id else {
+                return
+            }
+            
+            let (comments, _) = try await CommentNetwork.getComments(postId: postId)
+            if let comments = comments {
+                self.comments = comments
             }
         } catch {}
     }
@@ -43,7 +63,11 @@ struct PostRow: View {
                 return
             }
             
-            let e = try await PostNetwork.postFavorite(postId: self.postId, token: token)
+            guard let postId = self.post?._post_id else {
+                return
+            }
+            
+            let e = try await PostNetwork.postFavorite(postId: postId, token: token)
             if e.error == nil {
                 self.favorited = true
             }
@@ -56,7 +80,11 @@ struct PostRow: View {
                 return
             }
             
-            let e = try await PostNetwork.deleteFavorite(postId: self.postId, token: token)
+            guard let postId = self.post?._post_id else {
+                return
+            }
+            
+            let e = try await PostNetwork.deleteFavorite(postId: postId, token: token)
             if e.error == nil {
                 self.favorited = false
             }
@@ -65,7 +93,7 @@ struct PostRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12.0) {
-            Text(self.content)
+            Text(self.post?._content ?? "")
             HStack {
                 if self.favorited {
                     Button(action: {
@@ -85,7 +113,6 @@ struct PostRow: View {
                     }
                 }
                 
-                
                 Spacer()
                 Button(action: {}) {
                     Image(systemName: "bubble.left.and.text.bubble.right")
@@ -102,6 +129,7 @@ struct PostRow: View {
         .task {
             await self.fetchContent()
             await self.fetchStatus()
+            await self.fetchComments()
         }
     }
 }

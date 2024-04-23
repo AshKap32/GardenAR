@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct CommunityView: View {
-    @State var posts: [PostModel] = []
     @State var selectedSocialCategory = "All"
+    @State var posts: [PostModel] = []
     
     func fetchPosts() async {
         do {
@@ -24,7 +24,7 @@ struct CommunityView: View {
     func fetchFavorites() async {
         do {
             guard let token = UserDefaults.standard.string(forKey: "token") else {
-               return
+                return
             }
             
             let (favorites, _) = try await PostNetwork.getFavorites(token: token)
@@ -48,7 +48,7 @@ struct CommunityView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(self.posts, id: \.self) { post in
-                        PostRow(content: post._content!, postId: post._post_id!)
+                        PostRow(post: post)
                         Divider()
                     }
                 }

@@ -1,5 +1,5 @@
 //
-//  CompendiumRow.swift
+//  AddPlantRow.swift
 //  GardenAR
 //
 //  Created by KOBOLD! on 4/22/24.
@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct CompendiumRow: View {
+struct AddPlantRow: View {
+    @Environment(\.dismiss) var dismiss
     @State var compendium: CompendiumModel?
     var compendiumId: Int?
     
@@ -25,8 +26,35 @@ struct CompendiumRow: View {
         } catch {}
     }
     
+    func add() async -> Bool {
+        do {
+            guard let token = UserDefaults.standard.string(forKey: "token") else {
+                return false
+            }
+            
+            guard let compendiumId = self.compendium?._compendium_id else {
+                return false
+            }
+            
+            let (plant, _) = try await PlantNetwork.postPlant(token: token, plant: PlantModel(_compendium_id: compendiumId))
+            if let plant = plant {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            return false
+        }
+    }
+    
     var body: some View {
-        NavigationLink(destination: CompendiumInfo(compendium: self.compendium)) {
+        Button(action: {
+            Task {
+                if await self.add() {
+                    self.dismiss()
+                }
+            }
+        }) {
             HStack(spacing: 12.0) {
                 AsyncImage(url: URL(string: self.compendium?._icon ?? "")) { image in
                     image.image?
@@ -49,6 +77,6 @@ struct CompendiumRow: View {
 
 #Preview {
     NavigationStack {
-        CompendiumRow(compendiumId: -401)
+        AddPlantRow(compendiumId: -401)
     }
 }

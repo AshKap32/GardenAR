@@ -9,10 +9,9 @@ import Foundation
 import SwiftUI
 
 struct SearchView: View {
-    @State var compendia: [CompendiumModel] = []
     @State var searchText = ""
-    var categoryId: Int?
-    var name: String = "Search"
+    @State var compendia: [CompendiumModel] = []
+    @State var category: CategoryModel?
     
     func fetchAll() async {
         do {
@@ -25,7 +24,11 @@ struct SearchView: View {
     
     func fetchCategory() async {
         do {
-            let (compendia, _) = try await CompendiumNetwork.getCompendia(categoryId: self.categoryId!)
+            guard let categoryId = self.category?._category_id else {
+                return
+            }
+            
+            let (compendia, _) = try await CompendiumNetwork.getCompendia(categoryId: categoryId)
             if let compendia = compendia {
                 self.compendia = compendia
             }
@@ -34,13 +37,9 @@ struct SearchView: View {
     
     func filter() -> [CompendiumModel] {
         let query = self.searchText.lowercased()
-        if query.isEmpty {
-            return self.compendia
-        } else {
-            return self.compendia.filter { compendium in
-                let name = compendium._name!.lowercased()
-                return name.contains(query)
-            }
+        return query.isEmpty ? self.compendia : self.compendia.filter { compendium in
+            let name = compendium._name!.lowercased()
+            return name.contains(query)
         }
     }
     
@@ -48,7 +47,7 @@ struct SearchView: View {
         ScrollView {
             LazyVStack {
                 ForEach(self.filter(), id: \.self) { compendium in
-                    CompendiumRow(name: compendium._name!, icon: compendium._icon!, compendiumId: compendium._compendium_id!)
+                    CompendiumRow(compendium: compendium)
                 }
             }
         }
@@ -56,15 +55,11 @@ struct SearchView: View {
         .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
         .textInputAutocapitalization(.never)
         .autocorrectionDisabled()
-        .navigationTitle(self.name)
+        .navigationTitle(self.category?._name ?? "Search")
         .navigationBarTitleDisplayMode(.inline)
         .padding(.horizontal, 24.0)
         .task {
-            if self.categoryId == nil {
-                await self.fetchAll()
-            } else {
-                await self.fetchCategory()
-            }
+            self.category == nil ? await self.fetchAll() : await self.fetchCategory()
         }
     }
 }
