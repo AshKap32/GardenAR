@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct PostRow: View {
+    @Binding var updates: Int
     @State var favorited = false
     @State var comments: [CommentModel] = []
     @State var post: PostModel?
@@ -70,6 +71,7 @@ struct PostRow: View {
             let e = try await PostNetwork.postFavorite(postId: postId, token: token)
             if e.error == nil {
                 self.favorited = true
+                self.updates += 1
             }
         } catch {}
     }
@@ -87,6 +89,7 @@ struct PostRow: View {
             let e = try await PostNetwork.deleteFavorite(postId: postId, token: token)
             if e.error == nil {
                 self.favorited = false
+                self.updates += 1
             }
         } catch {}
     }
@@ -136,6 +139,6 @@ struct PostRow: View {
 
 #Preview {
     NavigationStack {
-        PostRow(postId: -201)
+        PostRow(updates: .constant(0), postId: -201)
     }
 }

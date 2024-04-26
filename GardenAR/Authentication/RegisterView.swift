@@ -188,9 +188,11 @@ struct RegisterView: View {
                         await self.register()
                     }
                 }) {
+                    Spacer()
                     Text("Sign up")
                         .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
+                    
+                    Spacer()
                 }
                 .padding(12.0)
                 .background(.black)

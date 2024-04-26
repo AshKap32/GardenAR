@@ -41,7 +41,6 @@ struct PlantInfo: View {
     
     var body: some View {
         ScrollView {
-            Text(self.compendium?._description ?? "")
             AsyncImage(url: URL(string: self.compendium?._icon ?? "")) { image in
                 image.image?
                     .resizable()
@@ -49,6 +48,8 @@ struct PlantInfo: View {
             }
             .frame(width: 192.0, height: 192.0)
             .clipShape(.rect(cornerRadius: 6.0))
+            
+            Text(self.compendium?._description ?? "")
         }
         .scrollIndicators(.hidden)
         .navigationTitle(self.compendium?._name ?? "")

@@ -70,9 +70,11 @@ struct LoginView: View {
                         await self.login()
                     }
                 }) {
+                    Spacer()
                     Text("Sign in")
                         .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
+                    
+                    Spacer()
                 }
                 .padding(12.0)
                 .background(.black)
