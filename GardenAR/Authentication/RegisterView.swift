@@ -208,11 +208,13 @@ struct RegisterView: View {
                     }
                 }
             }
-            .padding(.horizontal, 24.0)
+            .padding(.horizontal)
         }
     }
 }
 
 #Preview {
-    RegisterView(showLogin: .constant(false))
+    NavigationStack {
+        RegisterView(showLogin: .constant(false))
+    }
 }

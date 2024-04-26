@@ -98,22 +98,12 @@ struct PostRow: View {
         VStack(alignment: .leading, spacing: 12.0) {
             Text(self.post?._content ?? "")
             HStack {
-                if self.favorited {
-                    Button(action: {
-                        Task {
-                            await self.unfavorite()
-                        }
-                    }) {
-                        Image(systemName: "heart.fill")
+                Button(action: {
+                    Task {
+                        self.favorited ? await self.unfavorite() : await self.favorite()
                     }
-                } else {
-                    Button(action: {
-                        Task {
-                            await self.favorite()
-                        }
-                    }) {
-                        Image(systemName: "heart")
-                    }
+                }) {
+                    Image(systemName: self.favorited ? "heart.fill" : "heart")
                 }
                 
                 Spacer()
@@ -126,9 +116,9 @@ struct PostRow: View {
                     Image(systemName: "arrowshape.turn.up.right")
                 }
             }
+            
+            Divider()
         }
-        .padding(.top, 24.0)
-        .padding(.bottom, 12.0)
         .task {
             await self.fetchContent()
             await self.fetchStatus()

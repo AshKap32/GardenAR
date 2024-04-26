@@ -28,7 +28,7 @@ struct GardenView: View {
         VStack {
             UserHeaderBar()
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 12.0) {
                     ForEach(self.plants, id: \.self) { plant in
                         PlantRow(plant: plant)
                     }
@@ -36,7 +36,7 @@ struct GardenView: View {
             }
             .scrollIndicators(.hidden)
         }
-        .padding(.horizontal, 24.0)
+        .padding(.horizontal)
         .task {
             await self.fetch()
         }

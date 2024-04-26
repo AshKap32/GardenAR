@@ -35,7 +35,7 @@ struct AddPlantView: View {
     
     var body: some View {
         ScrollView {
-            LazyVStack {
+            LazyVStack(spacing: 12.0) {
                 ForEach(self.filter(), id: \.self) { compendium in
                     AddPlantRow(compendium: compendium)
                 }
@@ -47,7 +47,7 @@ struct AddPlantView: View {
         .autocorrectionDisabled()
         .navigationTitle("Add plant")
         .navigationBarTitleDisplayMode(.inline)
-        .padding(.horizontal, 24.0)
+        .padding(.horizontal)
         .task {
             await self.fetch()
         }

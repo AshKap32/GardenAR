@@ -28,8 +28,8 @@ struct UserHeaderBar: View {
         HStack(spacing: 12.0) {
             VStack(alignment: .leading) {
                 Text(self.account?._nickname ?? self.account?._username ?? "")
-                    .font(.title2)
-                    .fontWeight(.bold)
+                    .font(.title)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 
                 Text("\(Date(), format: .dateTime.weekday(Date.FormatStyle.Symbol.Weekday.wide)), \(Date(), format: .dateTime.month(Date.FormatStyle.Symbol.Month.wide).day().year())")
             }

@@ -45,7 +45,7 @@ struct SearchView: View {
     
     var body: some View {
         ScrollView {
-            LazyVStack {
+            LazyVStack(spacing: 12.0) {
                 ForEach(self.filter(), id: \.self) { compendium in
                     CompendiumRow(compendium: compendium)
                 }
@@ -56,8 +56,8 @@ struct SearchView: View {
         .textInputAutocapitalization(.never)
         .autocorrectionDisabled()
         .navigationTitle(self.category?._name ?? "Search")
-        .navigationBarTitleDisplayMode(.inline)
-        .padding(.horizontal, 24.0)
+        .navigationBarTitleDisplayMode(.large)
+        .padding(.horizontal)
         .task {
             self.category == nil ? await self.fetchAll() : await self.fetchCategory()
         }

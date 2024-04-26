@@ -23,19 +23,15 @@ struct DiscoverView: View {
     
     func filter() -> [CategoryModel] {
         let query = self.searchText.lowercased()
-        if query.isEmpty {
-            return self.categories
-        } else {
-            return self.categories.filter { category in
-                let name = category._name!.lowercased()
-                return name.contains(query)
-            }
+        return query.isEmpty ? self.categories : self.categories.filter { category in
+            let name = category._name!.lowercased()
+            return name.contains(query)
         }
     }
     
     var body: some View {
         ScrollView {
-            LazyVStack {
+            LazyVStack(spacing: 12.0) {
                 ForEach(self.filter(), id: \.self) { category in
                     DiscoverRow(category: category)
                 }
@@ -46,8 +42,8 @@ struct DiscoverView: View {
         .textInputAutocapitalization(.never)
         .autocorrectionDisabled()
         .navigationTitle("Discover")
-        .navigationBarTitleDisplayMode(.inline)
-        .padding(.horizontal, 24.0)
+        .navigationBarTitleDisplayMode(.large)
+        .padding(.horizontal)
         .task {
             await self.fetch()
         }

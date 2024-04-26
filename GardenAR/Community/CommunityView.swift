@@ -47,25 +47,20 @@ struct CommunityView: View {
             .pickerStyle(.segmented)
             
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 12.0) {
                     ForEach(self.posts, id: \.self) { post in
                         PostRow(updates: self.$updates, post: post)
-                        Divider()
                     }
                 }
             }
             .scrollIndicators(.hidden)
         }
         .navigationTitle("Community")
-        .navigationBarTitleDisplayMode(.inline)
-        .padding(.horizontal, 24.0)
+        .navigationBarTitleDisplayMode(.large)
+        .padding(.horizontal)
         .onChange(of: self.selectedSocialCategory, initial: true) {
             Task {
-                if self.selectedSocialCategory == "All" {
-                    await self.fetchPosts()
-                } else {
-                    await self.fetchFavorites()
-                }
+                self.selectedSocialCategory == "All" ? await self.fetchPosts() : await self.fetchFavorites()
             }
         }
         .onChange(of: self.updates, initial: false) {

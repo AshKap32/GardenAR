@@ -41,15 +41,88 @@ struct PlantInfo: View {
     
     var body: some View {
         ScrollView {
-            AsyncImage(url: URL(string: self.compendium?._icon ?? "")) { image in
-                image.image?
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }
-            .frame(width: 192.0, height: 192.0)
-            .clipShape(.rect(cornerRadius: 6.0))
-            
             Text(self.compendium?._description ?? "")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.bottom, 12.0)
+            
+            HStack {
+                VStack(spacing: 12.0) {
+                    AsyncImage(url: URL(string: self.compendium?._icon ?? "")) { image in
+                        image.image?
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    .frame(width: 192.0, height: 192.0)
+                    .clipShape(.rect(cornerRadius: 6.0))
+                    
+                    Spacer()
+                }
+                
+                VStack(spacing: 12.0) {
+                    VStack {
+                        Text("Lighting")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text("\(String(self.compendium?._lighting ?? 0)) hours")
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    VStack {
+                        Text("Depth")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text("\(self.compendium?._depth ?? "0") inches")
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Spacing")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text("\(self.compendium?._spacing ?? "0") inches")
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    
+                    VStack(alignment: .leading) {
+                        Text("Days to germinate")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text("\(String(self.compendium?._germination ?? 0)) days")
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Days to maturity")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text("\(String(self.compendium?._maturity ?? 0)) days")
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Date planted")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text(self.plant?._timestamp ?? "")
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    Spacer()
+                }
+            }
         }
         .scrollIndicators(.hidden)
         .navigationTitle(self.compendium?._name ?? "")
