@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CommunityView: View {
     @State var selectedSocialCategory = "All"
+    @State var updates = 0
     @State var posts: [PostModel] = []
     
     func fetchPosts() async {
@@ -46,23 +47,25 @@ struct CommunityView: View {
             .pickerStyle(.segmented)
             
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 12.0) {
                     ForEach(self.posts, id: \.self) { post in
-                        PostRow(post: post)
-                        Divider()
+                        PostRow(updates: self.$updates, post: post)
                     }
                 }
             }
             .scrollIndicators(.hidden)
         }
         .navigationTitle("Community")
-        .navigationBarTitleDisplayMode(.inline)
-        .padding(.horizontal, 24.0)
+        .navigationBarTitleDisplayMode(.large)
+        .padding(.horizontal)
         .onChange(of: self.selectedSocialCategory, initial: true) {
             Task {
-                if self.selectedSocialCategory == "All" {
-                    await self.fetchPosts()
-                } else {
+                self.selectedSocialCategory == "All" ? await self.fetchPosts() : await self.fetchFavorites()
+            }
+        }
+        .onChange(of: self.updates, initial: false) {
+            Task {
+                if self.selectedSocialCategory == "Favorites" {
                     await self.fetchFavorites()
                 }
             }

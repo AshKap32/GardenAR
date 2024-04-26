@@ -34,7 +34,7 @@ struct DiscoverRow: View {
                         .aspectRatio(contentMode: .fit)
                 }
                 .frame(width: 96.0, height: 96.0)
-                .clipShape(.rect(cornerRadius: 8.0))
+                .clipShape(.rect(cornerRadius: 6.0))
                 
                 Text(self.category?._name ?? "")
                 Spacer()

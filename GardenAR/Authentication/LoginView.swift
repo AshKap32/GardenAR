@@ -70,9 +70,11 @@ struct LoginView: View {
                         await self.login()
                     }
                 }) {
+                    Spacer()
                     Text("Sign in")
                         .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
+                    
+                    Spacer()
                 }
                 .padding(12.0)
                 .background(.black)
@@ -88,11 +90,13 @@ struct LoginView: View {
                     }
                 }
             }
-            .padding(.horizontal, 24.0)
+            .padding(.horizontal)
         }
     }
 }
 
 #Preview {
-    LoginView(showLogin: .constant(true), loggedIn: .constant(false))
+    NavigationStack {
+        LoginView(showLogin: .constant(true), loggedIn: .constant(false))
+    }
 }
