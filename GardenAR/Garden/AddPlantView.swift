@@ -46,7 +46,7 @@ struct AddPlantView: View {
         .textInputAutocapitalization(.never)
         .autocorrectionDisabled()
         .navigationTitle("Add plant")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .padding(.horizontal)
         .task {
             await self.fetch()

@@ -126,8 +126,8 @@ struct PlantInfo: View {
         }
         .scrollIndicators(.hidden)
         .navigationTitle(self.compendium?._name ?? "")
-        .navigationBarTitleDisplayMode(.inline)
-        .padding(.horizontal, 24.0)
+        .navigationBarTitleDisplayMode(.large)
+        .padding(.horizontal)
         .task {
             await self.fetchPlant()
             await self.fetchCompendium()
