@@ -30,7 +30,6 @@ struct RegisterView: View {
             }
         }
         
-        print(skill)
         return AccountModel(
             _username: self.username,
             _nickname: self.nickname,

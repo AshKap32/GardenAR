@@ -36,7 +36,17 @@ struct PlantInfo: View {
             if let compendium = compendium {
                 self.compendium = compendium
             }
-        } catch{}
+        } catch {}
+    }
+    
+    func toDate(from: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        return formatter.date(from: from) ?? Date.now
+    }
+    
+    func formatDate(date: Date) -> String {
+        return date.formatted(.dateTime.month(Date.FormatStyle.Symbol.Month.wide).day().year())
     }
     
     var body: some View {
@@ -64,7 +74,8 @@ struct PlantInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(String(self.compendium?._lighting ?? 0)) hours")
+                        let hours = String(self.compendium?._lighting ?? 0)
+                        Text("^[\(hours) hours](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -74,7 +85,8 @@ struct PlantInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(self.compendium?._depth ?? "0") inches")
+                        let inches = self.compendium?._depth ?? "0"
+                        Text("^[\(inches) inches](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -84,7 +96,8 @@ struct PlantInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(self.compendium?._spacing ?? "0") inches")
+                        let inches = self.compendium?._spacing ?? "0"
+                        Text("^[\(inches) inches](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -95,7 +108,8 @@ struct PlantInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(String(self.compendium?._germination ?? 0)) days")
+                        let days = String(self.compendium?._germination ?? 0)
+                        Text("^[\(days) days](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -105,7 +119,8 @@ struct PlantInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(String(self.compendium?._maturity ?? 0)) days")
+                        let days = String(self.compendium?._maturity ?? 0)
+                        Text("^[\(days) days](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -115,7 +130,20 @@ struct PlantInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text(self.plant?._timestamp ?? "")
+                        let date = toDate(from: self.plant?._timestamp ?? "")
+                        Text(formatDate(date: date))
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Estimated date")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        let days = Double(self.compendium?._maturity ?? 0)
+                        let date = toDate(from: self.plant?._timestamp ?? "").addingTimeInterval(60 * 60 * 24 * days)
+                        Text(formatDate(date: date))
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }

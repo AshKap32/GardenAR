@@ -50,7 +50,8 @@ struct CompendiumInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(String(self.compendium?._lighting ?? 0)) hours")
+                        let hours = String(self.compendium?._lighting ?? 0)
+                        Text("^[\(hours) hours](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -60,7 +61,8 @@ struct CompendiumInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(self.compendium?._depth ?? "0") inches")
+                        let inches = self.compendium?._depth ?? "0"
+                        Text("^[\(inches) inches](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -70,7 +72,8 @@ struct CompendiumInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(self.compendium?._spacing ?? "0") inches")
+                        let inches = self.compendium?._spacing ?? "0"
+                        Text("^[\(inches) inches](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -81,7 +84,8 @@ struct CompendiumInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(String(self.compendium?._germination ?? 0)) days")
+                        let days = String(self.compendium?._germination ?? 0)
+                        Text("^[\(days) days](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -91,7 +95,8 @@ struct CompendiumInfo: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("\(String(self.compendium?._maturity ?? 0)) days")
+                        let days = String(self.compendium?._maturity ?? 0)
+                        Text("^[\(days) days](inflect: true)")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
