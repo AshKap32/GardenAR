@@ -24,6 +24,12 @@ struct UserHeaderBar: View {
         } catch {}
     }
     
+    func formatDate(date: Date) -> String {
+        let weekday = date.formatted(.dateTime.weekday(Date.FormatStyle.Symbol.Weekday.wide))
+        let date = date.formatted(.dateTime.month(Date.FormatStyle.Symbol.Month.wide).day().year())
+        return "\(weekday), \(date)"
+    }
+    
     var body: some View {
         HStack(spacing: 12.0) {
             VStack(alignment: .leading) {
@@ -31,7 +37,7 @@ struct UserHeaderBar: View {
                     .font(.title)
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 
-                Text("\(Date(), format: .dateTime.weekday(Date.FormatStyle.Symbol.Weekday.wide)), \(Date(), format: .dateTime.month(Date.FormatStyle.Symbol.Month.wide).day().year())")
+                Text(formatDate(date: Date.now))
             }
             
             Spacer()

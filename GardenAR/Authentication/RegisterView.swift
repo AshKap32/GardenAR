@@ -30,7 +30,6 @@ struct RegisterView: View {
             }
         }
         
-        print(skill)
         return AccountModel(
             _username: self.username,
             _nickname: self.nickname,
@@ -63,17 +62,16 @@ struct RegisterView: View {
             Color("Colors/Alt")
                 .ignoresSafeArea()
             ScrollView {
-                VStack(alignment: .leading, spacing: 12.0) {
+                VStack(spacing: 12.0) {
                     Text("Join GardenAR")
-                        .foregroundColor(.white)
                         .font(.title)
                         .fontWeight(.bold)
-
-                    Text("Personal Information")
-                        .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .padding(.top, 5)
-                        .padding(.bottom, 5)
+
+                    Text("Personal information")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding(12.0)
                     
                     HStack {
                         Image(systemName: "person.fill")
@@ -124,10 +122,10 @@ struct RegisterView: View {
                     .clipShape(.rect(cornerRadius: 6.0))
                     
                     Text("Account Information")
+                        .font(.headline)
                         .foregroundColor(.white)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        .padding(.top, 10)
-                        .padding(.top, 5)
+                        .padding(12.0)
+                    
                     HStack {
                         Image(systemName: "envelope.fill")
                             .frame(width: 24.0, alignment: .leading)
@@ -153,10 +151,9 @@ struct RegisterView: View {
                     .clipShape(.rect(cornerRadius: 6.0))
                     
                     Text("Gardening information")
+                        .font(.headline)
                         .foregroundColor(.white)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        .padding(.top, 10)
-                        .padding(.top, 5)
+                        .padding(12.0)
                     
                     Menu {
                         ForEach(self.skillOptions, id: \.self) { item in
@@ -171,7 +168,7 @@ struct RegisterView: View {
                         
                         TextField("Skill level", text: self.$skill)
                             .disabled(true)
-                            .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
+                            .multilineTextAlignment(.leading)
                         
                         Spacer()
                         Image(systemName: "chevron.down")
@@ -182,10 +179,10 @@ struct RegisterView: View {
                     .clipShape(.rect(cornerRadius: 6.0))
                     
                     Text("Location")
+                        .font(.headline)
                         .foregroundColor(.white)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        .padding(.top, 10)
-                        .padding(.top, 5)
+                        .padding(12.0)
+                    
                     HStack {
                         Image(systemName: "building.fill")
                             .frame(width: 24.0, alignment: .leading)
