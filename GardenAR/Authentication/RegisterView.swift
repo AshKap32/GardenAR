@@ -61,6 +61,7 @@ struct RegisterView: View {
         ZStack {
             Color("Colors/Alt")
                 .ignoresSafeArea()
+            
             ScrollView {
                 VStack(spacing: 12.0) {
                     Text("Join GardenAR")
@@ -71,7 +72,7 @@ struct RegisterView: View {
                     Text("Personal information")
                         .font(.headline)
                         .foregroundColor(.white)
-                        .padding(12.0)
+                        .padding(.top, 12.0)
                     
                     HStack {
                         Image(systemName: "person.fill")
@@ -124,7 +125,7 @@ struct RegisterView: View {
                     Text("Account Information")
                         .font(.headline)
                         .foregroundColor(.white)
-                        .padding(12.0)
+                        .padding(.top, 12.0)
                     
                     HStack {
                         Image(systemName: "envelope.fill")
@@ -153,7 +154,7 @@ struct RegisterView: View {
                     Text("Gardening information")
                         .font(.headline)
                         .foregroundColor(.white)
-                        .padding(12.0)
+                        .padding(.top, 12.0)
                     
                     Menu {
                         ForEach(self.skillOptions, id: \.self) { item in
@@ -181,7 +182,7 @@ struct RegisterView: View {
                     Text("Location")
                         .font(.headline)
                         .foregroundColor(.white)
-                        .padding(12.0)
+                        .padding(.top, 12.0)
                     
                     HStack {
                         Image(systemName: "building.fill")
