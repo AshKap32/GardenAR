@@ -67,11 +67,11 @@ struct RegisterView: View {
                     Text("Join GardenAR")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
 
                     Text("Personal information")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding(.top, 12.0)
                     
                     HStack {
@@ -124,7 +124,7 @@ struct RegisterView: View {
                     
                     Text("Account Information")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding(.top, 12.0)
                     
                     HStack {
@@ -153,7 +153,7 @@ struct RegisterView: View {
                     
                     Text("Gardening information")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding(.top, 12.0)
                     
                     Menu {
@@ -165,7 +165,7 @@ struct RegisterView: View {
                     } label : {
                         Image(systemName: "rosette")
                             .frame(width: 24.0, alignment: .leading)
-                            .foregroundColor(.black)
+                            .foregroundStyle(.black)
                         
                         TextField("Skill level", text: self.$skill)
                             .disabled(true)
@@ -173,7 +173,7 @@ struct RegisterView: View {
                         
                         Spacer()
                         Image(systemName: "chevron.down")
-                            .foregroundColor(.black)
+                            .foregroundStyle(.black)
                     }
                     .padding(12.0)
                     .background(.white)
@@ -181,7 +181,7 @@ struct RegisterView: View {
                     
                     Text("Location")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding(.top, 12.0)
                     
                     HStack {

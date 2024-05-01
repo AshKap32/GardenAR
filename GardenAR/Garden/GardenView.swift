@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct GardenView: View {
+    @State var updates = 0
     @State var plants: [PlantModel] = []
     
     func fetch() async {
@@ -30,15 +31,17 @@ struct GardenView: View {
             ScrollView {
                 LazyVStack(spacing: 12.0) {
                     ForEach(self.plants, id: \.self) { plant in
-                        PlantRow(plant: plant)
+                        PlantRow(updates: self.$updates, plant: plant)
                     }
                 }
             }
             .scrollIndicators(.hidden)
         }
         .padding(.horizontal)
-        .task {
-            await self.fetch()
+        .onChange(of: self.updates, initial: true) {
+            Task {
+                await self.fetch()
+            }
         }
     }
 }

@@ -85,8 +85,17 @@ struct CommentNetwork {
         return (reply._comment, e)
     }
     
-    static func deleteComment(commentId: Int, token: String) async throws -> (CommentReply, ErrorReply) {
-        fatalError()
+    static func deleteComment(commentId: Int, token: String) async throws -> ErrorReply {
+        let url = URL(string: "http://\(self.host)/comment/\(commentId)/account/token")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = try self.encoder.encode("")
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try self.decoder.decode(ErrorReply.self, from: data)
     }
     
     static func patchComment(commentId: Int, token: String, comment: CommentModel) async throws -> (CommentModel?, ErrorReply) {

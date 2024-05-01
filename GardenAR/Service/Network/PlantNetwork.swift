@@ -74,8 +74,17 @@ struct PlantNetwork {
         return (reply._plant, e)
     }
     
-    static func deletePlant(plantId: Int, token: String) async throws -> (PlantReply, ErrorReply) {
-        fatalError() // to do: actually implement this
+    static func deletePlant(plantId: Int, token: String) async throws -> ErrorReply {
+        let url = URL(string: "http://\(self.host)/plant/\(plantId)/account/token")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = try self.encoder.encode("")
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try self.decoder.decode(ErrorReply.self, from: data)
     }
     
     static func patchPlant(plantId: Int, token: String, plant: PlantModel) async throws -> (PlantModel?, ErrorReply) {
