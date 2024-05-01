@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct PlantRow: View {
+    @Binding var updates: Int
     @State var compendium: CompendiumModel?
     @State var plant: PlantModel?
     var plantId: Int?
@@ -39,6 +40,23 @@ struct PlantRow: View {
         } catch {}
     }
     
+    func delete() async {
+        do {
+            guard let token = UserDefaults.standard.string(forKey: "token") else {
+                return
+            }
+            
+            guard let plantId = self.plant?._plant_id else {
+                return
+            }
+            
+            let e = try await PlantNetwork.deletePlant(plantId: plantId, token: token)
+            if e.error == nil {
+                self.updates += 1
+            }
+        } catch {}
+    }
+    
     var body: some View {
         NavigationLink(destination: PlantInfo(compendium: self.compendium, plant: self.plant)) {
             HStack(spacing: 12.0) {
@@ -52,6 +70,14 @@ struct PlantRow: View {
                 
                 Text(self.compendium?._name ?? "")
                 Spacer()
+                Button(action: {
+                    Task {
+                        await self.delete()
+                    }
+                }) {
+                    Image(systemName: "trash")
+                }
+                .buttonStyle(.plain)
             }
         }
         .buttonStyle(.plain)
@@ -64,6 +90,6 @@ struct PlantRow: View {
 
 #Preview {
     NavigationStack {
-        PlantRow(plantId: -601)
+        PlantRow(updates: .constant(0), plantId: -601)
     }
 }

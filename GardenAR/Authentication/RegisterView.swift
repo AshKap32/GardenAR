@@ -61,17 +61,18 @@ struct RegisterView: View {
         ZStack {
             Color("Colors/Alt")
                 .ignoresSafeArea()
+            
             ScrollView {
                 VStack(spacing: 12.0) {
                     Text("Join GardenAR")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
 
                     Text("Personal information")
                         .font(.headline)
-                        .foregroundColor(.white)
-                        .padding(12.0)
+                        .foregroundStyle(.white)
+                        .padding(.top, 12.0)
                     
                     HStack {
                         Image(systemName: "person.fill")
@@ -123,8 +124,8 @@ struct RegisterView: View {
                     
                     Text("Account Information")
                         .font(.headline)
-                        .foregroundColor(.white)
-                        .padding(12.0)
+                        .foregroundStyle(.white)
+                        .padding(.top, 12.0)
                     
                     HStack {
                         Image(systemName: "envelope.fill")
@@ -152,8 +153,8 @@ struct RegisterView: View {
                     
                     Text("Gardening information")
                         .font(.headline)
-                        .foregroundColor(.white)
-                        .padding(12.0)
+                        .foregroundStyle(.white)
+                        .padding(.top, 12.0)
                     
                     Menu {
                         ForEach(self.skillOptions, id: \.self) { item in
@@ -164,7 +165,7 @@ struct RegisterView: View {
                     } label : {
                         Image(systemName: "rosette")
                             .frame(width: 24.0, alignment: .leading)
-                            .foregroundColor(.black)
+                            .foregroundStyle(.black)
                         
                         TextField("Skill level", text: self.$skill)
                             .disabled(true)
@@ -172,7 +173,7 @@ struct RegisterView: View {
                         
                         Spacer()
                         Image(systemName: "chevron.down")
-                            .foregroundColor(.black)
+                            .foregroundStyle(.black)
                     }
                     .padding(12.0)
                     .background(.white)
@@ -180,8 +181,8 @@ struct RegisterView: View {
                     
                     Text("Location")
                         .font(.headline)
-                        .foregroundColor(.white)
-                        .padding(12.0)
+                        .foregroundStyle(.white)
+                        .padding(.top, 12.0)
                     
                     HStack {
                         Image(systemName: "building.fill")
