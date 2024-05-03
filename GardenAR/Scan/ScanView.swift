@@ -19,8 +19,6 @@ struct ScanView: UIViewRepresentable {
 }
 
 
-
-
 #Preview {
     NavigationStack {
         ScanView()
