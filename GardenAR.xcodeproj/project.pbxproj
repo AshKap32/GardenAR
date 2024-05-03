@@ -20,6 +20,8 @@
 		31E1E3662AFF510200A5F7CE /* GardenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3652AFF510200A5F7CE /* GardenView.swift */; };
 		31E1E3682AFF512100A5F7CE /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3672AFF512100A5F7CE /* TabBar.swift */; };
 		31E1E3742AFF586800A5F7CE /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3732AFF586800A5F7CE /* SearchView.swift */; };
+		56E964692BE4770D0060A21B /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E964682BE4770D0060A21B /* ScanController.swift */; };
+		56E9646F2BE49F140060A21B /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E9646E2BE49F140060A21B /* ScanView.swift */; };
 		7E27FEE92BD764F900C4F4B6 /* AddPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E27FEE82BD764F900C4F4B6 /* AddPlantView.swift */; };
 		7E27FEEC2BD7695900C4F4B6 /* CompendiumRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E27FEEB2BD7695900C4F4B6 /* CompendiumRow.swift */; };
 		7E27FEEE2BD76AF000C4F4B6 /* AddPlantRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E27FEED2BD76AF000C4F4B6 /* AddPlantRow.swift */; };
@@ -75,6 +77,8 @@
 		31E1E3652AFF510200A5F7CE /* GardenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenView.swift; sourceTree = "<group>"; };
 		31E1E3672AFF512100A5F7CE /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		31E1E3732AFF586800A5F7CE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		56E964682BE4770D0060A21B /* ScanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
+		56E9646E2BE49F140060A21B /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xcfilelist; };
 		7E27FEE82BD764F900C4F4B6 /* AddPlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantView.swift; sourceTree = "<group>"; };
 		7E27FEEB2BD7695900C4F4B6 /* CompendiumRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompendiumRow.swift; sourceTree = "<group>"; };
 		7E27FEED2BD76AF000C4F4B6 /* AddPlantRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantRow.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 		31E1E3522AFF4BDC00A5F7CE /* GardenAR */ = {
 			isa = PBXGroup;
 			children = (
+				56E964672BE476E40060A21B /* Scan */,
 				31E1E3722AFF585A00A5F7CE /* Search */,
 				31D50EB12B086EEB00235964 /* Community */,
 				31D50EAE2B085DFF00235964 /* Discover */,
@@ -258,6 +263,15 @@
 				31E1E3732AFF586800A5F7CE /* SearchView.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		56E964672BE476E40060A21B /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				56E964682BE4770D0060A21B /* ScanController.swift */,
+				56E9646E2BE49F140060A21B /* ScanView.swift */,
+			);
+			path = Scan;
 			sourceTree = "<group>";
 		};
 		7E27FEEA2BD7692600C4F4B6 /* Items */ = {
@@ -465,10 +479,12 @@
 				7EB72D2C2BB39ED600B4DDE8 /* AccountRequest.swift in Sources */,
 				31E1E3682AFF512100A5F7CE /* TabBar.swift in Sources */,
 				7EB72D4F2BB51CBD00B4DDE8 /* PostNetwork.swift in Sources */,
+				56E964692BE4770D0060A21B /* ScanController.swift in Sources */,
 				7EFEF4662BD62E32007B80E1 /* DiscoverRow.swift in Sources */,
 				7EB72D472BB512B300B4DDE8 /* AccountNetwork.swift in Sources */,
 				7E27FEEE2BD76AF000C4F4B6 /* AddPlantRow.swift in Sources */,
 				7EB72D492BB5147F00B4DDE8 /* SessionNetwork.swift in Sources */,
+				56E9646F2BE49F140060A21B /* ScanView.swift in Sources */,
 				7E6FC30D2B9EB51A003814A2 /* LoginView.swift in Sources */,
 				7EDE99FB2BBFCCF800BFB6A5 /* PlantInfo.swift in Sources */,
 			);
@@ -607,12 +623,14 @@
 				DEVELOPMENT_TEAM = XDHGQ8DB2M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "GardenAR requieres Camera Use";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -637,12 +655,14 @@
 				DEVELOPMENT_TEAM = XDHGQ8DB2M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "GardenAR requieres Camera Use";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

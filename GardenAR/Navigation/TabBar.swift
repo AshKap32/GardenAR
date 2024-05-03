@@ -28,7 +28,8 @@ struct TabBar: View {
             }
             
             NavigationStack {
-                EmptyView()
+                ScanView()
+                
             }
             .tabItem {
                 Image(systemName: "camera")
