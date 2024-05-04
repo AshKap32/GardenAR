@@ -106,6 +106,8 @@ struct PostNetwork {
     static func postPost(token: String, post: PostModel) async throws -> (PostModel?, ErrorReply) {
         let url = URL(string: "http://\(self.host)/post/account/token")!
         var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
