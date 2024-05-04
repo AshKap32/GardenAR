@@ -20,6 +20,7 @@
 		31E1E3662AFF510200A5F7CE /* GardenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3652AFF510200A5F7CE /* GardenView.swift */; };
 		31E1E3682AFF512100A5F7CE /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3672AFF512100A5F7CE /* TabBar.swift */; };
 		31E1E3742AFF586800A5F7CE /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E1E3732AFF586800A5F7CE /* SearchView.swift */; };
+		561B50092BE5AC9B00826541 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B50082BE5AC9B00826541 /* AddPostView.swift */; };
 		56E964692BE4770D0060A21B /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E964682BE4770D0060A21B /* ScanController.swift */; };
 		56E9646F2BE49F140060A21B /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E9646E2BE49F140060A21B /* ScanView.swift */; };
 		7E27FEE92BD764F900C4F4B6 /* AddPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E27FEE82BD764F900C4F4B6 /* AddPlantView.swift */; };
@@ -77,6 +78,7 @@
 		31E1E3652AFF510200A5F7CE /* GardenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenView.swift; sourceTree = "<group>"; };
 		31E1E3672AFF512100A5F7CE /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		31E1E3732AFF586800A5F7CE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		561B50082BE5AC9B00826541 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		56E964682BE4770D0060A21B /* ScanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
 		56E9646E2BE49F140060A21B /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xcfilelist; };
 		7E27FEE82BD764F900C4F4B6 /* AddPlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				31D50EB52B086FB800235964 /* Items */,
 				31D50EB22B086EF800235964 /* CommunityView.swift */,
+				561B50082BE5AC9B00826541 /* AddPostView.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				7EB72D162BB3641700B4DDE8 /* AccountModel.swift in Sources */,
 				7EEE2D1A2BB781FE002B2A9B /* CommentRequest.swift in Sources */,
 				7EB72D342BB39F4500B4DDE8 /* CompendiumReply.swift in Sources */,
+				561B50092BE5AC9B00826541 /* AddPostView.swift in Sources */,
 				7EB72D1A2BB365FE00B4DDE8 /* PlantModel.swift in Sources */,
 				7E27FEE92BD764F900C4F4B6 /* AddPlantView.swift in Sources */,
 				7EFEF45F2BD49783007B80E1 /* CategoryReply.swift in Sources */,
