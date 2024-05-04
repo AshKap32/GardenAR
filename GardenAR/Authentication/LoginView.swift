@@ -30,6 +30,12 @@ struct LoginView: View {
         self.showLogin = false
     }
     
+    // checks if any of the forms are empty
+    func isformEmpty() -> Bool {
+        let isFormEmpty = !username.isEmpty && !password.isEmpty
+        return isFormEmpty
+    }
+    
     var body: some View {
         ZStack {
             Color("Colors/Alt")
@@ -73,7 +79,8 @@ struct LoginView: View {
                     Spacer()
                     Text("Sign in")
                         .foregroundStyle(.white)
-                    
+                        .disabled(!isformEmpty())
+                        .opacity(!isformEmpty() ? 0.5 : 1.0)
                     Spacer()
                 }
                 .padding(12.0)
