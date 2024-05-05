@@ -41,17 +41,13 @@ struct UserHeaderBar: View {
             }
             
             Spacer()
-            NavigationLink(destination: NotificationView()) {
-                Image(systemName: "bell")
-            }
-            .buttonStyle(.plain)
             
             NavigationLink(destination: AddPlantView()) {
                 Image(systemName: "plus")
             }
             .buttonStyle(.plain)
             
-            Image(systemName: "heart")
+           
         }
         .task {
             await self.fetch()
