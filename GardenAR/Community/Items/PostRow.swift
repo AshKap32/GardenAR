@@ -45,18 +45,7 @@ struct PostRow: View {
         } catch {}
     }
     
-    func fetchComments() async {
-        do {
-            guard let postId = self.post?._post_id else {
-                return
-            }
-            
-            let (comments, _) = try await CommentNetwork.getComments(postId: postId)
-            if let comments = comments {
-                self.comments = comments
-            }
-        } catch {}
-    }
+   
     
     func favorite() async {
         do {
@@ -106,15 +95,7 @@ struct PostRow: View {
                     Image(systemName: self.favorited ? "heart.fill" : "heart")
                 }
                 
-                Spacer()
-                Button(action: {}) {
-                    Image(systemName: "bubble.left.and.text.bubble.right")
-                }
                 
-                Spacer()
-                Button(action: {}) {
-                    Image(systemName: "arrowshape.turn.up.right")
-                }
             }
             
             Divider()
@@ -122,7 +103,7 @@ struct PostRow: View {
         .task {
             await self.fetchContent()
             await self.fetchStatus()
-            await self.fetchComments()
+            
         }
     }
 }
