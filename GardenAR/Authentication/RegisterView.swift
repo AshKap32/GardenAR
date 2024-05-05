@@ -31,6 +31,7 @@ struct RegisterView: View {
             }
         }
         
+        // print(skill)
         return AccountModel(
             _username: self.username,
             _nickname: self.nickname,
@@ -60,23 +61,48 @@ struct RegisterView: View {
     func toggle() {
         self.showLogin = true
     }
+    
+    // checks if any of the forms are empty
+    func isformEmpty() -> Bool {
+        let isFormEmpty = !username.isEmpty && !nickname.isEmpty && !forename.isEmpty && !surname.isEmpty && !email.isEmpty && !password.isEmpty && !skill.isEmpty && !city.isEmpty && !zip.isEmpty
+        return isFormEmpty
+    }
+    
+    // checks for email form has an "@"
+    func isEmailValid() -> Bool {
+        let isEmailValid = email.contains("@")
+        return isEmailValid
+    }
+    
+    // checks zip code for 5 number characters
+    func isZipValid() -> Bool {
+        let isZipValid = zip.contains("1234567890") && zip.count == 5
+        return isZipValid
+    }
+    
+    // checks for password with 6 or more characters, contains a number, special character and an uppercase character
+    private func passwordValidation(_ password : String) -> Bool {
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[0-9])(?=.*[$@$#!%*?&])(?=.*[A-Z]).{6,}$")
+        return passwordTest.evaluate(with: password)
+    }
 
     var body: some View {
         ZStack {
             Color("Colors/Alt")
                 .ignoresSafeArea()
-            
             ScrollView {
-                VStack(spacing: 12.0) {
+                VStack(alignment: .leading, spacing: 12.0) {
                     Text("Join GardenAR")
+                        .foregroundColor(.white)
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundStyle(.white)
+                        .padding(5)
 
-                    Text("Personal information")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .padding(.top, 12.0)
+                    Text("Personal Information")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.top, 5)
+                        .padding(.bottom, 5)
                     
                     HStack {
                         Image(systemName: "person.fill")
@@ -127,10 +153,10 @@ struct RegisterView: View {
                     .clipShape(.rect(cornerRadius: 6.0))
                     
                     Text("Account Information")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .padding(.top, 12.0)
-                    
+                        .foregroundColor(.white)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.top, 10)
+                        .padding(.top, 5)
                     HStack {
                         Image(systemName: "envelope.fill")
                             .frame(width: 24.0, alignment: .leading)
@@ -155,10 +181,16 @@ struct RegisterView: View {
                     .background(.white)
                     .clipShape(.rect(cornerRadius: 6.0))
                     
+                    if !passwordValidation(password){
+                        Text("Must be at least 6 characters long, contains number, an uppercase, and a special character.")
+                            .foregroundColor(.white)
+                    }
+                    
                     Text("Gardening information")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .padding(.top, 12.0)
+                        .foregroundColor(.white)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.top, 10)
+                        .padding(.top, 5)
                     
                     Menu {
                         ForEach(self.skillOptions, id: \.self) { item in
@@ -169,25 +201,25 @@ struct RegisterView: View {
                     } label : {
                         Image(systemName: "rosette")
                             .frame(width: 24.0, alignment: .leading)
-                            .foregroundStyle(.black)
+                            .foregroundColor(.black)
                         
                         TextField("Skill level", text: self.$skill)
                             .disabled(true)
-                            .multilineTextAlignment(.leading)
+                            .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                         
                         Spacer()
                         Image(systemName: "chevron.down")
-                            .foregroundStyle(.black)
+                            .foregroundColor(.black)
                     }
                     .padding(12.0)
                     .background(.white)
                     .clipShape(.rect(cornerRadius: 6.0))
                     
                     Text("Location")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .padding(.top, 12.0)
-                    
+                        .foregroundColor(.white)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.top, 10)
+                        .padding(.top, 5)
                     HStack {
                         Image(systemName: "building.fill")
                             .frame(width: 24.0, alignment: .leading)
@@ -226,6 +258,8 @@ struct RegisterView: View {
                     .padding(12.0)
                     .background(.black)
                     .clipShape(.rect(cornerRadius: 6.0))
+                    .disabled(!isformEmpty() && !isEmailValid())
+                    .opacity(!isformEmpty() ? 0.5 : 1.0)
 
                     HStack {
                         Text("Already have an account?")
@@ -243,6 +277,7 @@ struct RegisterView: View {
             
         }
     }
+    
 }
 
 #Preview {
