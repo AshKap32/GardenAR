@@ -24,8 +24,6 @@ In a directory of your choosing, run the command `git clone https://github.com/A
 
 ### Launching the Frontend
 
-After installing the frontend, follow all of the instructions in the backend repository.
-Once those steps are completed go ahead and then open the frontend in Xcode by clicking on the Xcode project file. 
-Afterwards, click on the project name and navigate to the Info tab and locate the BACKEND_HOST property.
-To make sure the app runs with the backend, change the string propery to localhost.
-To launch the the app press `Command + R` on your keyboard. 
+After installing the frontend, follow all of the instructions in the backend repository. Once those steps are completed go ahead and then open the frontend in Xcode by clicking on the Xcode project file. Afterwards, click on the project name and navigate to the Info tab and locate the BACKEND_HOST property. To make sure the app runs with the backend, change the string propery to localhost. If you've deployed the backend to a service such as Google Cloud Platform or Amazon Web Services, change the property to the address of the backend. To launch the the app press `Command + R` on your keyboard. 
+
+![](./info.png)
