@@ -40,7 +40,6 @@ struct ContentView: View {
         }
         .task {
             await self.ping()
-//            self.loggedIn = true
         }
     }
 }

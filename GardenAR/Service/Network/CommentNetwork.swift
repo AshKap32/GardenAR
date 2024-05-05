@@ -8,7 +8,7 @@
 import Foundation
 
 struct CommentNetwork {
-    static let host = "localhost:8080" // to do: extract this from some sort of config file
+    static let host = Bundle.main.object(forInfoDictionaryKey: "BACKEND_HOST") ?? "localhost:80"
     static let encoder = JSONEncoder()
     static let decoder = JSONDecoder()
     
