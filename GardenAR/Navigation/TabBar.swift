@@ -4,21 +4,27 @@
 //
 //  Created by Aashish Kapoor on 11/10/23.
 //
+//
+
+
 
 import Foundation
 import SwiftUI
 
 struct TabBar: View {
+    @Binding var loggedIn: Bool  // Add this to manage the login state
+
     var body: some View {
         TabView {
             NavigationStack {
-                GardenView()
+                GardenView(loggedIn: $loggedIn)  // Pass loggedIn binding
             }
             .tabItem {
                 Image(systemName: "leaf")
                 Text("Garden")
             }
             
+            // Other tabs remain unchanged...
             NavigationStack {
                 DiscoverView()
             }
@@ -52,8 +58,4 @@ struct TabBar: View {
             }
         }
     }
-}
-
-#Preview {
-    TabBar()
 }

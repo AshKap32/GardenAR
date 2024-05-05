@@ -4,11 +4,13 @@
 //
 //  Created by Aashish Kapoor on 11/10/23.
 //
+//
 
 import Foundation
 import SwiftUI
 
 struct GardenView: View {
+    @Binding var loggedIn: Bool   // Add this line to control login state from GardenView
     @State var updates = 0
     @State var plants: [PlantModel] = []
     
@@ -24,6 +26,11 @@ struct GardenView: View {
             }
         } catch {}
     }
+
+    func logout() {
+        UserDefaults.standard.removeObject(forKey: "token") // Clears the token
+        self.loggedIn = false // Sets loggedIn to false
+    }
     
     var body: some View {
         VStack {
@@ -36,6 +43,11 @@ struct GardenView: View {
                 }
             }
             .scrollIndicators(.hidden)
+            Button("Log Out", action: logout) // Add a button to trigger logout
+                .padding()
+                .background(Color.red)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
         }
         .padding(.horizontal)
         .onChange(of: self.updates, initial: true) {
@@ -48,6 +60,6 @@ struct GardenView: View {
 
 #Preview {
     NavigationStack {
-        GardenView()
+        GardenView(loggedIn: .constant(true))  // Add loggedIn Binding here for preview
     }
 }

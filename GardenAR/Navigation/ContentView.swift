@@ -1,8 +1,9 @@
-//
-//  ContentView.swift
-//  GardenAR
-//
-//  Created by Aashish Kapoor on 11/10/23.
+////
+////  ContentView.swift
+////  GardenAR
+////
+////  Created by Aashish Kapoor on 11/10/23.
+////
 //
 
 import Foundation
@@ -22,7 +23,7 @@ struct ContentView: View {
             if e.error == nil {
                 self.loggedIn = true
             } else {
-                UserDefaults.standard.set(nil, forKey: "token")
+                UserDefaults.standard.removeObject(forKey: "token")
                 self.loggedIn = false
             }
         } catch {}
@@ -31,11 +32,11 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             if self.loggedIn {
-                TabBar()
+                TabBar(loggedIn: $loggedIn)  // Pass loggedIn binding
             } else if self.showLogin {
-                LoginView(showLogin: self.$showLogin, loggedIn: self.$loggedIn)
+                LoginView(showLogin: $showLogin, loggedIn: $loggedIn)  // Continue to pass bindings
             } else {
-                RegisterView(showLogin: self.$showLogin)
+                RegisterView(showLogin: $showLogin, loggedIn: $loggedIn)  // Now pass loggedIn binding
             }
         }
         .task {

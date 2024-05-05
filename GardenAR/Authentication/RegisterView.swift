@@ -1,15 +1,16 @@
+////
+////  RegisterView.swift
+////  GardenAR
+////
+////  Created by KOBOLD! on 3/10/24.
+////
 //
-//  RegisterView.swift
-//  GardenAR
-//
-//  Created by KOBOLD! on 3/10/24.
-//
-
 import Foundation
 import SwiftUI
 
 struct RegisterView: View {
     @Binding var showLogin: Bool
+    @Binding var loggedIn: Bool  // Add this line
     @State var username: String = ""
     @State var nickname: String = ""
     @State var forename: String = ""
@@ -43,15 +44,18 @@ struct RegisterView: View {
     }
     
     func register() async {
-        do {
-            let (account, _) = try await AccountNetwork.postAccount(account: self.build(), password: self.password)
-            if let account = account {
-                self.showLogin = true
-            } else {
-                // to do: tell the user about a potential username conflict + other errors
+            do {
+                let (account, _) = try await AccountNetwork.postAccount(account: self.build(), password: self.password)
+                if let account = account {
+                    self.loggedIn = true  // Set loggedIn to true on successful registration
+                    self.showLogin = false
+                } else {
+                    // Handle registration failure...
+                }
+            } catch {
+                // Handle errors...
             }
-        } catch {}
-    }
+        }
     
     func toggle() {
         self.showLogin = true
@@ -243,6 +247,7 @@ struct RegisterView: View {
 
 #Preview {
     NavigationStack {
-        RegisterView(showLogin: .constant(false))
+        RegisterView(showLogin: .constant(false), loggedIn: .constant(false))
     }
 }
+
