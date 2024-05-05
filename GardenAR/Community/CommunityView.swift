@@ -10,8 +10,11 @@ import SwiftUI
 
 struct CommunityView: View {
     @State var selectedSocialCategory = "All"
+    @State private var isAddPostViewPresented = false
     @State var updates = 0
     @State var posts: [PostModel] = []
+    @State var content = ""
+
     
     func fetchPosts() async {
         do {
@@ -54,6 +57,24 @@ struct CommunityView: View {
                 }
             }
             .scrollIndicators(.hidden)
+            Button(action: {
+                isAddPostViewPresented = true // Update isAddPostViewPresented when button is tapped
+                
+            }, label: {
+                Image(systemName: "plus")
+                    .padding()
+            })
+            
+            
+        }
+        .sheet(isPresented: $isAddPostViewPresented, content: {
+            AddPostView(isPresented: $isAddPostViewPresented)
+        })
+        .onChange(of: self.isAddPostViewPresented, initial: true)
+        {
+            Task{
+                await self.fetchPosts()
+            }
         }
         .navigationTitle("Community")
         .navigationBarTitleDisplayMode(.large)
