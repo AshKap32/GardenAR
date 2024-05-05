@@ -59,6 +59,7 @@ struct CommunityView: View {
             .scrollIndicators(.hidden)
             Button(action: {
                 isAddPostViewPresented = true // Update isAddPostViewPresented when button is tapped
+                
             }, label: {
                 Image(systemName: "plus")
                     .padding()
@@ -69,6 +70,12 @@ struct CommunityView: View {
         .sheet(isPresented: $isAddPostViewPresented, content: {
             AddPostView(isPresented: $isAddPostViewPresented)
         })
+        .onChange(of: self.isAddPostViewPresented, initial: true)
+        {
+            Task{
+                await self.fetchPosts()
+            }
+        }
         .navigationTitle("Community")
         .navigationBarTitleDisplayMode(.large)
         .padding(.horizontal)

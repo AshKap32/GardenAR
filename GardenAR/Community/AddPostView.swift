@@ -11,8 +11,8 @@ import SwiftUI
 struct AddPostView: View {
     @Binding var isPresented: Bool
     @State private var postContent = ""
-    @State var posts: [PostModel] = []
-    @State var accounts: [AccountModel] = []
+    @Environment(\.presentationMode) var presentationMode // Access the presentation mode environment variable
+    
 
     var body: some View {
         NavigationView {
@@ -26,6 +26,9 @@ struct AddPostView: View {
                 Button("Post") {
                     Task {
                             await createNewPost(postContent: postContent)
+                            
+                            // Dismiss the sheet after posting
+                            presentationMode.wrappedValue.dismiss()
                         }
                 }
                 .padding()
