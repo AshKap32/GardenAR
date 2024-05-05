@@ -8,7 +8,7 @@
 import Foundation
 
 struct PlantNetwork {
-    static let host = Bundle.main.object(forInfoDictionaryKey: "BACKEND_HOST") ?? "localhost:80"
+    static let host = Bundle.main.object(forInfoDictionaryKey: "BACKEND_HOST") ?? "localhost"
     static let encoder = JSONEncoder()
     static let decoder = JSONDecoder()
     
